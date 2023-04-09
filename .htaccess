@@ -1,0 +1,13 @@
+# PREVENT DIRECTORY BROWSING
+Options All -Indexes
+
+
+# ENABLE REWRITES
+RewriteEngine on
+
+# STOP HTACCESS PROCESSING IF IMAGE WAS REQUESTED
+# Image paths may interfere with processed URLs
+RewriteCond %{REQUEST_URI} \.jpg$|\.png$|\.gif$|\.mp4$
+RewriteRule (.*) $1 [L]
+
+RewriteRule ^(.*)/$ pages/$1.php [L]

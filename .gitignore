@@ -1,0 +1,17 @@
+vendor
+local
+*.local
+*.local.*
+cache
+*.cache
+*.cache.*
+
+.codefresh
+.github
+.idea
+.DS_Store
+
+phpstan.neon
+phpunit.xml
+phpunit-*.xml
+behat.yml

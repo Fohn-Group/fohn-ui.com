@@ -1,0 +1,56 @@
+{
+  "name": "fohn-group/fohn-ui.org",
+  "type": "web-application",
+  "description": "Demonstration package for Fohn-Ui framework.",
+  "keywords": ["web", "app"],
+  "homepage": "https://github.com/fohn-group/fohn-ui.org",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Alain Belair",
+      "homepage": "https://fohn-ui.com/",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "platform-check": false,
+    "sort-packages": true
+  },
+  "require": {
+    "php": ">=7.4.0",
+    "ext-intl": "*",
+    "ext-json": "*",
+    "ext-pdo": "*",
+    "fohn-group/fohn-ui": "dev-master",
+    "fzaninotto/faker": "^1.6"
+  },
+  "require-dev": {
+    "behat/behat": "^3.7",
+    "behat/mink": "^1.8",
+    "behat/mink-extension": "^2.3.1",
+    "behat/mink-selenium2-driver": "^1.4",
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "guzzlehttp/guzzle": "^7.4.3",
+    "instaclick/php-webdriver": "^1.4.7",
+    "johnkary/phpunit-speedtrap": "^3.3",
+    "pcov/clobber": "^2.0",
+    "phpstan/extension-installer": "^1.1",
+    "phpstan/phpstan": "^1.0",
+    "phpstan/phpstan-deprecation-rules": "^1.0",
+    "phpunit/phpcov": "*",
+    "phpunit/phpunit": "^9.5.5",
+    "symfony/process": "^4.4 || ^5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Fohn\\Demos\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Fohn\\Demos\\Tests\\": "tests/"
+    }
+  }
+}
