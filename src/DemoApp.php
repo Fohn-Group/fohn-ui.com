@@ -54,7 +54,7 @@ class DemoApp
         return [
             new Group([
                 'name' => 'Introduction',
-                'url' => $baseUrl . '/',
+                'url' => $baseUrl,
                 'items' => [],
             ]),
             new Group([
@@ -75,12 +75,12 @@ class DemoApp
             new Group([
                 'name' => 'Form',
                 'icon' => 'bi bi-input-cursor',
-                'url' => $baseUrl . 'form/form/',
+                'url' => $baseUrl . 'form/basic/',
                 'items' => [
-                    new Item(['name' => 'Basic Layout', 'url' => $baseUrl . 'form/form/']),
-                    new Item(['name' => 'Custom Layout', 'url' => $baseUrl . 'form/form-left/']),
-                    new Item(['name' => 'Input Template', 'url' => $baseUrl . 'form/form-custom-input/']),
-                    new Item(['name' => 'Controls', 'url' => $baseUrl . 'form/form-control/']),
+                    new Item(['name' => 'Basic Layout', 'url' => $baseUrl . 'form/basic/']),
+                    new Item(['name' => 'Custom Layout', 'url' => $baseUrl . 'form/layout/']),
+                    new Item(['name' => 'Input Template', 'url' => $baseUrl . 'form/input-template/']),
+                    new Item(['name' => 'Controls', 'url' => $baseUrl . 'form/control/']),
                 ],
             ]),
             new Group([
