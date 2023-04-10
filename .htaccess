@@ -10,5 +10,6 @@ RewriteEngine on
 RewriteCond %{REQUEST_URI} \.jpg$|\.png$|\.gif$|\.mp4$
 RewriteRule (.*) $1 [L]
 
-RewriteRule ^/$ pages/index.php [L]
-RewriteRule ^(.*)/$ pages/$1.php [L]
+#RewriteRule ^/$ pages/index.php [L]
+RewriteRule ^demos/$ demos/index.php [L]
+RewriteRule ^demos/(.*)/$ demos/$1.php [L]
