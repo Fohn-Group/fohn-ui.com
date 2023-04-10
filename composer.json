@@ -16,14 +16,17 @@
   "prefer-stable": true,
   "config": {
     "platform-check": false,
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "phpstan/extension-installer": true
+    }
   },
   "require": {
     "php": ">=7.4.0",
     "ext-intl": "*",
     "ext-json": "*",
     "ext-pdo": "*",
-    "fohn-group/fohn-ui": "dev-master",
+    "fohn-group/fohn-ui": "1.0.0",
     "fzaninotto/faker": "^1.6"
   },
   "require-dev": {
