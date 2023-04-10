@@ -18,6 +18,7 @@ use Fohn\Ui\Service\Ui;
 use Fohn\Ui\Tailwind\Tw;
 use Fohn\Ui\View;
 
+
 require_once __DIR__ . '/../init-ui.php';
 
 /**
