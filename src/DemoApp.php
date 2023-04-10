@@ -26,7 +26,7 @@ class DemoApp
     {
         /** @var Page $page */
         $page = Page::factory([
-            'title' => 'Fohn-ui Demo: ' . preg_replace('/\/demos\/|\.php/m', '', Ui::serverRequest()->getUri()->getPath()),
+            'title' => 'Fohn-ui: ' . preg_replace('/\/demos\/|\.php/m', '', Ui::serverRequest()->getUri()->getPath()),
         ]);
 
         if ($environment === 'dev') {
