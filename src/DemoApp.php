@@ -150,11 +150,12 @@ class DemoApp
                 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css'
             );
 
+            // @phpstan-ignore-next-line
             Ui::page()->getLayout()->appendJsAction(JsChain::with('hljs')->highlightAll());
         }
 
-        $pre = View::addTo($view)->setHtmlTag("pre")
-            ->appendTailwinds(['p-4', 'my-6',  'overflow-auto', 'rounded-lg', 'max-h-72'])
+        $pre = View::addTo($view)->setHtmlTag('pre')
+            ->appendTailwinds(['p-4', 'my-6', 'overflow-auto', 'rounded-lg', 'max-h-72'])
             ->appendCssClasses('hljs');
 
         return View::addTo($pre)->setHtmlTag('code')->appendTailwind('language-' . $language);
@@ -199,7 +200,7 @@ class DemoApp
         $section = View::addTo($container)->appendTailwinds(['p-6', 'border', 'rounded-b-lg']);
 
         if ($isCenter) {
-            $section->appendTailwinds(['grid',  'grid-cols-1',  'justify-items-center']);
+            $section->appendTailwinds(['grid', 'grid-cols-1', 'justify-items-center']);
         }
 
         return $section;
@@ -214,6 +215,9 @@ class DemoApp
 
     public static function addTwoColumnsResponsiveGrid(View $view): View\GridLayout
     {
-        return View\GridLayout::addTo($view, ['columns' => 1, 'rows' => 1, 'gap' => 4])->appendTailwinds(['md:grid-cols-2 ']);
+        $grid = View\GridLayout::addTo($view, ['columns' => 1, 'rows' => 1, 'gap' => 4]);
+        $grid->appendTailwinds(['md:grid-cols-2 ']);
+
+        return $grid;
     }
 }
