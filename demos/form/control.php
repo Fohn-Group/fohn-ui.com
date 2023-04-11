@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Fohn\Demos\DemoApp;
+use Fohn\Demos\Model\Country;
 use Fohn\Ui\Component\Form;
 use Fohn\Ui\Core\Utils;
-use Fohn\Demos\Model\Country;
 use Fohn\Ui\Js\Jquery;
 use Fohn\Ui\Js\Js;
 use Fohn\Ui\Js\JsFunction;
@@ -17,7 +15,6 @@ use Fohn\Ui\Service\Data;
 use Fohn\Ui\Service\Ui;
 use Fohn\Ui\Tailwind\Tw;
 use Fohn\Ui\View;
-
 
 require_once __DIR__ . '/../init-ui.php';
 
@@ -45,9 +42,9 @@ $controls = [
     (new Form\Control\Number(['controlName' => 'float', 'caption' => 'Float:', 'precision' => 3]))->setValue(3.045),
     (new Form\Control\Money(['controlName' => 'money', 'caption' => 'Money:']))->setValue(30.34),
     (new Form\Control\Select(['controlName' => 'select', 'caption' => 'Select:']))->setItems(['php' => 'PHP', 'js' => 'Javascript', 'java' => 'Java'])->setValue('php'),
-    (new Form\Control\Select(['controlName' => 'country', 'caption' => '\Select from Atk model :', 'placeholder' => 'Select a country'])),
+    new Form\Control\Select(['controlName' => 'country', 'caption' => '\Select from Atk model :', 'placeholder' => 'Select a country']),
     (new Form\Control\Checkbox(['controlName' => 'check_php', 'caption' => 'PHP']))->setValue(true),
-    (new Form\Control\Checkbox(['controlName' => 'check_js', 'caption' => 'Javascript'])),
+    new Form\Control\Checkbox(['controlName' => 'check_js', 'caption' => 'Javascript']),
     (new Form\Control\Radio(['controlName' => 'radio', 'caption' => 'Radio']))->setItems(['php' => 'PHP', 'js' => 'Javascript', 'java' => 'Java']),
     (new Form\Control\Calendar(['controlName' => 'date', 'caption' => 'Date', 'format' => Ui::getDisplayFormat('date')]))->setValue(new \DateTime()),
     (new Form\Control\Calendar(['controlName' => 'time', 'caption' => 'Time', 'format' => Ui::getDisplayFormat('time'), 'type' => 'time']))->setValue(new \DateTime()),

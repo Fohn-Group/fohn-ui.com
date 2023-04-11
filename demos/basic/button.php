@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Service\Ui;
 use Fohn\Ui\View;
 use Fohn\Ui\View\Button;
-use Fohn\Ui\View\Heading\Header;
 use Fohn\Ui\View\Icon;
 use Fohn\Ui\View\Link;
 
@@ -81,11 +78,10 @@ Button::addTo($bar, ['label' => 'Rounded', 'color' => 'secondary'])->setShape('c
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Button\'s State:');
 $grid = DemoApp::addTwoColumnsResponsiveGrid($section)
-               ->appendTailwinds( ['text-center', 'place-items-center']);
+    ->appendTailwinds(['text-center', 'place-items-center']);
 
-
-//$bar = View::addTo($grid, ['defaultTailwind' => ['inline-block, my-4']]);
+// $bar = View::addTo($grid, ['defaultTailwind' => ['inline-block, my-4']]);
 Button::addTo($grid, ['label' => 'Primary'])->disableUsingHtml();
 
-//$bar = View::addTo($grid, ['defaultTailwind' => ['inline-block, my-4']]);
+// $bar = View::addTo($grid, ['defaultTailwind' => ['inline-block, my-4']]);
 Button::addTo($grid, ['label' => 'Primary'])->appendCssClasses('loading');

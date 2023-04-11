@@ -10,15 +10,13 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Atk4\Data\Model\Scope;
+use Fohn\Demos\Ctrl\DemoFormModelCtrl;
 use Fohn\Demos\DemoApp;
+use Fohn\Demos\Model\Country;
 use Fohn\Ui\Component\Form;
 use Fohn\Ui\Component\Modal;
 use Fohn\Ui\Component\Table;
-use Fohn\Demos\Ctrl\DemoFormModelCtrl;
-use Fohn\Demos\Model\Country;
 use Fohn\Ui\Js\Js;
 use Fohn\Ui\Js\JsRenderInterface;
 use Fohn\Ui\Js\JsStatements;
@@ -115,7 +113,7 @@ $table->onDataRequest(function (Table\Payload $payload, Table\Result\Set $result
     if ($payload->searchQuery) {
         $scope = Scope::createOr();
         foreach ($country->getFields() as $field) {
-            if (in_array($field->short_name, $searchFields, true)) {
+            if (in_array($field->shortName, $searchFields, true)) {
                 $scope->addCondition($field, 'like', '%' . $payload->searchQuery . '%');
             }
         }

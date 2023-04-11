@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Service\Ui;
 use Fohn\Ui\Tailwind\Theme\Fohn;

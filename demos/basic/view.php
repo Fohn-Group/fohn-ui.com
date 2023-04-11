@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Fohn\Demos\DemoApp;
+use Fohn\Demos\DemoCodeReader;
 use Fohn\Ui\HtmlTemplate;
 use Fohn\Ui\Js\Jquery;
 use Fohn\Ui\Js\Js;
@@ -17,15 +16,13 @@ use Fohn\Ui\Tailwind\Theme\Fohn;
 use Fohn\Ui\Tailwind\Tw;
 use Fohn\Ui\View;
 use Fohn\Ui\View\Button;
-use Fohn\Ui\View\Divider;
 use Fohn\Ui\View\GridLayout;
-use Fohn\Ui\View\Heading\Header;
 use Fohn\Ui\View\Segment;
 use Fohn\Ui\View\Tag;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$codeReader = new \Fohn\Demos\DemoCodeReader(__FILE__, Ui::page());
+$codeReader = new DemoCodeReader(__FILE__);
 
 $subtitles = [
     'View Class is the base class and at the hearth of Fohn-ui.',
@@ -39,11 +36,11 @@ $section = DemoApp::addInfoSection(Ui::layout(), 'View can be added inside other
 // @demo1
 // Create a two column responsive grid.
 $grid = DemoApp::addTwoColumnsResponsiveGrid($section)
-    ->appendTailwinds( ['text-center', 'place-items-center']);
+    ->appendTailwinds(['text-center', 'place-items-center']);
 
 // add Outside view to the grid.
 $outsideView = View::addTo($grid)->setText('Outside View')
-    ->appendTailwinds(['border', 'border-gray-300', 'p-4', "w-1/2"]);
+    ->appendTailwinds(['border', 'border-gray-300', 'p-4', 'w-1/2']);
 
 // Add innerView to the Outside view.
 $innerView = View::addTo($outsideView)->setText('Inner View')
@@ -51,7 +48,6 @@ $innerView = View::addTo($outsideView)->setText('Inner View')
 // @end_demo1
 
 DemoApp::addCodeConsole($section)->setText($codeReader->extractCode('demo1'));
-
 
 $v = View::addTo($grid)->appendTailwinds(
     [
@@ -84,7 +80,7 @@ Segment::addTo($section)->setText('Segment')->appendTailwinds(
         'italic',
         'text-xl',
         'text-center',
-        Tw::textColor('warning')
+        Tw::textColor('warning'),
     ]
 );
 
@@ -99,7 +95,6 @@ foreach (str_split('Click-me') as $letter) {
         Button::addTo($bb, ['label' => $letter, 'color' => 'info'])->removeTailwind('mx-2');
     }
 }
-
 
 $gLayout = GridLayout::addTo($grid, ['columns' => 2, 'rows' => 1, 'direction' => 'col']);
 
@@ -126,10 +121,10 @@ $buttons = GridLayout::addTo($gLayout, ['columns' => 1, 'rows' => 4]);
 $b = Button::addTo($buttons, ['label' => 'Hide', 'iconName' => 'bi-eye-slash-fill', 'color' => 'neutral', 'shape' => 'wide'])->appendTailwind(Tw::width('36'));
 Jquery::addEventTo($b, 'click')->execute(Jquery::withView($boardingPass)->hide());
 
-$b = Button::addTo($buttons, ['label' => 'Show', 'iconName' => 'bi-eye-fill', 'color' => 'neutral',  'shape' => 'wide'])->appendTailwind(Tw::width('36'));
+$b = Button::addTo($buttons, ['label' => 'Show', 'iconName' => 'bi-eye-fill', 'color' => 'neutral', 'shape' => 'wide'])->appendTailwind(Tw::width('36'));
 Jquery::addEventTo($b, 'click')->execute(Jquery::withView($boardingPass)->show());
 
-$b = Button::addTo($buttons, ['label' => 'Reload', 'iconName' => 'bi-arrow-clockwise', 'color' => 'neutral',  'shape' => 'wide'])
+$b = Button::addTo($buttons, ['label' => 'Reload', 'iconName' => 'bi-arrow-clockwise', 'color' => 'neutral', 'shape' => 'wide'])
     ->appendTailwind(Tw::width('36'));
 // Add event to $b and execute an arrow function when reloaded.
 Jquery::addEventTo($b, 'click')
@@ -148,12 +143,12 @@ Jquery::addEventTo($b, 'click')
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'View can be output to HTML including Javascript. Below is the above ticket view html and javascript output: ');
 
-$pre = View::addTo($section)->setHtmlTag("pre")
-    ->appendTailwinds(['p-4', 'my-6', 'bg-black',  'overflow-auto', 'rounded-md']);
+$pre = View::addTo($section)->setHtmlTag('pre')
+    ->appendTailwinds(['p-4', 'my-6', 'bg-black', 'overflow-auto', 'rounded-md']);
 
 $code = View::addTo($pre)->setHtmlTag('code')->appendTailwind('language-html')->setText($boardingPass->getHtml(true));
-//Fohn::styleAs(Base::CONSOLE, [View::addTo($section, ['htmlTag' => 'pre'])->setText($boardingPass->getHtml(true))]);
+// Fohn::styleAs(Base::CONSOLE, [View::addTo($section, ['htmlTag' => 'pre'])->setText($boardingPass->getHtml(true))]);
 
-//DemoApp::addLineInfo(Ui::layout(), 'View has a unique identifier. Below is the above ticket view html attribute id value: ');
+// DemoApp::addLineInfo(Ui::layout(), 'View has a unique identifier. Below is the above ticket view html attribute id value: ');
 
 Tag::addTo($section, ['text' => 'Ticket attr. Id: ' . $boardingPass->getIdAttribute(), 'color' => 'info']);

@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Fohn\Demos;
-
 use Atk4\Data\Persistence\Sql;
 use Fohn\Ui\App;
 use Fohn\Ui\PageException;
@@ -12,13 +10,11 @@ use Fohn\Ui\Service\Ui;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-function bootUi(array $config): void
-{
+Ui::service()->boot(function (Ui $ui) {
+    $config = loadConfig();
     date_default_timezone_set($config['timezone']);
     Data::setDb($config['db']);
 
-    // Create service.
-    $ui = Ui::service();
     $ui->environment = $config['env'];
     $ui->displayformat = array_merge($ui->displayformat, $config['format']);
     $ui->locale($config['locale']);
@@ -30,7 +26,7 @@ function bootUi(array $config): void
     $ui->setExceptionHandler(PageException::factory());
     // Set demos page.
     $ui->initAppPage(\Fohn\Demos\DemoApp::createPage($ui->environment));
-}
+});
 
 function loadConfig(): array
 {
@@ -53,5 +49,3 @@ function loadConfig(): array
 
     return $config;
 }
-
-bootUi(loadConfig());
