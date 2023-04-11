@@ -26,7 +26,7 @@
     "ext-intl": "*",
     "ext-json": "*",
     "ext-pdo": "*",
-    "fohn-group/fohn-ui": "1.0.0",
+    "fohn-group/fohn-ui": "^1.1",
     "fzaninotto/faker": "^1.6"
   },
   "require-dev": {
@@ -55,5 +55,10 @@
     "psr-4": {
       "Fohn\\Demos\\Tests\\": "tests/"
     }
+  },
+  "scripts" : {
+    "code-style": "vendor/bin/php-cs-fixer fix --using-cache=no --diff --verbose",
+    "phpstan" : "vendor/bin/phpstan analyse",
+    "unit-test" : "vendor/phpunit/phpunit/phpunit --configuration phpunit.xml.dist"
   }
 }
