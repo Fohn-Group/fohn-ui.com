@@ -25,7 +25,10 @@ Ui::service()->boot(function (Ui $ui) {
     // Add default exception handler.
     $ui->setExceptionHandler(PageException::factory());
     // Set demos page.
-    $ui->initAppPage(\Fohn\Demos\DemoApp::createPage($ui->environment));
+    $page = \Fohn\Demos\DemoApp::createPage($ui->environment);
+    $page->getLayout()->appendTailwind('bg-gray-100');
+    $ui->initAppPage($page);
+
 });
 
 function loadConfig(): array

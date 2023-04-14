@@ -16,10 +16,10 @@ class DemoCodeReader
         $this->codes = explode(\PHP_EOL, file_get_contents($filename));
     }
 
-    public function extractCode(string $block): string
+    public function extractCode(string $blockId): string
     {
-        $startLine = $this->getCodeLine('@' . $block);
-        $endLine = $this->getCodeLine('@end_' . $block);
+        $startLine = $this->getCodeLine('@' . $blockId);
+        $endLine = $this->getCodeLine('@end_' . $blockId);
 
         $codes = array_slice($this->codes, $startLine, $endLine - ($startLine + 1));
 
