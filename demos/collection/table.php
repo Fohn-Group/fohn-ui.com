@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Faker\Factory;
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Component\Form\Control\Select;

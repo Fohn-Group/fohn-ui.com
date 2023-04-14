@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
+use Fohn\Demos\Ctrl\DemoFormModelCtrl;
 use Fohn\Demos\DemoApp;
+use Fohn\Demos\Model\Country;
 use Fohn\Ui\Component\Form;
 use Fohn\Ui\Component\Modal;
 use Fohn\Ui\Component\Modal\AsDialog;
 use Fohn\Ui\Core\Utils;
-use Fohn\Demos\Ctrl\DemoFormModelCtrl;
-use Fohn\Demos\Model\Country;
 use Fohn\Ui\Js\Jquery;
 use Fohn\Ui\Js\Js;
 use Fohn\Ui\Js\JsStatements;
@@ -75,7 +73,7 @@ Jquery::addEventTo($btn, 'click')
 
 DemoApp::addLineInfo(Ui::layout(), 'Modal can be use as a dialog containing a form.');
 
-$modelCtrl = new DemoFormModelCtrl((new Country(Data::db())));
+$modelCtrl = new DemoFormModelCtrl(new Country(Data::db()));
 
 $modalForm = Modal\AsForm::addTo(Ui::layout(), ['title' => 'Edit Country Record :']);
 

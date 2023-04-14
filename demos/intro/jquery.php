@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Fohn\Ui\Js\Jquery;
 use Fohn\Ui\Js\Js;
 use Fohn\Ui\Js\JsFunction;

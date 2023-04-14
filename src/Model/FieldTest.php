@@ -14,7 +14,7 @@ use Fohn\Ui\Service\Ui;
 class FieldTest extends Model
 {
     public $table = 'test_field';
-    public $title_field = 'last_name';
+    public ?string $titleField = 'last_name';
 
     protected function init(): void
     {
@@ -25,7 +25,7 @@ class FieldTest extends Model
         $this->addField('first_name', ['required' => true, 'default' => 'myname']);
         $this->addField('last_name', ['required' => false]);
         $this->hasOne('country_id', [
-            'model' => new Country($this->persistence), 'caption' => 'Country',
+            'model' => new Country($this->getPersistence()), 'caption' => 'Country',
             'ui' => ['form' => [Form\Control\Select::class]],
         ]);
         $this->addField('radio', ['enum' => ['one', 'two', 'three'], 'default' => 'two', 'ui' => ['form' => [Form\Control\Radio::class]]]);

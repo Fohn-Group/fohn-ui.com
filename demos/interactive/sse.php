@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Fohn\Ui\Callback\ServerEvent;
 use Fohn\Ui\Js\Jquery;
 use Fohn\Ui\Js\JsStatements;
@@ -55,7 +53,6 @@ $stopSseEvents = JsStatements::with([
 // Fire sse via button.
 Jquery::addEventTo($startBtn, 'click')->execute($sse->start($startSseEvents));
 Jquery::addEventTo($stopBtn, 'click')->execute($sse->stop($stopSseEvents));
-
 
 // When ServerSide event is fire.
 $sse->onRequest(function (ServerEvent $sse) use ($counter, $stopSseEvents) {

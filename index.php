@@ -2,4 +2,4 @@
 
 declare(strict_types=1);
 
-header('Location: ./demos/');
+header('Location: ./demos/intro/about/');

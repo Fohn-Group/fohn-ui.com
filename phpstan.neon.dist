@@ -8,12 +8,9 @@ parameters:
         - build/
         - vendor/
         - tests/
-        - tests-behat/
-        - tools/
         - js/
-        - tailwind/
         - public/
-        - demos/db.php
+        - demos/local/
 
     # TODO review once we drop PHP 7.x support
     treatPhpDocTypesAsCertain: false

@@ -1,35 +1,29 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 /**
  * Read demo code.
  */
 
 namespace Fohn\Demos;
 
-use Fohn\Ui\Js\JsChain;
-use Fohn\Ui\Page;
-use Fohn\Ui\PageLayout\Admin;
-use Fohn\Ui\View;
-
 class DemoCodeReader
 {
     protected array $codes = [];
 
-    public function __construct(string $filename, Page $page)
+    public function __construct(string $filename)
     {
-        $this->codes = explode(PHP_EOL, file_get_contents($filename));
-
+        $this->codes = explode(\PHP_EOL, file_get_contents($filename));
     }
 
-    public function extractCode(string $block): string
+    public function extractCode(string $blockId): string
     {
-        $startLine = $this->getCodeLine('@' . $block);
-        $endLine = $this->getCodeLine('@end_' . $block);
+        $startLine = $this->getCodeLine('@' . $blockId);
+        $endLine = $this->getCodeLine('@end_' . $blockId);
 
         $codes = array_slice($this->codes, $startLine, $endLine - ($startLine + 1));
 
-        return implode(PHP_EOL, $codes);
+        return implode(\PHP_EOL, $codes);
     }
 
     private function getCodeLine(string $code): int
@@ -37,8 +31,9 @@ class DemoCodeReader
         $lineNumber = 0;
 
         foreach ($this->codes as $k => $line) {
-            if ( strpos($line, $code)) {
+            if (strpos($line, $code)) {
                 $lineNumber = $k + 1;
+
                 break;
             }
         }

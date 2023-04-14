@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Service\Ui;
 use Fohn\Ui\View\Heading\Header;
 use Fohn\Ui\View\Heading\SectionHeader;
-use Fohn\Ui\View\Segment;
 
 require_once __DIR__ . '/../init-ui.php';
 
@@ -19,11 +16,8 @@ $subtitles = [
 ];
 DemoApp::addPageHeaderTo(Ui::layout(), 'Header', $subtitles);
 
-
-
 // --------------------------
 $section = DemoApp::addInfoSection(Ui::layout(), 'Size:');
-
 
 Header::addTo($section, ['title' => 'H1 Header', 'size' => 1]);
 Header::addTo($section, ['title' => 'H2 Header', 'size' => 2]);
@@ -33,7 +27,6 @@ Header::addTo($section, ['title' => 'H5 Header', 'size' => 5]);
 
 // --------------------------
 $section = DemoApp::addInfoSection(Ui::layout(), 'Responsive header size using Tailwinds screen modifier:');
-
 
 Header::addTo($section, ['title' => 'Responsive Header', 'size' => 6])
     ->setSize(4, 'md')

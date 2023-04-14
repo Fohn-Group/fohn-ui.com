@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Fohn\Demos\Ctrl\DemoFormModelCtrl;
 use Fohn\Demos\DemoApp;
-use Fohn\Ui\Component\Form;
 use Fohn\Demos\Model\Country;
+use Fohn\Ui\Component\Form;
 use Fohn\Ui\Js\JsToast;
 use Fohn\Ui\Service\Data;
 use Fohn\Ui\Service\Ui;
@@ -16,7 +14,7 @@ use Fohn\Ui\View;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$modelCtrl = new DemoFormModelCtrl((new Country(Data::db())));
+$modelCtrl = new DemoFormModelCtrl(new Country(Data::db()));
 $id = (string) $modelCtrl->getModel()->tryLoadAny()->get('id');
 
 $subtitles = [

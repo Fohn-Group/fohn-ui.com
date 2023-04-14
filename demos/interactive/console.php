@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Fohn\Ui\Core\Exception;
 use Fohn\Ui\Js\Jquery;
 use Fohn\Ui\Service\Ui;

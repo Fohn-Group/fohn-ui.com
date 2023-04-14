@@ -2,27 +2,23 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Service\Ui;
 use Fohn\Ui\View;
-use Fohn\Ui\View\Divider;
-use Fohn\Ui\View\Heading\Header;
 use Fohn\Ui\View\Tag;
 
 require_once __DIR__ . '/../init-ui.php';
 
 $img = '../images/fohn-logo.png';
 
-
-function getLabeBar(): View {
-    return (new View())->appendTailwinds(['flex', 'inline-block','mx-2']);
+function getLabeBar(): View
+{
+    return (new View())->appendTailwinds(['flex', 'inline-block', 'mx-2']);
 }
 
 $subtitles = [
     'Tags are used to label, organize, or categorize objects.',
-    'Tags can also serve as a label for content or display counts.'
+    'Tags can also serve as a label for content or display counts.',
 ];
 DemoApp::addPageHeaderTo(Ui::layout(), 'Tag', $subtitles);
 

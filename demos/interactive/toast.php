@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Component\Form;
 use Fohn\Ui\Core\Utils;
@@ -40,7 +38,7 @@ $types = [
     'error' => 'Error',
 ];
 /** @var Form\Control\Select $select */
-$select = $form->addControl((new Form\Control\Select(['caption' => 'Type', 'controlName' => 'type', 'allowNull' => false])));
+$select = $form->addControl(new Form\Control\Select(['caption' => 'Type', 'controlName' => 'type', 'allowNull' => false]));
 $select->setItems($types);
 $select->setValue('default');
 
@@ -57,7 +55,7 @@ $positions = [
     'bottom-left' => 'Bottom Left',
 ];
 /** @var Form\Control\Select $pos */
-$pos = $form->addControl((new Form\Control\Select(['caption' => 'Position', 'controlName' => 'position', 'allowNull' => false])));
+$pos = $form->addControl(new Form\Control\Select(['caption' => 'Position', 'controlName' => 'position', 'allowNull' => false]));
 $pos->setItems($positions);
 $pos->setValue('top-right');
 

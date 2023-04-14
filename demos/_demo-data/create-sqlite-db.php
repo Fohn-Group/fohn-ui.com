@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-// namespace Fohn\Ui\Demos;
-
 use Atk4\Data\Model;
 use Atk4\Data\Persistence;
 use Atk4\Data\Schema\Migrator;
