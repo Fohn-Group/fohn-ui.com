@@ -93,6 +93,7 @@ class DemoApp
                 'icon' => 'bi bi-input-cursor',
                 'url' => $baseUrl . 'demos/form/basic/',
                 'items' => [
+                    new Item(['name' => 'Introduction', 'url' => $baseUrl . 'demos/form/intro/']),
                     new Item(['name' => 'Basic Layout', 'url' => $baseUrl . 'demos/form/basic/']),
                     new Item(['name' => 'Custom Layout', 'url' => $baseUrl . 'demos/form/layout/']),
                     new Item(['name' => 'Input Template', 'url' => $baseUrl . 'demos/form/input-template/']),

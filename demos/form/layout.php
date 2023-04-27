@@ -26,13 +26,11 @@ $subtitles = [
 DemoApp::addPageHeaderTo($grid, 'Custom form layout.', $subtitles);
 DemoApp::addGithubButton($grid);
 
-$section = DemoApp::addInfoSection(Ui::layout(), 'Changing the default Form layout globally:');
+$section = DemoApp::addInfoSection(Ui::layout(), 'Form using a new layout:');
 
-// @form
-// Setup during Ui::boot() process
+
 $template = Ui::templateFromFile(__DIR__ . '/template/left.html');
 Ui::service()->formLayoutSeed = [Form\Layout\Standard::class, 'template' => $template];
-// @end_form
 
 $modelCtrl = new DemoFormModelCtrl(new Country(Data::db()));
 $id = (string) $modelCtrl->getModel()->tryLoadBy('iso', 'CA')->get('id');
@@ -51,6 +49,3 @@ View::addAfter($form->getControl('iso3'))
     ->appendTailwind('italic text-sm mt-2')
     ->appendTailwind(Tw::textColor('secondary'))
     ->setTextContent('The ISO and ISO3 country codes are internationally recognized means of identifying countries (and their subdivisions) using a two-letter or three-letter combination.');
-
-DemoApp::addLineInfo($section, 'Code:');
-DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('form'));

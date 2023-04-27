@@ -26,9 +26,8 @@ DemoApp::addPageHeaderTo($grid, 'Form Basic', $subtitles);
 DemoApp::addGithubButton($grid);
 
 
-$section = DemoApp::addInfoSection(Ui::layout(), 'Form created using a model from Agile Toolkit (atk4/data):');
+$section = DemoApp::addInfoSection(Ui::layout(), 'Form using standard layout:');
 
-// @form
 $modelCtrl = new DemoFormModelCtrl(new Country(Data::db()));
 $id = (string) $modelCtrl->getModel()->tryLoadBy('iso', 'CA')->get('id');
 
@@ -47,7 +46,4 @@ View::addAfter($form->getControl('iso3'))
     ->appendTailwind('italic text-sm mt-2')
     ->appendTailwind(Tw::textColor('secondary'))
     ->setTextContent('The ISO and ISO3 country codes are internationally recognized means of identifying countries (and their subdivisions) using a two-letter or three-letter combination.');
-// @end_form
 
-DemoApp::addLineInfo($section, 'Code:');
-DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('form'));
