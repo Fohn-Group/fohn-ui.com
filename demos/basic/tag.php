@@ -29,7 +29,7 @@ DemoApp::addLineInfo($section, 'Use theme colors and/or icon.');
 $labelBar = $section->addView(getLabeBar());
 Tag::addTo($labelBar)->setTextContent('Hot!');
 Tag::addTo($labelBar, ['iconName' => 'bi-envelope', 'color' => 'info'])->setTextContent('23');
-Tag::addTo($labelBar, ['iconName' => 'bi-trash2', 'color' => 'error']) ->setTextContent('Item');
+Tag::addTo($labelBar, ['iconName' => 'bi-trash2', 'color' => 'error'])->setTextContent('Item');
 
 DemoApp::addLineInfo($section, 'Display icon to left or right of text or use icon only.');
 $labelBar = $section->addView(getLabeBar());

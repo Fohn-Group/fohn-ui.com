@@ -40,7 +40,7 @@ class DemoApp
         $navigation->invokeInitRenderTree();
 
         $btn = Button::addTo($navigation->topBarContent, ['iconName' => 'bi bi-github', 'type' => 'text', 'size' => 'small', 'color' => 'info']);
-        $btn->setLabel(' Github');
+        $btn->setLabel(' Fohn-Ui');
         $btn->removeTailwind('text-blue-500')->appendTailwinds(['text-white', 'hover:text-blue-500']);
         // @phpstan-ignore-next-line
         $js = JsChain::with(Ui::service()->jsLibrary)->utils()->browser()->windowOpen('https://github.com/fohn-group/fohn-ui');
@@ -118,8 +118,8 @@ class DemoApp
                     new Item(['name' => 'Modal', 'url' => $baseUrl . 'demos/interactive/modal/']),
                     new Item(['name' => 'Notification', 'url' => $baseUrl . 'demos/interactive/notification/']),
                     new Item(['name' => 'Virtual Page', 'url' => $baseUrl . 'demos/interactive/virtual-page/']),
-//                    new Item(['name' => 'Server Side Event', 'url' => $baseUrl . 'demos/interactive/server-side-event/']),
-//                    new Item(['name' => 'Console', 'url' => $baseUrl . 'demos/interactive/console/']),
+                    //                    new Item(['name' => 'Server Side Event', 'url' => $baseUrl . 'demos/interactive/server-side-event/']),
+                    //                    new Item(['name' => 'Console', 'url' => $baseUrl . 'demos/interactive/console/']),
                 ],
             ]),
         ];
@@ -232,7 +232,7 @@ class DemoApp
     public static function addHeader(View $view, string $title, int $size): View
     {
         return View\Heading\Header::addTo($view, ['title' => $title, 'size' => $size])
-                    ->appendTailwind('mt-6');
+            ->appendTailwind('mt-6');
     }
 
     public static function addTwoColumnsResponsiveGrid(View $view): View\GridLayout
@@ -246,9 +246,9 @@ class DemoApp
     public static function addGithubButton(View $view, array $defaultTws = ['flex', 'sm:justify-end']): void
     {
         Code::addTo(View::addTo($view)->appendTailwinds($defaultTws))
-              ->setType('text')
-              ->setLabel('View Code')
-              ->jsOpenWindow('https://github.com/fohn-group/fohn-ui.com/blob/dev-develop' . Ui::serverRequest()->getServerParams()['SCRIPT_NAME'])
-              ->addIcon(new View\Icon(['iconName' => 'bi bi-github']));
+            ->setType('text')
+            ->setLabel('View Code')
+            ->jsOpenWindow('https://github.com/fohn-group/fohn-ui.com/blob/dev-develop' . Ui::serverRequest()->getServerParams()['SCRIPT_NAME'])
+            ->addIcon(new View\Icon(['iconName' => 'bi bi-github']));
     }
 }

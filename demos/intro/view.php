@@ -12,11 +12,10 @@ require_once __DIR__ . '/../init-ui.php';
 
 $codeReader = new CodeReader(__FILE__);
 
-
 DemoApp::addHeader(Ui::layout(), 'View / Html Template', 4);
 DemoApp::addLineInfo(Ui::layout(), 'The View PHP class is the base class of all Fohn-Ui views or components..');
-$text = 'A View instance is associate with an Html template. Prior of being rendered by the rendering engine, other 
-views can be insert within a view template tag, representing a region. View methods will set various template tags 
+$text = 'A View instance is associate with an Html template. Prior of being rendered by the rendering engine, other
+views can be insert within a view template tag, representing a region. View methods will set various template tags
 durung the pre rendering process in order to fill html attributes with proper content.';
 DemoApp::addParagraph(Ui::layout(), $text);
 
@@ -29,8 +28,8 @@ DemoApp::addParagraph(Ui::layout(), $text);
 
 DemoApp::addLineInfo(Ui::layout(), 'Regular and self closing tag:');
 $items = [
-    ['name' => 'Regular', 'open' => '{MyTag}', 'close' =>  '{/}','default' => '<div>Default Content</div>'],
-    ['name' => 'Self Closing', 'open' => '{$myTag}', 'close' =>  '', 'default' => ''],
+    ['name' => 'Regular', 'open' => '{MyTag}', 'close' => '{/}', 'default' => '<div>Default Content</div>'],
+    ['name' => 'Self Closing', 'open' => '{$myTag}', 'close' => '', 'default' => ''],
 ];
 
 View\HtmlList::addTo(Ui::layout(), ['itemsTemplate' => __DIR__ . '/templates/list-tag-explain.html'])->setItems($items)->appendTailwind('ml-2');
@@ -50,8 +49,7 @@ DemoApp::addCodeConsole($section, 'html')->setTextContent(file_get_contents(__DI
 DemoApp::addLineInfo($section, 'Template rendered in html:');
 DemoApp::addCodeConsole($section, 'html')->setTextContent(file_get_contents(__DIR__ . '/templates/vue-rendered.html'));
 
-
-//////////// VIEW
+// ////////// VIEW
 
 DemoApp::addHeader(Ui::layout(), 'Creating Views', 5);
 
@@ -77,7 +75,7 @@ $section = DemoApp::addInfoSection(Ui::layout(), 'View can be rendered within ot
 $container = View::addTo($section)->appendTailwinds(['grid', 'place-content-center']);
 // @demo1
 $outsideView = View::addTo($container)->setTextContent('Outside View')
-    ->appendTailwinds([ 'border', 'border-gray-300', 'text-center', 'p-4']);
+    ->appendTailwinds(['border', 'border-gray-300', 'text-center', 'p-4']);
 
 // Add innerView to the Outside view.
 $innerView = View::addTo($outsideView)->setTextContent('Inner View')
@@ -86,7 +84,7 @@ $innerView = View::addTo($outsideView)->setTextContent('Inner View')
 DemoApp::addLineInfo($section, 'Code:');
 DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('demo1'));
 
-$text = 'Note that it is possible to specify other tag region where views need to be rendered. 
+$text = 'Note that it is possible to specify other tag region where views need to be rendered.
 This is very powerful and allow for flexible rendering of html content.';
 DemoApp::addLineInfo($section, $text);
 
@@ -99,7 +97,7 @@ $section = DemoApp::addInfoSection(Ui::layout(), 'Example of views styled using 
 // @demoTw
 $container = View::addTo($section)->appendTailwinds([
     'flex', 'items-center', 'rounded-full', 'w-24', 'h-24',
-    'mx-auto', 'text-white', 'bg-green-600'
+    'mx-auto', 'text-white', 'bg-green-600',
 ]);
 
 $innerView = View::addTo($container)->appendTailwinds(['flex-1', 'text-center']);

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Fohn\Demos\CodeReader;
 use Fohn\Demos\DemoApp;
@@ -11,7 +11,6 @@ use Fohn\Ui\Js\JsFunction;
 use Fohn\Ui\Service\Ui;
 use Fohn\Ui\View;
 use Fohn\Ui\View\Button;
-use Fohn\Ui\View\Heading\Header;
 
 require_once __DIR__ . '/../init-ui.php';
 
@@ -29,7 +28,7 @@ $text = 'Fohn-Ui can render javascript expression when associated with views usi
 DemoApp::addParagraph(Ui::layout(), $text, false);
 DemoApp::addCodeConsole(Ui::layout())->setTextContent('View::appendJsAction(JsRenderInterface $action)');
 
-$text = 'When rendering the html output for a page, the rendering engine will also collect each views actions and render them 
+$text = 'When rendering the html output for a page, the rendering engine will also collect each views actions and render them
 within a script tag inside a jQuery ready function that will be executed once page is load.';
 DemoApp::addParagraph(Ui::layout(), $text);
 DemoApp::addCodeConsole(Ui::layout())->setTextContent(file_get_contents(__DIR__ . '/templates/ready-sample.html'));
@@ -46,7 +45,7 @@ $fn = JsFunction::arrow([Js::var('msg')])
     ->executes([
         Js::from('console.log(msg)'), // log to browser console.
         Js::from('alert(msg)'), // display alert.
-]);
+    ]);
 // Adding function to window namespace on page load.
 Ui::page()->appendJsAction(Js::from('window.alertMe = {{fn}}', ['fn' => $fn]));
 // calling alertMe function on button click.
@@ -79,7 +78,7 @@ $container = View::addTo($section)->appendTailwinds(['grid', 'place-content-cent
 // @dayjs
 Ui::page()->includeJsPackage('dayjs', 'https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js');
 
-$clock = View::addTo($container)->appendTailwinds(['bg-blue-700', 'shadow-lg', 'font-bold', 'text-white', 'text-xl', 'text-center', 'p-4', 'w-48' , 'rounded-full', 'tracking-widest']);
+$clock = View::addTo($container)->appendTailwinds(['bg-blue-700', 'shadow-lg', 'font-bold', 'text-white', 'text-xl', 'text-center', 'p-4', 'w-48', 'rounded-full', 'tracking-widest']);
 $getDayJsDate = JsChain::with('dayjs()')->format('HH:mm:ss');
 $fn = JsFunction::anonymous()->execute(Jquery::withView($clock)->text($getDayJsDate));
 $useInterval = Js::from('setInterval({{fn}}, 1000)', ['fn' => $fn]);

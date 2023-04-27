@@ -76,8 +76,8 @@ Jquery::addEventTo($btn, 'click')
         JsToast::notifyWithJs(
             Js::from('new Date()'),
             Jquery::withView($info)->text()
-    )
-);
+        )
+    );
 // @end_notify
 
 DemoApp::addLineInfo($section, 'Code:');

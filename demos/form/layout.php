@@ -19,7 +19,6 @@ $codeReader = new CodeReader(__FILE__);
 
 $grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 
-
 $subtitles = [
     'Form default layout template can be change locally or globally.',
 ];
@@ -27,7 +26,6 @@ DemoApp::addPageHeaderTo($grid, 'Custom form layout.', $subtitles);
 DemoApp::addGithubButton($grid);
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Form using a new layout:');
-
 
 $template = Ui::templateFromFile(__DIR__ . '/template/left.html');
 Ui::service()->formLayoutSeed = [Form\Layout\Standard::class, 'template' => $template];

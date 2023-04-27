@@ -57,30 +57,30 @@ function gridStartDemo(GridLayout $grid, array $style): void
     View::addTo($grid)->setTextContent('4')->appendTailwinds($style)->appendTailwinds([Tw::gridCol('start', '1'), Tw::gridCol('end', '7')]);
 }
 
-//Header::addTo(Ui::layout(), ['title' => 'Grid using row direction', 'size' => 5]);
+// Header::addTo(Ui::layout(), ['title' => 'Grid using row direction', 'size' => 5]);
 $section = DemoApp::addInfoSection(Ui::layout(), 'Various Grid options');
 DemoApp::addLineInfo($section, 'Grid using row direction.');
 
 $gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3]);
 gridDemo($gridLayout, 9, $viewStyle);
 
-//Header::addTo(Ui::layout(), ['title' => 'Grid using col direction', 'size' => 5]);
+// Header::addTo(Ui::layout(), ['title' => 'Grid using col direction', 'size' => 5]);
 DemoApp::addLineInfo($section, 'Grid using col direction.');
 $gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3, 'direction' => 'col']);
 gridDemo($gridLayout, 9, $viewStyle);
 
-//Header::addTo(Ui::layout(), ['title' => 'Grid col span utility', 'size' => 5]);
+// Header::addTo(Ui::layout(), ['title' => 'Grid col span utility', 'size' => 5]);
 DemoApp::addLineInfo($section, 'Grid col span utility.');
 $gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3]);
 gridDemo($gridLayout, 7, $viewStyle, true);
 
-//Header::addTo(Ui::layout(), ['title' => 'Grid row/col span utitlity', 'size' => 5]);
+// Header::addTo(Ui::layout(), ['title' => 'Grid row/col span utitlity', 'size' => 5]);
 DemoApp::addLineInfo($section, 'Grid row/col span utility.');
 
 $gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3, 'direction' => 'col']);
 gridSpanDemo($gridLayout, $viewStyle);
 
-//Header::addTo(Ui::layout(), ['title' => 'Grid col start/end utility', 'size' => 5]);
+// Header::addTo(Ui::layout(), ['title' => 'Grid col start/end utility', 'size' => 5]);
 DemoApp::addLineInfo($section, 'Grid col start/end utility.');
 
 $gridLayout = GridLayout::addTo($section, ['columns' => 6, 'rows' => 3, 'direction' => 'col']);

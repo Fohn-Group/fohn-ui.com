@@ -19,8 +19,6 @@ $codeReader = new CodeReader(__FILE__);
 
 $grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 
-
-
 $subtitles = [
     'Demonstrate usage of custom html template for input control component.',
 ];

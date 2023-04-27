@@ -16,7 +16,8 @@ require_once __DIR__ . '/../init-ui.php';
 $codeReader = new \Fohn\Demos\CodeReader(__FILE__);
 
 // Utility function in order to create data.
-function factoryPeople (int $number): array {
+function factoryPeople(int $number): array
+{
     $faker = Factory::create();
     $items = [];
     for ($i = 0; $i < $number; ++$i) {
@@ -63,7 +64,7 @@ $segment = View\Segment::addTo($gridLayout);
 View\Heading\Header::addTo($segment, ['title' => 'None', 'size' => 5]);
 View\HtmlList::addTo($segment, ['style' => 'non'])->setItems(factoryPeople(6));
 
-///// CUSTOM TEMPLATE
+// /// CUSTOM TEMPLATE
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Using custom template.');
 
@@ -74,7 +75,7 @@ Lister::addTo($section, ['template' => Ui::templateFromFile(__DIR__ . '/template
     ->setRegionItems('peopleCard', factoryPeople(4), Ui::templateFromFile(__DIR__ . '/template/people-card.html'))
     ->setRegionItems('peopleReport', [['dataInfo' => 'Publish: ' . date('Y-m-d')], ['dataInfo' => 'Source: Fohn-Ui']], Ui::templateFromFile(__DIR__ . '/template/people-report.html'));
 
-///// CALLBACK RENDERING
+// /// CALLBACK RENDERING
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Using callback rendering');
 $list = View\HtmlList::addTo($section);

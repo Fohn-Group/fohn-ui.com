@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Service\Ui;
-use Fohn\Ui\Tailwind\Theme\Fohn;
 use Fohn\Ui\View\Breadcrumb;
 
 require_once __DIR__ . '/../init-ui.php';

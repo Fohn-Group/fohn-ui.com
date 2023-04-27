@@ -43,7 +43,7 @@ $section = DemoApp::addInfoSection(Ui::layout(), 'Jquery chain helpers:');
 DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('helperFn'));
 
 $html = 'Another useful helper method is the <code class="text-sm bg-gray-200 p-1 font-bold">Jquery::addEventTo(View $v, string $event, string $selector)</code>.
-<br>The return type is a Js function that you can use to execute javascript expression. <br> This method will 
+<br>The return type is a Js function that you can use to execute javascript expression. <br> This method will
 render as <code class="text-sm bg-gray-200 p-1 font-bold">jQuery.on(event, selector, handler)</code>.';
 DemoApp::addParagraph(Ui::layout(), $html, false);
 
@@ -56,10 +56,10 @@ $btn = Button::addTo($grid)->setLabel('Toggle Segment');
 $segment = View\Segment::addTo($grid)->setTextContent('I might disapear');
 // adding jQuery click event to button.
 Jquery::addEventTo($btn, 'click')
-      ->executes([Jquery::withThis()->text('Toggle Segment'), Jquery::withView($segment)->toggle()]);
+    ->executes([Jquery::withThis()->text('Toggle Segment'), Jquery::withView($segment)->toggle()]);
 // adding jQuery mouseover event to segment.
 Jquery::addEventTo($segment, 'mouseover')
-      ->executes([Jquery::withThis()->toggle(), Jquery::withView($btn)->text('Bring me back!')]);
+    ->executes([Jquery::withThis()->toggle(), Jquery::withView($btn)->text('Bring me back!')]);
 // @end_jquery
 
 DemoApp::addLineInfo($section, 'Code:');
@@ -67,11 +67,11 @@ DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('jque
 
 DemoApp::addLineInfo($section, 'Rendered html:');
 DemoApp::addCodeConsole($section, 'html')
-       ->setTextContent($btn->getHtml() . PHP_EOL . $segment->getHtml());
+    ->setTextContent($btn->getHtml() . \PHP_EOL . $segment->getHtml());
 
 DemoApp::addLineInfo($section, 'Rendered script:');
 DemoApp::addCodeConsole($section, 'javascript')
-       ->setTextContent($btn->getJavascript() . PHP_EOL . $segment->getJavascript());
+    ->setTextContent($btn->getJavascript() . \PHP_EOL . $segment->getJavascript());
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Example of Jquery::addEventTo using custom selector');
 
@@ -89,12 +89,12 @@ Jquery::addEventTo($bar, 'click', 'button')->execute(Jquery::withThis()->toggle(
 // @end_jquerySelector
 DemoApp::addLineInfo($section, 'Code:');
 DemoApp::addCodeConsole($section)
-       ->setTextContent($codeReader->extractCode('jquerySelector'));
+    ->setTextContent($codeReader->extractCode('jquerySelector'));
 
 DemoApp::addHeader(Ui::layout(), 'jQuery plugin', 4);
 
-$html = 'Fohn-Ui js package comes with some jQuery plugins. One of them being the reload-view plugin used for reloading 
-a specific View instance on the page. <br>It can be used with JsReload class 
+$html = 'Fohn-Ui js package comes with some jQuery plugins. One of them being the reload-view plugin used for reloading
+a specific View instance on the page. <br>It can be used with JsReload class
 helper method: <code class="text-sm bg-gray-200 p-1 font-bold">JsReload::view(View $view, array $args)</code>.
 <br> JsReload may also pass GET arguments to the callback url.';
 DemoApp::addParagraph(Ui::layout(), $html, false);
@@ -109,14 +109,15 @@ $b = Button::addTo($container, ['label' => 'Reload ' . $number]);
 Jquery::addEventTo($b, 'click')
     ->execute(
         JsReload::view($b, ['number ' => random_int(0, 100)])
-                ->afterSuccess(Js::from('console.log("reloaded btn")')
-        )
-);
+            ->afterSuccess(
+                Js::from('console.log("reloaded btn")')
+            )
+    );
 // @end_jqueryReload
 
 DemoApp::addLineInfo($section, 'Code:');
 DemoApp::addCodeConsole($section)
-       ->setTextContent($codeReader->extractCode('jqueryReload'));
+    ->setTextContent($codeReader->extractCode('jqueryReload'));
 
-DemoApp::addLineInfo($section, 'Use the afterSuccess method of JsReload that allow to execute javascript expressions when 
+DemoApp::addLineInfo($section, 'Use the afterSuccess method of JsReload that allow to execute javascript expressions when
 reload is complete.');
