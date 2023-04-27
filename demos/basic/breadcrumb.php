@@ -21,25 +21,28 @@ $addBreadcrumbItems = function (Breadcrumb $breadcrumb, array $items, string $se
     }
 };
 
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
+
 $subtitles = [
     'Extends Lister Class.',
 ];
+DemoApp::addPageHeaderTo($grid, 'Breadcrumb', $subtitles);
+DemoApp::addGithubButton($grid);
 
-DemoApp::addPageHeaderTo(Ui::layout(), 'Breadcrumb', $subtitles);
-DemoApp::addLineInfo(Ui::layout(), 'Default breadcrumb :');
+$section = DemoApp::addInfoSection(Ui::layout(), 'Breadcrumb');
+DemoApp::addLineInfo($section, 'Default breadcrumb :');
 
-$breadcrumb = Breadcrumb::addTo(Ui::layout());
+$breadcrumb = Breadcrumb::addTo($section);
 $addBreadcrumbItems($breadcrumb, $pages);
-DemoApp::addVerticalSpacer(Ui::layout(), '10');
+DemoApp::addVerticalSpacer($section, '10');
 
-DemoApp::addLineInfo(Ui::layout(), 'Using seperator \'>\' :');
-$breadcrumb = Breadcrumb::addTo(Ui::layout());
+DemoApp::addLineInfo($section, 'Using seperator \'>\' :');
+$breadcrumb = Breadcrumb::addTo($section);
 $addBreadcrumbItems($breadcrumb, $pages, '>');
 
-DemoApp::addVerticalSpacer(Ui::layout(), '10');
+DemoApp::addVerticalSpacer($section, '10');
 
-DemoApp::addLineInfo(Ui::layout(), 'Using theme color :');
-$breadcrumb = Breadcrumb::addTo(Ui::layout());
+DemoApp::addLineInfo($section, 'Using theme color :');
+$breadcrumb = Breadcrumb::addTo($section, ['textColor' => 'info']);
 $addBreadcrumbItems($breadcrumb, $pages, '•');
-Fohn::colorAs('info', $breadcrumb, 'outline');
-$breadcrumb->appendTailwinds(['shadow', 'p-4', 'rounded-md']);
+$breadcrumb->appendTailwinds(['shadow', 'p-4', 'rounded-md', 'border']);

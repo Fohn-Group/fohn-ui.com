@@ -11,14 +11,18 @@ use Fohn\Ui\View\Link;
 
 require_once __DIR__ . '/../init-ui.php';
 
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
+
 $subtitles = [
     'Uses of Tailwinds state modifier: Active, Focus, Hover and Disable.',
     'Colors are from Fohn-UI theme and therefore easyly customisable.',
 ];
-DemoApp::addPageHeaderTo(Ui::layout(), 'Link/Button', $subtitles);
+DemoApp::addPageHeaderTo($grid, 'Link/Button', $subtitles);
+DemoApp::addGithubButton($grid);
+
 // Demonstrates how to use links.
 $section = DemoApp::addInfoSection(Ui::layout(), 'Link:');
-Link::addTo($section)->setUrl(Ui::parseRequestUrl())->setText('click here');
+Link::addTo($section)->setUrl(Ui::parseRequestUrl())->setTextContent('click here');
 
 // Demonstrates how to use buttons.
 $section = DemoApp::addInfoSection(Ui::layout(), 'Contained type:');
@@ -80,8 +84,5 @@ $section = DemoApp::addInfoSection(Ui::layout(), 'Button\'s State:');
 $grid = DemoApp::addTwoColumnsResponsiveGrid($section)
     ->appendTailwinds(['text-center', 'place-items-center']);
 
-// $bar = View::addTo($grid, ['defaultTailwind' => ['inline-block, my-4']]);
 Button::addTo($grid, ['label' => 'Primary'])->disableUsingHtml();
-
-// $bar = View::addTo($grid, ['defaultTailwind' => ['inline-block, my-4']]);
 Button::addTo($grid, ['label' => 'Primary'])->appendCssClasses('loading');

@@ -11,10 +11,13 @@ require_once __DIR__ . '/../init-ui.php';
 
 $imgSrc = '../images/fohn-logo.png';
 
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
+
 $subtitles = [
     'Header and SectionHeader.',
 ];
-DemoApp::addPageHeaderTo(Ui::layout(), 'Header', $subtitles);
+DemoApp::addPageHeaderTo($grid, 'Header', $subtitles);
+DemoApp::addGithubButton($grid);
 
 // --------------------------
 $section = DemoApp::addInfoSection(Ui::layout(), 'Size:');
