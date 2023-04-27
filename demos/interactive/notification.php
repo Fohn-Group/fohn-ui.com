@@ -6,30 +6,30 @@ use Fohn\Demos\DemoApp;
 use Fohn\Ui\Component\Form;
 use Fohn\Ui\Core\Utils;
 use Fohn\Ui\Js\Jquery;
+use Fohn\Ui\Js\Js;
 use Fohn\Ui\Js\JsToast;
 use Fohn\Ui\Service\Ui;
 use Fohn\Ui\View\Button;
 
 require_once __DIR__ . '/../init-ui.php';
 
+$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
+
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
+
 $subtitles = [
     'User notification.',
 ];
-DemoApp::addPageHeaderTo(Ui::layout(), 'Toast', $subtitles);
+DemoApp::addPageHeaderTo($grid, 'Toast', $subtitles);
+DemoApp::addGithubButton($grid);
 
+// Add toast on page load.
 Ui::layout()->appendJsAction(JsToast::notify('This toast is display on page load.'));
 
-$info = DemoApp::addLineInfo(Ui::layout(), 'Toast can display result of javascript expression.');
+$section = DemoApp::addInfoSection(Ui::layout(), 'Notification example:');
 
-$btn = Button::addTo(Ui::layout(), ['label' => 'Show Toast', 'type' => 'outline', 'color' => 'info']);
-Jquery::addEventTo($btn, 'click')->execute(JsToast::notifyWithJs(Jquery::withThis()->text(), Jquery::withView($info)->text()));
-
-DemoApp::addLineInfo(Ui::layout(), 'Various Toast settings.');
-
-$form = Form::addTo(Ui::layout());
-
+$form = Form::addTo($section);
 $form->addControl((new Form\Control\Line(['caption' => 'Title', 'controlName' => 'title']))->setValue('My Toast'));
-
 $types = [
     'default' => 'Default',
     'info' => 'Info',
@@ -44,7 +44,7 @@ $select->setValue('default');
 
 $form->addControl(new Form\Control\Textarea(['controlName' => 'message', 'caption' => 'Message']))->setValue(Utils::getLoremIpsum(6));
 $form->addControl((new Form\Control\Number(['controlName' => 'timeout', 'caption' => 'Duration in ms']))->setValue(3000));
-$form->getSubmitButton()->setLabel('Show Toast');
+$form->getSubmitButton()->setLabel('Notify');
 
 $positions = [
     'top-right' => 'Top Right',
@@ -64,3 +64,21 @@ $form->onSubmit(function (Form $f) {
 
     return JsToast::notify($values['title'], $values['message'], $values);
 });
+
+$section = DemoApp::addInfoSection(Ui::layout(), 'Using Javascript:');
+
+$info = DemoApp::addLineInfo($section, 'Toast can display result of javascript expression.');
+
+// @notify
+$btn = Button::addTo($section, ['label' => 'Notify', 'type' => 'outline', 'color' => 'info']);
+Jquery::addEventTo($btn, 'click')
+    ->execute(
+        JsToast::notifyWithJs(
+            Js::from('new Date()'),
+            Jquery::withView($info)->text()
+    )
+);
+// @end_notify
+
+DemoApp::addLineInfo($section, 'Code:');
+DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('notify'));
