@@ -26,12 +26,15 @@ $changeTextFn = function (View $view): JsFunction {
     return JsFunction::arrow([Js::var('newValue')])->execute(Jquery::withView($view)->text(Js::var('newValue')));
 };
 
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
+
 $subtitles = [
     'Demonstrate various form controls components.',
-    'Javascript onChange event with optional debounce value can be apply to each control.',
-    'Range control below demonstrate onChange usage.',
 ];
-DemoApp::addPageHeaderTo(Ui::layout(), 'Form controls', $subtitles);
+DemoApp::addPageHeaderTo($grid, 'Form controls', $subtitles);
+DemoApp::addGithubButton($grid);
+
+$section = DemoApp::addInfoSection(Ui::layout(), 'Available form controls:');
 
 // Controls to add to form.
 $controls = [
@@ -56,7 +59,7 @@ $controls = [
 // Use a custom html template.
 // Template using special tag name {$ctrl_CONTROL_NAME} will have the form control with name = CONTROL_NAME render in that region.
 $form = Form::addTo(
-    Ui::layout(),
+    $section,
     [
         'defaultLayout' => new Form\Layout\Standard(['template' => Ui::templateFromFile(
             __DIR__ . '/template/custom-form.html'
@@ -79,7 +82,7 @@ $range = $form->getControl('range');
 View::addBefore($range)
     ->appendTailwind('italic text-sm -mb-2')
     ->appendTailwind(Tw::textColor('secondary'))
-    ->setText('This range control use an onChange handler in order to update value in chip below. An optional debonce value is also apply to the onChange handler.');
+    ->setTextContent('This range control use an onChange handler in order to update value in chip below. An optional debonce value is also apply to the onChange handler.');
 
 $chip = View\Chip::addAfter($range, ['size' => '12', 'color' => 'secondary']);
 $chip->appendTailwind('mx-auto');

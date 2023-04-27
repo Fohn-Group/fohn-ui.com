@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Fohn\Demos\CodeReader;
 use Fohn\Demos\Ctrl\DemoFormModelCtrl;
 use Fohn\Demos\DemoApp;
 use Fohn\Demos\Model\Country;
@@ -14,19 +15,28 @@ use Fohn\Ui\View;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$modelCtrl = new DemoFormModelCtrl(new Country(Data::db()));
-$id = (string) $modelCtrl->getModel()->tryLoadAny()->get('id');
+$codeReader = new CodeReader(__FILE__);
+
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
+
 
 $subtitles = [
-    'Demonstrate change of form default layout and/or layout html template.',
-    'Changes can be apply for a page only or for the entire application by setting Ui::formLayoutSeed property.',
+    'Form default layout template can be change locally or globally.',
 ];
-DemoApp::addPageHeaderTo(Ui::layout(), 'Custom form layout.', $subtitles);
+DemoApp::addPageHeaderTo($grid, 'Custom form layout.', $subtitles);
+DemoApp::addGithubButton($grid);
 
+$section = DemoApp::addInfoSection(Ui::layout(), 'Changing the default Form layout globally:');
+
+// @form
+// Setup during Ui::boot() process
 $template = Ui::templateFromFile(__DIR__ . '/template/left.html');
 Ui::service()->formLayoutSeed = [Form\Layout\Standard::class, 'template' => $template];
+// @end_form
 
-$form = Form::addTo(Ui::layout());
+$modelCtrl = new DemoFormModelCtrl(new Country(Data::db()));
+$id = (string) $modelCtrl->getModel()->tryLoadBy('iso', 'CA')->get('id');
+$form = Form::addTo($section);
 $form->addControls($modelCtrl->factoryFormControls($id));
 
 $form->onSubmit(function (Form $f) use ($modelCtrl, $id) {
@@ -40,4 +50,7 @@ $form->onSubmit(function (Form $f) use ($modelCtrl, $id) {
 View::addAfter($form->getControl('iso3'))
     ->appendTailwind('italic text-sm mt-2')
     ->appendTailwind(Tw::textColor('secondary'))
-    ->setText('The ISO and ISO3 country codes are internationally recognized means of identifying countries (and their subdivisions) using a two-letter or three-letter combination.');
+    ->setTextContent('The ISO and ISO3 country codes are internationally recognized means of identifying countries (and their subdivisions) using a two-letter or three-letter combination.');
+
+DemoApp::addLineInfo($section, 'Code:');
+DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('form'));
