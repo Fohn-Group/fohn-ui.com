@@ -39,9 +39,9 @@ class DemoApp
         $navigation = SideNavigation::factory(['topBarTitle' => 'Fohn-Ui Demo']);
         $navigation->invokeInitRenderTree();
 
-        $btn = View\Icon::addTo($navigation->topBarContent, ['iconName' => 'bi bi-github'])
-            ->appendTailwinds(['cursor-pointer', 'hover:text-blue-400']);
-        $btn->linkTo('https://github.com/fohn-group/fohn-ui', '_blank');
+        $btn = Button::addTo($navigation->topBarContent, ['iconName' => 'bi bi-github', 'type' => 'text', 'size' => 'small', 'color' => 'info']);
+        $btn->setLabel(' Github');
+        $btn->removeTailwind('text-blue-500')->appendTailwinds(['text-white', 'hover:text-blue-500']);
         // @phpstan-ignore-next-line
         $js = JsChain::with(Ui::service()->jsLibrary)->utils()->browser()->windowOpen('https://github.com/fohn-group/fohn-ui');
         Jquery::addEventTo($btn, 'click')->execute($js);
