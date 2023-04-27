@@ -8,15 +8,14 @@ declare(strict_types=1);
 
 namespace Fohn\Demos;
 
+use Fohn\Demos\View\Button\Code;
 use Fohn\Ui\Component\Navigation\Group;
 use Fohn\Ui\Component\Navigation\Item;
 use Fohn\Ui\Js\Jquery;
 use Fohn\Ui\Js\JsChain;
-use Fohn\Ui\Js\Type\Type;
 use Fohn\Ui\Page;
 use Fohn\Ui\PageLayout\SideNavigation;
 use Fohn\Ui\Service\Ui;
-use Fohn\Ui\Tailwind\Theme\Fohn;
 use Fohn\Ui\Tailwind\Tw;
 use Fohn\Ui\View;
 use Fohn\Ui\View\Button;
@@ -41,9 +40,10 @@ class DemoApp
         $navigation->invokeInitRenderTree();
 
         $btn = View\Icon::addTo($navigation->topBarContent, ['iconName' => 'bi bi-github'])
-                        ->appendTailwinds(['cursor-pointer', 'hover:text-blue-400']);
+            ->appendTailwinds(['cursor-pointer', 'hover:text-blue-400']);
         $btn->linkTo('https://github.com/fohn-group/fohn-ui', '_blank');
-        $js = JsChain::with(Ui::service()->jsLibrary)->utils()->browser()->windowOpen('https://github.com/fohn-group/fohn-ui',);
+        // @phpstan-ignore-next-line
+        $js = JsChain::with(Ui::service()->jsLibrary)->utils()->browser()->windowOpen('https://github.com/fohn-group/fohn-ui');
         Jquery::addEventTo($btn, 'click')->execute($js);
 
         // Add Admin layout to this page.
@@ -52,7 +52,7 @@ class DemoApp
         /** @var SideNavigation $layout */
         $layout = $page->getLayout();
         // Add footer to this page.
-        $layout->addView(View::factory(['text' => 'Made with Fohn - Ui']), 'footer');
+        $layout->addView(View::factory()->setTextContent('Made with Fohn - Ui'), 'footer');
 
         foreach (self::getNavigationGroup() as $group) {
             $layout->addNavigationGroup($group);
@@ -68,9 +68,10 @@ class DemoApp
                 'name' => 'Introduction',
                 'url' => $baseUrl . 'demos/intro/about/',
                 'items' => [
-                    new Item(['name' => 'About Fohn-Ui', 'url' => $baseUrl . 'demos/intro/about/']),
-                    new Item(['name' => 'View::class', 'url' => $baseUrl . 'demos/intro/view/']),
-                    new Item(['name' => 'Jquery Integration', 'url' => $baseUrl . 'demos/intro/jquery/']),
+                    new Item(['name' => 'About', 'url' => $baseUrl . 'demos/intro/about/']),
+                    new Item(['name' => 'View/Template', 'url' => $baseUrl . 'demos/intro/view/']),
+                    new Item(['name' => 'Javascript', 'url' => $baseUrl . 'demos/intro/javascript/']),
+                    new Item(['name' => 'jQuery', 'url' => $baseUrl . 'demos/intro/jquery/']),
                 ],
             ]),
             new Group([
@@ -113,9 +114,9 @@ class DemoApp
                 'url' => $baseUrl . 'demos/interactive/virtual/',
                 'items' => [
                     new Item(['name' => 'Modal', 'url' => $baseUrl . 'demos/interactive/modal/']),
-                    new Item(['name' => 'Toast', 'url' => $baseUrl . 'demos/interactive/toast/']),
-                    new Item(['name' => 'Virtual Page', 'url' => $baseUrl . 'demos/interactive/virtual/']),
-                    new Item(['name' => 'Server Side Event', 'url' => $baseUrl . 'demos/interactive/sse/']),
+                    new Item(['name' => 'Notification', 'url' => $baseUrl . 'demos/interactive/notification/']),
+                    new Item(['name' => 'Virtual Page', 'url' => $baseUrl . 'demos/interactive/virtual-page/']),
+                    new Item(['name' => 'Server Side Event', 'url' => $baseUrl . 'demos/interactive/server-side-event/']),
                     new Item(['name' => 'Console', 'url' => $baseUrl . 'demos/interactive/console/']),
                 ],
             ]),
@@ -135,14 +136,13 @@ class DemoApp
 
     public static function tableCaptionFactory(string $caption): View
     {
-        return new View([
+        return (new View([
             'defaultTailwind' => [
                 'my-2',
                 'text-lg',
                 Tw::textColor('info'),
             ],
-            'text' => $caption,
-        ]);
+        ]))->setTextContent($caption);
     }
 
     public static function addCodeConsole(View $view, string $language = 'php'): View
@@ -189,18 +189,18 @@ class DemoApp
         return $pageHeader;
     }
 
-    public static function addParagraph(View $view, string $text, array $tws = []): View
+    public static function addParagraph(View $view, string $text, bool $useSpecialChars = true): View
     {
         return View::addTo($view)
-            ->setText($text)
+            ->setTextContent($text, $useSpecialChars)
             ->setHtmlTag('p')
-            ->appendTailwinds(array_merge(['mb-2', 'mt-6'], $tws));
+            ->appendTailwinds(array_merge(['mb-2', 'mt-6']));
     }
 
     public static function addLineInfo(View $view, string $text): View
     {
         return View::addTo($view)
-            ->setText($text)
+            ->setTextContent($text)
             ->setHtmlTag('p')
             ->appendTailwinds(['italic', 'mb-2', 'mt-6', 'first:mt-0']);
     }
@@ -209,7 +209,7 @@ class DemoApp
     {
         $container = View::addTo($view)->appendTailwinds(['w-full', 'mt-4', 'mb-4', 'border', 'rounded-lg', 'bg-white']);
 
-        View::addTo($container)->appendTailwinds(['font-bold', 'p-3', 'border-b'])->setText($text);
+        View::addTo($container)->appendTailwinds(['font-bold', 'p-3', 'border-b'])->setTextContent($text);
 
         $section = View::addTo($container)->appendTailwinds(['p-6']);
 
@@ -227,11 +227,26 @@ class DemoApp
         return View::addTo($view)->appendTailwind($tw);
     }
 
+    public static function addHeader(View $view, string $title, int $size): View
+    {
+        return View\Heading\Header::addTo($view, ['title' => $title, 'size' => $size])
+                    ->appendTailwind('mt-6');
+    }
+
     public static function addTwoColumnsResponsiveGrid(View $view): View\GridLayout
     {
         $grid = View\GridLayout::addTo($view, ['columns' => 1, 'rows' => 1, 'gap' => 4]);
-        $grid->appendTailwinds(['md:grid-cols-2 ']);
+        $grid->appendTailwinds(['sm:grid-cols-2 ']);
 
         return $grid;
+    }
+
+    public static function addGithubButton(View $view, array $defaultTws = ['flex', 'sm:justify-end']): void
+    {
+        Code::addTo(View::addTo($view)->appendTailwinds($defaultTws))
+              ->setType('text')
+              ->setLabel('View Code')
+              ->jsOpenWindow('https://github.com/fohn-group/fohn-ui.com/blob/dev-develop' . Ui::serverRequest()->getServerParams()['SCRIPT_NAME'])
+              ->addIcon(new View\Icon(['iconName' => 'bi bi-github']));
     }
 }
