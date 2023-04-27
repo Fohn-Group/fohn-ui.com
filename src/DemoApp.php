@@ -113,13 +113,13 @@ class DemoApp
             new Group([
                 'name' => 'Interactive',
                 'icon' => 'bi bi-chat-left',
-                'url' => $baseUrl . 'demos/interactive/virtual/',
+                'url' => $baseUrl . 'demos/interactive/modal/',
                 'items' => [
                     new Item(['name' => 'Modal', 'url' => $baseUrl . 'demos/interactive/modal/']),
                     new Item(['name' => 'Notification', 'url' => $baseUrl . 'demos/interactive/notification/']),
                     new Item(['name' => 'Virtual Page', 'url' => $baseUrl . 'demos/interactive/virtual-page/']),
-                    new Item(['name' => 'Server Side Event', 'url' => $baseUrl . 'demos/interactive/server-side-event/']),
-                    new Item(['name' => 'Console', 'url' => $baseUrl . 'demos/interactive/console/']),
+//                    new Item(['name' => 'Server Side Event', 'url' => $baseUrl . 'demos/interactive/server-side-event/']),
+//                    new Item(['name' => 'Console', 'url' => $baseUrl . 'demos/interactive/console/']),
                 ],
             ]),
         ];
