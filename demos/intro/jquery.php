@@ -2,85 +2,121 @@
 
 declare(strict_types=1);
 
+use Fohn\Demos\DemoApp;
 use Fohn\Ui\Js\Jquery;
 use Fohn\Ui\Js\Js;
-use Fohn\Ui\Js\JsFunction;
 use Fohn\Ui\Js\JsReload;
-use Fohn\Ui\Js\Type\Variable;
 use Fohn\Ui\Service\Ui;
-use Fohn\Ui\Tailwind\Theme\Base;
-use Fohn\Ui\Tailwind\Theme\Fohn;
 use Fohn\Ui\View;
 use Fohn\Ui\View\Button;
-use Fohn\Ui\View\Heading\Header;
 
 require_once __DIR__ . '/../init-ui.php';
 
-// create a function under window.arlertFn namespace
-// ex: window.alert = (msg) => { alert(msg); }
-Ui::page()->appendJsAction(
-    Js::from(
-        'window.alertFn = {{fn}}',
-        [
-            'fn' => JsFunction::arrow([Variable::set('msg')])->execute(Js::from('alert(msg)')),
-        ]
-    )
-);
+$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
 
-// calling alertFn when button is click with button text content.
-$b = Button::addTo(Ui::layout(), ['label' => 'Hello!']);
-$b->appendHtmlAttribute('onclick', Js::from('alertFn({{msg}})', ['msg' => Jquery::withView($b)->text()])->jsRender());
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 
-// Demonstrates how to use interactive buttons.
-Header::addTo(Ui::layout(), ['title' => 'Assign event to View', 'size' => 4]);
+$subtitles = [
+    'jQuery integration.',
+];
+DemoApp::addPageHeaderTo($grid, 'Jquery', $subtitles);
+DemoApp::addGithubButton($grid);
 
-// This button hides on page load
-$b = Button::addTo(Ui::layout(), ['label' => 'Hidden Button']);
-Jquery::onDocumentReady($b)->hide();
-Fohn::styleAs(Base::CONSOLE, [View::addTo(Ui::layout(), ['htmlTag' => 'pre'])->setText($b->getJavascript())]);
+DemoApp::addHeader(Ui::layout(), 'Jquery class helpers', 4);
+$html = 'Jquery object extends the JsChain object and contains helper methods that can be used to target a specific view instance, thanks
+to Fohn-Ui ability to generate unique html id attribute value for every view created.
+<br>Once a javascript chain is created, any of jQuery functions can be used.';
+DemoApp::addParagraph(Ui::layout(), $html, false);
 
-// This button hides when clicked
-$b = Button::addTo(Ui::layout())->setLabel('Hide on click Button');
-Jquery::addEventTo($b, 'click')->execute(Jquery::withThis()->hide());
-Fohn::styleAs(Base::CONSOLE, [View::addTo(Ui::layout(), ['htmlTag' => 'pre'])->setText($b->getJavascript())]);
+// @helperFn
+$view = View::addTo(Ui::layout()); // generated unique id attribute value.
 
-$b = Button::addTo(Ui::layout(), ['label' => 'Open in new window with ?foo=bar']);
-Jquery::addEventTo($b, 'click')->execute(Ui::jsWindowOpen(Ui::buildUrl(Ui::parseRequestUrl()), ['foo' => 'bar']));
+// Helper method and their equivalent chain rendering.
+Jquery::withView($view)->toggle(); // jQuery('#viewUniqueId').toggle()
+Jquery::withSelector('.css_class_name')->toggle(); // jQuery('.css_class_name').toggle()
+Jquery::withThis()->toggle(); // jQuery(this).toggle()
+Jquery::withVar('myVar')->toggle(); // jQuery(myVar).toggle()
+Jquery::withSelf()->ajax(); // jQuery.ajax()
+// @end_helperFn
 
-Fohn::styleAs(Base::CONSOLE, [View::addTo(Ui::layout(), ['htmlTag' => 'pre'])->setText($b->getJavascript())]);
+$section = DemoApp::addInfoSection(Ui::layout(), 'Jquery chain helpers:');
+DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('helperFn'));
 
-Header::addTo(Ui::layout(), ['title' => 'js() method', 'size' => 4]);
+$html = 'Another useful helper method is the <code class="text-sm font-bold">Jquery::addEventTo(View $v, string $event, string $selector)</code>.
+<br>The return type is a Js function that you can use to execute javascript expression. <br> This method will 
+render as <code class="text-sm font-bold">jQuery.on(event, selector, handler)</code>.';
+DemoApp::addParagraph(Ui::layout(), $html, false);
 
-$b = Button::addTo(Ui::layout(), ['label' => 'Toggle B']);
-$b2 = Button::addTo(Ui::layout(), ['label' => 'B']);
+$section = DemoApp::addInfoSection(Ui::layout(), 'Example of Jquery::addEventTo');
 
+$grid = DemoApp::addTwoColumnsResponsiveGrid($section)->appendTailwinds(['items-center', 'h-24']);
+
+// @jquery
+$btn = Button::addTo($grid)->setLabel('Toggle Segment');
+$segment = View\Segment::addTo($grid)->setTextContent('I might disapear');
+// adding jQuery click event to button.
+Jquery::addEventTo($btn, 'click')
+      ->executes([Jquery::withThis()->text('Toggle Segment'), Jquery::withView($segment)->toggle()]);
+// adding jQuery mouseover event to segment.
+Jquery::addEventTo($segment, 'mouseover')
+      ->executes([Jquery::withThis()->toggle(), Jquery::withView($btn)->text('Bring me back!')]);
+// @end_jquery
+
+DemoApp::addLineInfo($section, 'Code:');
+DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('jquery'));
+
+DemoApp::addLineInfo($section, 'Rendered html:');
+DemoApp::addCodeConsole($section, 'html')
+       ->setTextContent($btn->getHtml() . PHP_EOL . $segment->getHtml());
+
+DemoApp::addLineInfo($section, 'Rendered script:');
+DemoApp::addCodeConsole($section, 'javascript')
+       ->setTextContent($btn->getJavascript() . PHP_EOL . $segment->getJavascript());
+
+$section = DemoApp::addInfoSection(Ui::layout(), 'Example of Jquery::addEventTo using custom selector');
+
+$container = View::addTo($section)->appendTailwinds(['grid', 'place-content-center']);
+
+// @jquerySelector
+$bar = View::addTo($container);
+foreach (str_split('Click-me') as $letter) {
+    if (trim($letter)) {
+        Button::addTo($bar, ['label' => $letter, 'color' => 'info'])->removeTailwind('mx-2');
+    }
+}
+// Target button inside $bar view.
+Jquery::addEventTo($bar, 'click', 'button')->execute(Jquery::withThis()->toggle());
+// @end_jquerySelector
+DemoApp::addLineInfo($section, 'Code:');
+DemoApp::addCodeConsole($section)
+       ->setTextContent($codeReader->extractCode('jquerySelector'));
+
+DemoApp::addHeader(Ui::layout(), 'jQuery plugin', 4);
+
+$html = 'Fohn-Ui js package comes with some jQuery plugins. One of them being the reload-view plugin used for reloading 
+a specific View instance on the page. <br>It can be used with JsReload class 
+helper method: <code class="text-sm font-bold">JsReload::view(View $view, array $args)</code>.
+<br> JsReload may also pass GET arguments to the callback url.';
+DemoApp::addParagraph(Ui::layout(), $html, false);
+
+$section = DemoApp::addInfoSection(Ui::layout(), 'Using JsReload:');
+$container = View::addTo($section)->appendTailwinds(['grid', 'place-content-center']);
+
+// @jqueryReload
+// Reload button and add a number to the button label.
+$number = $_GET['number'] ?? '';
+$b = Button::addTo($container, ['label' => 'Reload ' . $number]);
 Jquery::addEventTo($b, 'click')
-    ->executes(
-        [
-            JQuery::withView($b2)->toggle(),
-            Js::from('console.log("Button B is now toggle")'),
-            Js::from('console.log("event: ", e)'),
-        ]
-    );
+    ->execute(
+        JsReload::view($b, ['number ' => random_int(0, 100)])
+                ->afterSuccess(Js::from('console.log("reloaded btn")')
+        )
+);
+// @end_jqueryReload
 
-Fohn::styleAs(Base::CONSOLE, [View::addTo(Ui::layout(), ['htmlTag' => 'pre'])->setText($b->getJavascript())]);
+DemoApp::addLineInfo($section, 'Code:');
+DemoApp::addCodeConsole($section)
+       ->setTextContent($codeReader->extractCode('jqueryReload'));
 
-Header::addTo(Ui::layout(), ['title' => 'Callbacks', 'size' => 4]);
-
-// On button click reload it and change it's title
-$b = Button::addTo(Ui::layout(), ['label' => 'Callback Test']);
-Jquery::jqCallback($b, 'click', function ($jquery, $payload) {
-    return $jquery->text(random_int(1, 20) . ' id = ' . $payload['id']);
-}, ['id' => 2]);
-Fohn::styleAs(Base::CONSOLE, [View::addTo(Ui::layout(), ['htmlTag' => 'pre'])->setText($b->getJavascript())]);
-
-$l = $_GET['test'] ?? '';
-
-$b = Button::addTo(Ui::layout(), ['label' => 'Reload ' . $l]);
-Jquery::addEventTo($b, 'click')->execute(JsReload::view($b, ['test ' => random_int(0, 100)])->afterSuccess(Js::from('console.log("reloaded1")')));
-
-$b = Button::addTo(Ui::layout(), ['label' => 'Reload ' . $l]);
-Jquery::addEventTo($b, 'click')->execute(JsReload::view($b, ['test ' => random_int(0, 100)])->afterSuccess(Js::from('console.log("reloaded2")')));
-
-$b = Button::addTo(Ui::layout(), ['label' => 'Reload  ' . $l]);
-Jquery::addEventTo($b, 'click')->execute(JsReload::view($b, ['test ' => random_int(0, 100)])->afterSuccess(Js::from('console.log("reloaded3")')));
+DemoApp::addLineInfo($section, 'Use the afterSuccess method of JsReload that allow to execute javascript expressions when 
+reload is complete.');
