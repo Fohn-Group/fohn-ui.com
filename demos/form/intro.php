@@ -22,7 +22,7 @@ $subtitles = [
 DemoApp::addPageHeaderTo($grid, 'Form Component', $subtitles);
 DemoApp::addGithubButton($grid);
 
-$text = 'Forms in Fohn-Ui are Vue.js renderless component, the same for each form controls. Form html content is provide by Fohn-Ui while form behavior is 
+$text = 'Forms in Fohn-Ui are Vue.js renderless component, the same for each form controls. Form html content is provide by Fohn-Ui while form behavior, on the client side, is 
 handled by Vue <b>form component</b> from Fohn-Ui javascript package.
 <br>This allow Fohn-Ui users to have maximum flexibility in controlling the look of their forms.';
 DemoApp::addParagraph(Ui::layout(), $text, false);

@@ -103,10 +103,11 @@ class DemoApp
             new Group([
                 'name' => 'Table Component',
                 'icon' => 'bi bi-table',
-                'url' => $baseUrl . 'demos/collection/table/',
+                'url' => $baseUrl . 'demos/table/intro/',
                 'items' => [
-                    new Item(['name' => 'Table', 'url' => $baseUrl . 'demos/collection/table/']),
-                    new Item(['name' => 'Table w. Atk Model', 'url' => $baseUrl . 'demos/collection/table-as-crud/']),
+                    new Item(['name' => 'Introduction', 'url' => $baseUrl . 'demos/table/intro/']),
+                    new Item(['name' => 'Table', 'url' => $baseUrl . 'demos/table/basic/']),
+                    new Item(['name' => 'CRUD', 'url' => $baseUrl . 'demos/table/crud/']),
                 ],
             ]),
             new Group([

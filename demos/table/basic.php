@@ -100,7 +100,6 @@ $table->getTableColumn('tag')->formatValue(function ($column, $value) {
     return $tag->getHtml();
 });
 
-// @css
 $table->applyCssRow(function (string $id, object $row) {
     $tws = Tw::from([]);
     if ($row->sales > 250000) {
@@ -109,8 +108,6 @@ $table->applyCssRow(function (string $id, object $row) {
 
     return $tws;
 });
-// @end_css
-
 
 // Load fake data into table.
 $table->onDataRequest(function (Table\Payload $payload, Table\Result\Set $result): void {
@@ -133,11 +130,5 @@ $table->onDataRequest(function (Table\Payload $payload, Table\Result\Set $result
 
     $result->dataSet = $data;
 });
-
-DemoApp::addLineInfo($section, 'Any table column can be format using a callback function:');
-DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('publish'));
-
-DemoApp::addLineInfo($section, 'Tailwind CSS can by apply at table row level:');
-DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('css'));
 
 Ui::viewDump($table, 'table');
