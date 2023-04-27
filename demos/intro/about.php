@@ -20,7 +20,7 @@ $html = 'Fohn-Ui is a PHP framework that make use of utility-first css framework
 This is a powerful combination for building and styling Web applications.';
 DemoApp::addParagraph(Ui::layout(), $html, false);
 
-$html = 'At the hearth of Fohn-Ui is the <b>Service\Ui::class</b>. 
+$html = 'At the hearth of Fohn-Ui is the <code class="text-sm bg-gray-200 p-1 font-bold">Service\Ui::class</code>. 
 This service main function is to supply various elements need by Fohn-Ui during the request life cycle:';
 DemoApp::addParagraph(Ui::layout(), $html, false);
 
@@ -88,9 +88,9 @@ DemoApp::addParagraph(Ui::layout(), $html);
 
 Header::addTo(Ui::layout(), ['title' => 'Vue.js', 'size' => 5])->appendTailwind('mt-6');
 $html = 'Component like form, table or modal uses Vue.js in order to build their user interfaces. Most of the Vue components 
-are renderless components, i.e. their templates are provide by the View::class html template engine while the behavior is done in Vue.js.
-This allow for incredible flexibility, specially using Tailwind CSS, in styling your component without having to change the js package.';
-DemoApp::addParagraph(Ui::layout(), $html);
+are renderless components, i.e. their templates are provide by the <code class="text-sm bg-gray-200 p-1 font-bold">View::class</code> html template while the behavior is done in Vue.js.
+This allows for incredible flexibility, specially using Tailwind CSS, in styling your component without having to change the js package.';
+DemoApp::addParagraph(Ui::layout(), $html, false);
 
 Header::addTo(Ui::layout(), ['title' => 'jQuery', 'size' => 5])->appendTailwind('mt-6');
 $html = 'jQuery is directly integrate to Fohn-Ui, which means that it is possible to assign jQuery event and function to a Fohn-Ui view directly using PHP code.';

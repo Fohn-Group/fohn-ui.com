@@ -42,9 +42,9 @@ Jquery::withSelf()->ajax(); // jQuery.ajax()
 $section = DemoApp::addInfoSection(Ui::layout(), 'Jquery chain helpers:');
 DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('helperFn'));
 
-$html = 'Another useful helper method is the <code class="text-sm font-bold">Jquery::addEventTo(View $v, string $event, string $selector)</code>.
+$html = 'Another useful helper method is the <code class="text-sm bg-gray-200 p-1 font-bold">Jquery::addEventTo(View $v, string $event, string $selector)</code>.
 <br>The return type is a Js function that you can use to execute javascript expression. <br> This method will 
-render as <code class="text-sm font-bold">jQuery.on(event, selector, handler)</code>.';
+render as <code class="text-sm bg-gray-200 p-1 font-bold">jQuery.on(event, selector, handler)</code>.';
 DemoApp::addParagraph(Ui::layout(), $html, false);
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Example of Jquery::addEventTo');
@@ -95,7 +95,7 @@ DemoApp::addHeader(Ui::layout(), 'jQuery plugin', 4);
 
 $html = 'Fohn-Ui js package comes with some jQuery plugins. One of them being the reload-view plugin used for reloading 
 a specific View instance on the page. <br>It can be used with JsReload class 
-helper method: <code class="text-sm font-bold">JsReload::view(View $view, array $args)</code>.
+helper method: <code class="text-sm bg-gray-200 p-1 font-bold">JsReload::view(View $view, array $args)</code>.
 <br> JsReload may also pass GET arguments to the callback url.';
 DemoApp::addParagraph(Ui::layout(), $html, false);
 

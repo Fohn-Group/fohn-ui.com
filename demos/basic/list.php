@@ -77,7 +77,6 @@ Lister::addTo($section, ['template' => Ui::templateFromFile(__DIR__ . '/template
 ///// CALLBACK RENDERING
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Using callback rendering');
-// @list
 $list = View\HtmlList::addTo($section);
 $list->setItems(factoryPeople(10));
 
@@ -93,7 +92,3 @@ $list->onItemRender('Items', function (HtmlTemplate $template, array $tags): str
 
     return $newT->renderToHtml();
 });
-// @end_list
-
-DemoApp::addLineInfo($section, 'Code:');
-DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('list'));

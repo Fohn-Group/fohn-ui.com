@@ -91,7 +91,7 @@ class DemoApp
             new Group([
                 'name' => 'Form Component',
                 'icon' => 'bi bi-input-cursor',
-                'url' => $baseUrl . 'demos/form/basic/',
+                'url' => $baseUrl . 'demos/form/intro/',
                 'items' => [
                     new Item(['name' => 'Introduction', 'url' => $baseUrl . 'demos/form/intro/']),
                     new Item(['name' => 'Basic Layout', 'url' => $baseUrl . 'demos/form/basic/']),

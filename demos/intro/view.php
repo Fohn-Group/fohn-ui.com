@@ -37,7 +37,7 @@ View\HtmlList::addTo(Ui::layout(), ['itemsTemplate' => __DIR__ . '/templates/lis
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Minimal view template:');
 
-DemoApp::addLineInfo($section, 'view.html:');
+DemoApp::addLineInfo($section, 'element.html:');
 DemoApp::addCodeConsole($section)->setTextContent(file_get_contents(__DIR__ . '/templates/view.html'));
 
 $text = 'Template engine also support special markup for javascript integration. This is specially useful
