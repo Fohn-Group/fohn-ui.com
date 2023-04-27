@@ -27,21 +27,21 @@ use Fohn\Ui\View;
 use Fohn\Ui\View\Button;
 
 require_once __DIR__ . '/../init-ui.php';
-
-$country = new Country(Data::db());
-$modelCtrl = new DemoFormModelCtrl($country);
-
-$grid = View::addTo(Ui::layout(), ['template' => Ui::templateFromFile(
-    dirname(__DIR__) . '/templates/split-columns.html'
-)]);
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 
 $subtitles = [
     'Display, edit and delete country record.',
     'Use Paginator, Search and Sortable columns.',
 ];
-DemoApp::addPageHeaderTo($grid, 'Table component using Country model', $subtitles, 'leftContent');
+DemoApp::addPageHeaderTo($grid, 'Table component using Country model', $subtitles);
+DemoApp::addGithubButton($grid);
 
-$table = Table::addTo($grid);
+$country = new Country(Data::db());
+$modelCtrl = new DemoFormModelCtrl($country);
+
+$section = DemoApp::addInfoSection(Ui::layout(), 'Table for CRUD operation:');
+
+$table = Table::addTo($section);
 $table->setCaption(DemoApp::tableCaptionFactory('Countries'));
 
 $editDialog = Modal\AsForm::addTo(Ui::layout(), ['title' => 'Edit Country']);

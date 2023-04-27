@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Fohn\Demos\CodeReader;
 use Fohn\Demos\Ctrl\DemoFormModelCtrl;
 use Fohn\Demos\DemoApp;
 use Fohn\Demos\Model\Country;
@@ -14,15 +15,23 @@ use Fohn\Ui\View;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$modelCtrl = new DemoFormModelCtrl(new Country(Data::db()));
-$id = (string) $modelCtrl->getModel()->tryLoadAny()->get('id');
+$codeReader = new CodeReader(__FILE__);
+
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 
 $subtitles = [
     'This example use a FormModelCtrl in order to create form controls from an ATK Data model.',
 ];
-DemoApp::addPageHeaderTo(Ui::layout(), 'Basic form layout.', $subtitles);
+DemoApp::addPageHeaderTo($grid, 'Form Basic', $subtitles);
+DemoApp::addGithubButton($grid);
 
-$form = Form::addTo(Ui::layout());
+
+$section = DemoApp::addInfoSection(Ui::layout(), 'Form using standard layout:');
+
+$modelCtrl = new DemoFormModelCtrl(new Country(Data::db()));
+$id = (string) $modelCtrl->getModel()->tryLoadBy('iso', 'CA')->get('id');
+
+$form = Form::addTo($section);
 $form->addControls($modelCtrl->factoryFormControls($id));
 
 $form->onSubmit(function (Form $f) use ($modelCtrl, $id) {
@@ -36,4 +45,5 @@ $form->onSubmit(function (Form $f) use ($modelCtrl, $id) {
 View::addAfter($form->getControl('iso3'))
     ->appendTailwind('italic text-sm mt-2')
     ->appendTailwind(Tw::textColor('secondary'))
-    ->setText('The ISO and ISO3 country codes are internationally recognized means of identifying countries (and their subdivisions) using a two-letter or three-letter combination.');
+    ->setTextContent('The ISO and ISO3 country codes are internationally recognized means of identifying countries (and their subdivisions) using a two-letter or three-letter combination.');
+

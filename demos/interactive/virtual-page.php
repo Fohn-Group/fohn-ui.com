@@ -15,12 +15,16 @@ use Fohn\Ui\VirtualPage;
 
 require_once __DIR__ . '/../init-ui.php';
 
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
+
 $subtitles = [
     'Virtual Page are only display when trigger by the user.',
 ];
-DemoApp::addPageHeaderTo(Ui::layout(), 'Virtual Pages', $subtitles);
+DemoApp::addPageHeaderTo($grid, 'Virtual Pages', $subtitles);
+DemoApp::addGithubButton($grid);
 
-DemoApp::addLineInfo(Ui::layout(), 'Demonstrating how virtual page can be add within each other.');
+$section = DemoApp::addInfoSection(Ui::layout(), 'Virtual pages examples:');
+DemoApp::addLineInfo($section, 'Demonstrating how virtual page can be add within each other.');
 
 $vp = VirtualPage::with(DemoApp::createPage(Ui::service()->environment));
 
@@ -30,7 +34,7 @@ $vp->onPageRequest(function ($page) use ($vp) {
     $breadCrumb->addLast('Top Virtual Page');
 
     View\Heading\Header::addTo($page, ['size' => 6, 'title' => 'Top Page Content']);
-    View\Segment::addTo($page)->setText(Utils::getLoremIpsum(12));
+    View\Segment::addTo($page)->setTextContent(Utils::getLoremIpsum(12));
 
     $vp2 = VirtualPage::with(DemoApp::createPage(Ui::service()->environment));
     $vp2->onPageRequest(function ($page) use ($vp) {
@@ -40,7 +44,7 @@ $vp->onPageRequest(function ($page) use ($vp) {
         $breadCrumb->addLast('Inner Virtual Page');
 
         View\Heading\Header::addTo($page, ['size' => 6, 'title' => 'Inner Page Content']);
-        $segment = View\Segment::addTo($page)->setText(Utils::getLoremIpsum((int) 50));
+        $segment = View\Segment::addTo($page)->setTextContent(Utils::getLoremIpsum((int) 50));
 
         $b = Button::addTo($page, ['label' => 'Reload Loren Ipsum', 'color' => 'secondary', 'type' => 'text']);
         Jquery::addEventTo($b, 'click')->execute(JsReload::view($segment));
@@ -52,21 +56,21 @@ $vp->onPageRequest(function ($page) use ($vp) {
 });
 
 // button that trigger virtual page.
-$btn = View\Button::addTo(Ui::layout(), ['label' => 'Open Virtual Page', 'color' => 'secondary', 'type' => 'text']);
+$btn = View\Button::addTo($section, ['label' => 'Open Virtual Page', 'color' => 'secondary', 'type' => 'text']);
 $btn->jsLinkTo($vp->getUrl());
 
-DemoApp::addLineInfo(Ui::layout(), 'Demonstrating virtual page using other layout.');
+DemoApp::addLineInfo($section, 'Demonstrating virtual page using other layout.');
 
 $page = Page::factory()->addLayout(Layout::factory(['template' => Ui::templateFromFile(__DIR__ . '/template/center-layout.html')]));
 
 $vp2 = VirtualPage::with($page);
 $vp2->onPageRequest(function ($page) {
     View\Heading\Header::addTo($page, ['title' => 'Center Layout', 'size' => 5])->removeTailwind('mt-6');
-    $segment = View\Segment::addTo($page)->setText(Utils::getLoremIpsum((int) 50));
+    View\Segment::addTo($page)->setTextContent(Utils::getLoremIpsum((int) 50));
     $btn = View\Button::addTo($page, ['label' => 'Back', 'color' => 'secondary', 'type' => 'text']);
     $btn->jsLinkTo(Ui::parseRequestUrl());
 });
 
 // button that trigger virtual page.
-$btn = View\Button::addTo(Ui::layout(), ['label' => 'Display in a new layout', 'color' => 'secondary', 'type' => 'text']);
+$btn = View\Button::addTo($section, ['label' => 'Display in a new layout', 'color' => 'secondary', 'type' => 'text']);
 $btn->jsLinkTo($vp2->getUrl());

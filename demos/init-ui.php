@@ -28,7 +28,6 @@ Ui::service()->boot(function (Ui $ui) {
     $page = \Fohn\Demos\DemoApp::createPage($ui->environment);
     $page->getLayout()->appendTailwind('bg-gray-100');
     $ui->initAppPage($page);
-
 });
 
 function loadConfig(): array

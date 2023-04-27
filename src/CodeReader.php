@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace Fohn\Demos;
 
-class DemoCodeReader
+class CodeReader
 {
     protected array $codes = [];
 

@@ -21,22 +21,24 @@ use Fohn\Ui\View\Message;
 
 require_once __DIR__ . '/../init-ui.php';
 
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
+
 $subtitles = [
     'Modal usages.',
 ];
-DemoApp::addPageHeaderTo(Ui::layout(), 'Modal', $subtitles);
+DemoApp::addPageHeaderTo($grid, 'Modal', $subtitles);
+DemoApp::addGithubButton($grid);
 
-// / MODAL
+$section = DemoApp::addInfoSection(Ui::layout(), 'Modal examples:');
+DemoApp::addLineInfo($section, 'Modal can display user information.');
 
-DemoApp::addLineInfo(Ui::layout(), 'Modal can display user information.');
-
-$infoDialog = Modal::addTo(Ui::layout(), ['title' => 'Important!!!']);
+$infoDialog = Modal::addTo($section, ['title' => 'Important!!!']);
 $infoDialog->addCloseButton(new Button(['label' => 'Close', 'type' => 'outline', 'color' => 'info', 'size' => 'small']));
 
 $msg = Message::addTo($infoDialog, ['title' => 'Note:', 'color' => 'error']);
 $msg->addText(Utils::getLoremIpsum(20));
 
-$btn = Button::addTo(Ui::layout(), ['label' => 'Display Info', 'color' => 'info', 'type' => 'outline']);
+$btn = Button::addTo($section, ['label' => 'Display Info', 'color' => 'info', 'type' => 'outline']);
 Jquery::addEventTo($btn, 'click')
     ->executes([
         $infoDialog->jsOpen(),
@@ -44,9 +46,9 @@ Jquery::addEventTo($btn, 'click')
 
 // // AS DIALOG
 
-DemoApp::addLineInfo(Ui::layout(), 'Modal can be used as dialog using callback events.');
+DemoApp::addLineInfo($section, 'Modal can be used as dialog using callback events.');
 
-$confirm = AsDialog::addTo(Ui::layout(), ['title' => 'Confirm this action', 'isClosable' => false]);
+$confirm = AsDialog::addTo($section, ['title' => 'Confirm this action', 'isClosable' => false]);
 
 $confirm->addCallbackEvent('cancel', new Button(['label' => 'No', 'type' => 'outline', 'color' => 'error', 'size' => 'small']));
 $confirm->onCallbackEvent('cancel', function (array $payload) use ($confirm) {
@@ -63,7 +65,7 @@ $confirm->onCallbackEvent('confirm', function (array $payload) use ($confirm) {
     ]);
 });
 
-$btn = Button::addTo(Ui::layout(), ['label' => 'Open Dialog', 'color' => 'info', 'type' => 'outline']);
+$btn = Button::addTo($section, ['label' => 'Open Dialog', 'color' => 'info', 'type' => 'outline']);
 Jquery::addEventTo($btn, 'click')
     ->executes([
         $confirm->jsOpen(['message' => 'Are you sure ?']),
@@ -71,11 +73,11 @@ Jquery::addEventTo($btn, 'click')
 
 // / AS Form
 
-DemoApp::addLineInfo(Ui::layout(), 'Modal can be use as a dialog containing a form.');
+DemoApp::addLineInfo($section, 'Modal can be use as a dialog containing a form.');
 
 $modelCtrl = new DemoFormModelCtrl(new Country(Data::db()));
 
-$modalForm = Modal\AsForm::addTo(Ui::layout(), ['title' => 'Edit Country Record :']);
+$modalForm = Modal\AsForm::addTo($section, ['title' => 'Edit Country Record :']);
 
 $form = $modalForm->addForm(new Form());
 $form->addControls($modelCtrl->factoryFormControls(null));
@@ -96,7 +98,7 @@ $form->onSubmit(function ($f, $id) use ($modalForm, $modelCtrl) {
     );
 });
 
-$bar = View::addTo(Ui::layout())->appendTailwinds(['inline-block, my-4']);
+$bar = View::addTo($section)->appendTailwinds(['inline-block, my-4']);
 Button::addTo($bar, ['label' => 'Italy', 'color' => 'info', 'type' => 'outline', 'shape' => 'normal'])->appendHtmlAttribute('data-name', 'Italy');
 Button::addTo($bar, ['label' => 'Norway', 'color' => 'info', 'type' => 'outline', 'shape' => 'normal'])->appendHtmlAttribute('data-name', 'Norway');
 Button::addTo($bar, ['label' => 'Sweden', 'color' => 'info', 'type' => 'outline', 'shape' => 'normal'])->appendHtmlAttribute('data-name', 'Sweden');
@@ -109,7 +111,7 @@ Jquery::jqCallback($bar, 'click', function ($j, $payload) use ($modalForm, $mode
 
 // / Dynamic
 
-DemoApp::addLineInfo(Ui::layout(), 'Modal can add content dynamically.');
+DemoApp::addLineInfo($section, 'Modal can add content dynamically.');
 
 $modalDynamic = Modal::addTo(Ui::layout(), ['title' => 'Load on demand content.']);
 $modalDynamic->addCloseButton(new Button(['label' => 'Close', 'type' => 'outline', 'color' => 'info', 'size' => 'small']));
@@ -119,10 +121,10 @@ $modalDynamic->onOpen(function ($modal) {
         'first-letter:text-7xl', 'first-letter:font-bold', 'first-letter:text-purple-700',
         'first-letter:mr-3', 'first-letter:float-left', ];
 
-    View::addTo($modal)->setHtmlTag('p')->setText(Utils::getLoremIpsum(random_int(10, 100)))->appendTailwinds($tw);
+    View::addTo($modal)->setHtmlTag('p')->setTextContent(Utils::getLoremIpsum(random_int(10, 100)))->appendTailwinds($tw);
 });
 
-$btn = Button::addTo(Ui::layout(), ['label' => 'Open Modal', 'color' => 'info', 'type' => 'outline']);
+$btn = Button::addTo($section, ['label' => 'Open Modal', 'color' => 'info', 'type' => 'outline']);
 Jquery::addEventTo($btn, 'click')
     ->executes([
         $modalDynamic->jsOpen(),

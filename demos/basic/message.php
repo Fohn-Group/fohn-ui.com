@@ -9,9 +9,11 @@ use Fohn\Ui\View\Message;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$subtitles = [
-];
-DemoApp::addPageHeaderTo(Ui::layout(), 'Message', $subtitles);
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
+
+$subtitles = [];
+DemoApp::addPageHeaderTo($grid, 'Message', $subtitles);
+DemoApp::addGithubButton($grid);
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Message color and type:');
 
