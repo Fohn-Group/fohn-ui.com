@@ -15,6 +15,7 @@ use Fohn\Ui\View;
 
 require_once __DIR__ . '/../init-ui.php';
 
+$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
 $currencies = [
     'en_US' => 'USD',
     'fr_CA' => 'CAD',
@@ -29,23 +30,23 @@ $locales = [
     'de_DE' => 'Dutch (DE)',
 ];
 
-$grid = View::addTo(Ui::layout(), ['template' => Ui::templateFromFile(
-    dirname(__DIR__) . '/templates/split-columns.html'
-)]);
-
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 $subtitles = [
     'Easily format cell value using formatter function.',
     'Apply Tailwinds utilities on row and/or cell base on data values.',
 ];
-DemoApp::addPageHeaderTo($grid, 'Table component', $subtitles, 'leftContent');
+DemoApp::addPageHeaderTo($grid, 'Table component', $subtitles);
+DemoApp::addGithubButton($grid);
 
-$select = Select::addTo($grid, ['controlName' => 'loc_select', 'allowNull' => false, 'caption' => 'Select locale for displaying data:'], 'rightContent');
-$select->setItems($locales);
+$section = DemoApp::addInfoSection(Ui::layout(), 'Table using custom format value for columns:');
+
+$select = Select::addTo($section, ['controlName' => 'loc_select', 'allowNull' => false, 'caption' => 'Select locale for displaying data:']);
+$select->setItems($locales)->appendTailwind('w-1/2');
 $select->onChange(JsFunction::arrow([Js::var('e')])->executes([
     Ui::jsRedirect(Ui::parseRequestUrl(), ['loc' => Js::var('e')]),
 ]));
 
-$table = Table::addTo($grid, ['hasTableSearch' => false, 'hasPaginator' => false]);
+$table = Table::addTo($section, ['hasTableSearch' => false, 'hasPaginator' => false]);
 $table->setCaption(DemoApp::tableCaptionFactory('Sales Report'));
 
 // Locale get argument to table callback.
@@ -54,20 +55,6 @@ $currencyCode = $currencies[$locale];
 $select->setValue($locale);
 
 $table->addColumn('name_email', Table\Column\Html::factory(['caption' => 'Name']));
-$table->addColumn('date_publish', Table\Column\Date::factory(['caption' => 'Publish']));
-$table->addColumn('sales', Table\Column\Currency::factory(['caption' => 'Sales', 'isAccounting' => true, 'currencyCode' => $currencyCode]));
-$table->addColumn('is_director', Table\Column\Boolean::factory(['caption' => 'Director']));
-$table->addColumn('tag', Table\Column\Html::factory(['caption' => 'I']));
-
-$table->applyCssRow(function (string $id, object $row) {
-    $tws = Tw::from([]);
-    if ($row->sales > 250000) {
-        $tws->merge(['bg-' . TwConstant::COLORS['accent-light']]);
-    }
-
-    return $tws;
-});
-
 // Apply specific formatter based on cell value. Formatter function must return a string.
 $table->getTableColumn('name_email')->formatValue(function ($col, $value) {
     $textColor = Tw::textColor('info-light');
@@ -75,6 +62,8 @@ $table->getTableColumn('name_email')->formatValue(function ($col, $value) {
     return "<a href=mailto:'{$value['email']}' class='{$textColor} underline'>{$value['name']}</a>";
 });
 
+// @publish
+$table->addColumn('date_publish', Table\Column\Date::factory(['caption' => 'Publish']))->alignText('center');
 // Apply specific formatter based on cell value. Formatter function must return a string.
 $table->getTableColumn('date_publish')->formatValue(function ($column, $value) use ($locale) {
     $fmt = \IntlDateFormatter::create(
@@ -84,18 +73,10 @@ $table->getTableColumn('date_publish')->formatValue(function ($column, $value) u
     );
 
     return $fmt->format($value);
-})->alignText('center');
+});
+// @end_publish
 
-$table->getTableColumn('tag')->formatValue(function ($column, $value) {
-    $tag = (new View\Tag(['textSize' => 'x-small', 'shape' => 'rounded', 'width' => '8']));
-    $tag->setText((string) $value);
-    $tag->removeTailwind('mx-2')->removeTailwind('my-1');
-    $tag->appendTailwind('mx-auto');
-    $tag->color = $value > 50 ? 'primary' : 'secondary';
-
-    return $tag->getHtml();
-})->alignText('center');
-
+$table->addColumn('sales', Table\Column\Currency::factory(['caption' => 'Sales', 'isAccounting' => true, 'currencyCode' => $currencyCode]));
 // Apply specific Tw css utility on sales column based on cell value.
 $table->getTableColumn('sales')->applyCssCell(function ($v) {
     $tw = Tw::from([]);
@@ -105,6 +86,31 @@ $table->getTableColumn('sales')->applyCssCell(function ($v) {
 
     return $tw;
 });
+
+$table->addColumn('is_director', Table\Column\Boolean::factory(['caption' => 'Director']));
+
+$table->addColumn('tag', Table\Column\Html::factory(['caption' => 'I']))->alignText('center');
+$table->getTableColumn('tag')->formatValue(function ($column, $value) {
+    $tag = (new View\Tag(['textSize' => 'x-small', 'shape' => 'rounded', 'width' => '8']));
+    $tag->setTextContent((string) $value);
+    $tag->removeTailwind('mx-2')->removeTailwind('my-1');
+    $tag->appendTailwind('mx-auto');
+    $tag->color = $value > 50 ? 'primary' : 'secondary';
+
+    return $tag->getHtml();
+});
+
+// @css
+$table->applyCssRow(function (string $id, object $row) {
+    $tws = Tw::from([]);
+    if ($row->sales > 250000) {
+        $tws->merge(['bg-' . TwConstant::COLORS['accent-light']]);
+    }
+
+    return $tws;
+});
+// @end_css
+
 
 // Load fake data into table.
 $table->onDataRequest(function (Table\Payload $payload, Table\Result\Set $result): void {
@@ -127,5 +133,11 @@ $table->onDataRequest(function (Table\Payload $payload, Table\Result\Set $result
 
     $result->dataSet = $data;
 });
+
+DemoApp::addLineInfo($section, 'Any table column can be format using a callback function:');
+DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('publish'));
+
+DemoApp::addLineInfo($section, 'Tailwind CSS can by apply at table row level:');
+DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('css'));
 
 Ui::viewDump($table, 'table');
