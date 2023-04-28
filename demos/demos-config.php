@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 use Atk4\Data\Persistence\Sql;
 
-$t = \Fohn\Ui\Service\Ui::PROD_ENV;
-
 return [
     'env' => \Fohn\Ui\Service\Ui::PROD_ENV,
     'templateDir' => [dirname(__DIR__) . \DIRECTORY_SEPARATOR . 'template' . \DIRECTORY_SEPARATOR . 'tailwind'],

@@ -27,15 +27,13 @@ DemoApp::addHeader(Ui::layout(), 'Table Columns', 5);
 $text = 'Columns are added to the table using the <code>Table::addColumn(Table\Column $column)</code> method.';
 DemoApp::addParagraph(Ui::layout(), $text, false);
 
-/* Comment for code demo purpose.
+/* Usage for code display purpose only.
 // @tableColumn
 $table = Table::addTo(Ui::layout(), ['hasTableSearch' => false, 'hasPaginator' => false]);
 $table->addColumn('name_email', Table\Column\Html::factory(['caption' => 'Name']));
 // @end_tableColumn
  */
 DemoApp::addCodeConsole(Ui::layout())->setTextContent($codeReader->extractCode('tableColumn'));
-
-// ///////////////////
 
 DemoApp::addHeader(Ui::layout(), 'Table Records', 5);
 $text = 'Filling table with data is handled by the <code class="text-sm bg-gray-200 p-1 font-bold">Table::onDataRequest(function (Table\Payload $payload, Table\Result\Set $result)</code>.
@@ -46,7 +44,7 @@ a search query string.
 <br> The Result\Set instance on the other hand needs to be filled with a data set.';
 DemoApp::addParagraph(Ui::layout(), $text, false);
 
-/* Comment for code demo purpose.
+/* Usage for code display purpose only.
 // @tableData
 $table->onDataRequest(function (Table\Payload $payload, Table\Result\Set $result): void {
     $faker = Factory::create();
@@ -65,14 +63,13 @@ $table->onDataRequest(function (Table\Payload $payload, Table\Result\Set $result
 */
 DemoApp::addCodeConsole(Ui::layout())->setTextContent($codeReader->extractCode('tableData'));
 
-// //////////////////////////
 DemoApp::addHeader(Ui::layout(), 'Table Column Format', 5);
 $text = 'Any table column can be format using a formatter closure function. The closure function must return a string.
 Column type of <code class="text-sm bg-gray-200 p-1 font-bold">Html::class</code> support html markup. The formatter closure function also receive the Column instance
 and it\' value as parameters.';
 DemoApp::addParagraph(Ui::layout(), $text, false);
 
-/* Comment for code demo purpose.
+/* Usage for code display purpose only.
 // @cellFormat
 // Apply specific formatter based on cell value. Formatter function must return a string.
 $table->getTableColumn('name_email')->formatValue(function ($col, $value) {
@@ -84,14 +81,13 @@ $table->getTableColumn('name_email')->formatValue(function ($col, $value) {
 */
 DemoApp::addCodeConsole(Ui::layout())->setTextContent($codeReader->extractCode('cellFormat'));
 
-// ////////////////////////
-
 DemoApp::addHeader(Ui::layout(), 'Table Row Style', 5);
 $text = 'Tailwind utilities may be apply conditionally to a table row base on cells values via a closure function.
 The closure function will receive a row id and a standard PHP object instance as parameter. The object instance will
 contains the table column names as property. The closure function must return a <code class="text-sm bg-gray-200 p-1 font-bold">Tw::class</code> object instance.';
 DemoApp::addParagraph(Ui::layout(), $text, false);
-/* Comment for code demo purpose.
+
+/* Usage for code display purpose only.
 // @cssRow
 // $table contain a column named 'sales'.
 $table->applyCssRow(function (string $id, object $row): Tw {

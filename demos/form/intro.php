@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
+use Fohn\Demos\CodeReader;
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Component\Form\Layout\Standard;
-use Fohn\Ui\Js\Jquery;
-use Fohn\Ui\Js\JsFunction;
-use Fohn\Ui\Js\JsToast;
 use Fohn\Ui\Service\Ui;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
+$codeReader = new CodeReader(__FILE__);
 
 $grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 
@@ -58,7 +56,7 @@ two callback functions that are fire when form is submit: one for validating the
 prior to retrieve these values for database saving purpose.';
 DemoApp::addParagraph(Ui::layout(), $text, false);
 
-/* Comment for code demo purpose.
+/* Usage for code display purpose only.
 // @controlCB
 $form = Form::addTo(Ui::layout);
 $name = $form->addControl(new Input(['controlName' => 'name']));
@@ -77,7 +75,7 @@ $text = 'Form controls also uses javascript onChange handlers via the <code clas
 control value as a parameter.';
 DemoApp::addParagraph(Ui::layout(), $text, false);
 
-/* Comment for code demo purpose.
+/* Usage for code display purpose only.
 // @controlChange
 // Changing html text on a view using the new control value.
 $name = $form->getControl('name');
@@ -94,7 +92,7 @@ is executed. The closure function receive the Form instance as parameter. Form i
 The closure function must return a JsRenderInterface containing javascript expressions which will be executed on the client browser.';
 DemoApp::addParagraph(Ui::layout(), $text, false);
 
-/* Comment for code demo purpose.
+/* Usage for code display purpose only.
 // @formSubmit
 $form->onSubmit(function (Form $f) {
     $values = $f->getControlValues();
@@ -113,7 +111,7 @@ Controller will look into an ORM Model and return form controls accordingly. The
  added to the form. As of now, Fohn-Ui support FormModelController for use with AgileToolkit Data ORM. (atk4/data).';
 DemoApp::addParagraph(Ui::layout(), $text, false);
 
-/*
+/* Usage for code display purpose only.
 // @formCtrl
 $modelCtrl = new \Atk\FormModelCtrl(new Country(Data::db()));
 $form = Form::addTo(Ui::layout());

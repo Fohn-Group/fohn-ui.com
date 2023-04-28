@@ -13,10 +13,7 @@ use Fohn\Ui\View\Heading\SectionHeader;
 
 require_once __DIR__ . '/../init-ui.php';
 
-// ////////////////////////
-// / SHELL
-// ///////////////////////
-
+// SHELL
 SectionHeader::addTo(Ui::layout(), ['title' => 'Console', 'subTitle' => 'Console can run on page load and/or when trigger by Javascript.'])
     ->setHeaderSize(2)->getHeaderView()->appendTailwind(Tw::textColor('info'));
 
@@ -36,10 +33,7 @@ $console->onRun(function (Console $console) use ($button) {
     $console->executeJavascript($button->enableUsingJavascript());
 });
 
-// ////////////////////////
-// / Class Method
-// ///////////////////////
-
+// Class Method
 $section = SectionHeader::addTo(Ui::layout(), ['title' => 'Execute class method.']);
 $section->setHeaderSize(4);
 $section->getHeaderView()->appendTailwind(Tw::textColor('info'));
@@ -55,10 +49,7 @@ $console->onRun(function (Console $console) use ($button) {
     $console->executeJavascript($button->enableUsingJavascript());
 });
 
-// ////////////////////////
-// / Exception
-// ///////////////////////
-
+// Exception
 SectionHeader::addTo(Ui::layout(), ['title' => 'Can catch exception.'])
     ->setHeaderSize(4)->getHeaderView()->appendTailwind(Tw::textColor('info'));
 $button = Button::addTo(Ui::layout(), ['type' => 'outline'])->setLabel('Re-run job');

@@ -20,13 +20,12 @@ $subtitles = [
 DemoApp::addPageHeaderTo($grid, 'Link/Button', $subtitles);
 DemoApp::addGithubButton($grid);
 
-// Demonstrates how to use links.
+// Link.
 $section = DemoApp::addInfoSection(Ui::layout(), 'Link:');
 Link::addTo($section)->setUrl(Ui::parseRequestUrl())->setTextContent('click here');
 
-// Demonstrates how to use buttons.
+// Contained
 $section = DemoApp::addInfoSection(Ui::layout(), 'Contained type:');
-
 $bar = View::addTo($section, ['defaultTailwind' => ['inline-block, my-4']]);
 
 Button::addTo($bar, ['label' => 'Primary']);
@@ -37,8 +36,10 @@ Button::addTo($bar, ['label' => 'Warning', 'color' => 'warning']);
 Button::addTo($bar, ['label' => 'Error', 'color' => 'error']);
 Button::addTo($bar, ['label' => 'Neutral', 'color' => 'neutral']);
 
+// Outline
 $section = DemoApp::addInfoSection(Ui::layout(), 'Outline type:');
 $bar = View::addTo($section, ['defaultTailwind' => ['inline-block, my-4']]);
+
 Button::addTo($bar, ['label' => 'Primary'])->setType('outline');
 Button::addTo($bar, ['label' => 'Secondary', 'color' => 'secondary'])->setType('outline');
 Button::addTo($bar, ['label' => 'Info', 'color' => 'info'])->setType('outline');
@@ -47,8 +48,10 @@ Button::addTo($bar, ['label' => 'Warning', 'color' => 'warning'])->setType('outl
 Button::addTo($bar, ['label' => 'Error', 'color' => 'error'])->setType('outline');
 Button::addTo($bar, ['label' => 'Neutral', 'color' => 'neutral'])->setType('outline');
 
+// Text
 $section = DemoApp::addInfoSection(Ui::layout(), 'Text type:');
 $bar = View::addTo($section, ['defaultTailwind' => ['inline-block, my-4']]);
+
 Button::addTo($bar, ['label' => 'Primary'])->setType('text');
 Button::addTo($bar, ['label' => 'Secondary', 'color' => 'secondary'])->setType('text');
 Button::addTo($bar, ['label' => 'Info', 'color' => 'info'])->setType('text');
@@ -57,29 +60,38 @@ Button::addTo($bar, ['label' => 'Warning', 'color' => 'warning'])->setType('text
 Button::addTo($bar, ['label' => 'Error', 'color' => 'error'])->setType('text');
 Button::addTo($bar, ['label' => 'Neutral', 'color' => 'neutral'])->setType('text');
 
+// Link
 $section = DemoApp::addInfoSection(Ui::layout(), 'Link type:');
 $bar = View::addTo($section, ['defaultTailwind' => ['inline-block, my-4']]);
+
 Button::addTo($bar, ['label' => 'Click Here'])->setType('link');
 
+// Icon
 $section = DemoApp::addInfoSection(Ui::layout(), 'Using icon:');
 $bar = View::addTo($section, ['defaultTailwind' => ['inline-block, my-4']]);
+
 Button::addTo($bar, ['label' => 'Home'])->addIcon(new Icon(['iconName' => 'bi-house-fill']));
 Button::addTo($bar, ['label' => 'Play', 'type' => 'outline', 'color' => 'info'])->addIcon(new Icon(['iconName' => 'bi-play-circle']), 'right');
 Button::addTo($bar, ['iconName' => 'bi-download']);
 
+// Size
 $section = DemoApp::addInfoSection(Ui::layout(), 'Button\'s Size :');
 $bar = View::addTo($section, ['defaultTailwind' => ['inline-block, my-4']]);
+
 Button::addTo($bar, ['label' => 'Tiny', 'color' => 'neutral'])->setSize('tiny');
 Button::addTo($bar, ['label' => 'Small', 'color' => 'neutral'])->setSize('small');
 Button::addTo($bar, ['label' => 'Normal', 'color' => 'neutral']);
 Button::addTo($bar, ['label' => 'Large', 'color' => 'neutral'])->setSize('large');
 
+// Shape
 $section = DemoApp::addInfoSection(Ui::layout(), 'Button\'s Shape:');
 $bar = View::addTo($section, ['defaultTailwind' => ['inline-block, my-4']]);
+
 Button::addTo($bar, ['iconName' => 'bi-house-fill'])->setShape('square');
 Button::addTo($bar, ['iconName' => 'bi-house-fill', 'color' => 'neutral'])->setShape('circle');
 Button::addTo($bar, ['label' => 'Rounded', 'color' => 'secondary'])->setShape('circle');
 
+// State
 $section = DemoApp::addInfoSection(Ui::layout(), 'Button\'s State:');
 $grid = DemoApp::addTwoColumnsResponsiveGrid($section)
     ->appendTailwinds(['text-center', 'place-items-center']);

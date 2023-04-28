@@ -44,8 +44,7 @@ Jquery::addEventTo($btn, 'click')
         $infoDialog->jsOpen(),
     ]);
 
-// // AS DIALOG
-
+// AS DIALOG
 DemoApp::addLineInfo($section, 'Modal can be used as dialog using callback events.');
 
 $confirm = AsDialog::addTo($section, ['title' => 'Confirm this action', 'isClosable' => false]);
@@ -71,8 +70,7 @@ Jquery::addEventTo($btn, 'click')
         $confirm->jsOpen(['message' => 'Are you sure ?']),
     ]);
 
-// / AS Form
-
+// AS Form
 DemoApp::addLineInfo($section, 'Modal can be use as a dialog containing a form.');
 
 $modelCtrl = new DemoFormModelCtrl(new Country(Data::db()));
@@ -109,8 +107,7 @@ Jquery::jqCallback($bar, 'click', function ($j, $payload) use ($modalForm, $mode
     return JsStatements::with($modalForm->jsOpenWithId(Js::var((string) $id)));
 }, ['name' => Jquery::withThis()->data('name')], '.fohn-btn');
 
-// / Dynamic
-
+// Dynamic
 DemoApp::addLineInfo($section, 'Modal can add content dynamically.');
 
 $modalDynamic = Modal::addTo(Ui::layout(), ['title' => 'Load on demand content.']);

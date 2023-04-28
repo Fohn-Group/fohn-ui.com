@@ -22,7 +22,6 @@ $grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 $subtitles = [
     'Demonstrate usage of custom html template for input control component.',
 ];
-
 DemoApp::addPageHeaderTo($grid, 'Form component hook.', $subtitles);
 DemoApp::addGithubButton($grid);
 

@@ -23,6 +23,9 @@ use Fohn\Ui\View\Heading\SectionHeader;
 
 class DemoApp
 {
+    /**
+     * Create a Page with navigation.
+     */
     public static function createPage(string $environment = 'production'): Page
     {
         /** @var Page $page */
@@ -41,7 +44,9 @@ class DemoApp
 
         $btn = Button::addTo($navigation->topBarContent, ['iconName' => 'bi bi-github', 'type' => 'text', 'size' => 'small', 'color' => 'info']);
         $btn->setLabel(' Fohn-Ui');
-        $btn->removeTailwind('text-blue-500')->appendTailwinds(['text-white', 'hover:text-blue-500']);
+        $btn->removeTailwind('text-blue-500')
+            ->removeTailwind('hover:bg-gray-200')
+            ->appendTailwinds(['text-white']);
         // @phpstan-ignore-next-line
         $js = JsChain::with(Ui::service()->jsLibrary)->utils()->browser()->windowOpen('https://github.com/fohn-group/fohn-ui');
         Jquery::addEventTo($btn, 'click')->execute($js);
@@ -94,10 +99,10 @@ class DemoApp
                 'url' => $baseUrl . 'demos/form/intro/',
                 'items' => [
                     new Item(['name' => 'Introduction', 'url' => $baseUrl . 'demos/form/intro/']),
-                    new Item(['name' => 'Basic Layout', 'url' => $baseUrl . 'demos/form/basic/']),
-                    new Item(['name' => 'Custom Layout', 'url' => $baseUrl . 'demos/form/layout/']),
+                    new Item(['name' => 'Standard Layout', 'url' => $baseUrl . 'demos/form/standard-layout/']),
+                    new Item(['name' => 'Custom Layout', 'url' => $baseUrl . 'demos/form/custom-layout/']),
                     new Item(['name' => 'Input Template', 'url' => $baseUrl . 'demos/form/input-template/']),
-                    new Item(['name' => 'Controls', 'url' => $baseUrl . 'demos/form/control/']),
+                    new Item(['name' => 'Controls', 'url' => $baseUrl . 'demos/form/controls/']),
                 ],
             ]),
             new Group([
@@ -118,6 +123,7 @@ class DemoApp
                     new Item(['name' => 'Modal', 'url' => $baseUrl . 'demos/interactive/modal/']),
                     new Item(['name' => 'Notification', 'url' => $baseUrl . 'demos/interactive/notification/']),
                     new Item(['name' => 'Virtual Page', 'url' => $baseUrl . 'demos/interactive/virtual-page/']),
+                    // todo fix demo server for console and sse.
                     //                    new Item(['name' => 'Server Side Event', 'url' => $baseUrl . 'demos/interactive/server-side-event/']),
                     //                    new Item(['name' => 'Console', 'url' => $baseUrl . 'demos/interactive/console/']),
                 ],
@@ -136,6 +142,9 @@ class DemoApp
         return $btn;
     }
 
+    /**
+     * Create Table caption view.
+     */
     public static function tableCaptionFactory(string $caption): View
     {
         return (new View([
@@ -167,7 +176,7 @@ class DemoApp
             ->appendTailwinds(['p-4', 'my-2', 'overflow-auto', 'rounded-lg', 'max-h-72', 'text-sm'])
             ->appendCssClasses('hljs');
 
-        return View::addTo($pre)->setHtmlTag('code')->appendTailwind('language-' . $language);
+        return View::addTo($pre)->setHtmlTag('code')->appendCssClasses('language-' . $language);
     }
 
     public static function addPageHeaderTo(View $view, string $title, array $subTitles = [], string $region = 'Content'): View
@@ -243,6 +252,9 @@ class DemoApp
         return $grid;
     }
 
+    /**
+     * Create Button that link to current demo page in GitHub.
+     */
     public static function addGithubButton(View $view, array $defaultTws = ['flex', 'sm:justify-end']): void
     {
         Code::addTo(View::addTo($view)->appendTailwinds($defaultTws))

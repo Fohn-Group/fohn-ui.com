@@ -28,3 +28,7 @@ parameters:
     checkMissingIterableValueType: false # TODO
 
     ignoreErrors:
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::ajax\(\)#'
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::jsOpenWindow\(\)#'
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::performMethod\(\)#'
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::format\(\)#'

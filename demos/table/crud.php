@@ -44,6 +44,7 @@ $section = DemoApp::addInfoSection(Ui::layout(), 'Table for CRUD operation:');
 $table = Table::addTo($section);
 $table->setCaption(DemoApp::tableCaptionFactory('Countries'));
 
+// Create edit and delete dialog.
 $editDialog = Modal\AsForm::addTo(Ui::layout(), ['title' => 'Edit Country']);
 $deleteDialog = Modal\AsDialog::addTo(Ui::layout(), ['title' => 'Confirm country deletion:']);
 
@@ -71,6 +72,7 @@ $form->onSubmit(function (Form $f, ?string $id) use ($modelCtrl, $editDialog, $t
     );
 });
 
+// Add columns to table.
 $table->addColumn('name', Table\Column\Generic::factory(['isSortable' => true]));
 $table->addColumn('iso', Table\Column\Generic::factory(['isSortable' => true])->alignText('center'));
 $table->addColumn('iso3', Table\Column\Generic::factory(['isSortable' => true])->alignText('center'));
@@ -83,7 +85,7 @@ $editActionFn = $table->addActionColumn('action', 'edit', DemoApp::tableBtnFacto
 // Add statements to the function. Function is execute on event set in addActionColumn.
 $editActionFn->executes($editDialog->jsOpenWithId(Js::var('cell.id')));
 
-// Add Delete action colmn to table.
+// Add Delete action column to table.
 $deleteActionFn = $table->addActionColumn('action', 'delete', DemoApp::tableBtnFactory('bi bi-x-circle-fill', 'error'));
 
 // Get the current field 'name' value using a javascript expression.
@@ -126,9 +128,9 @@ $table->onDataRequest(function (Table\Payload $payload, Table\Result\Set $result
 });
 
 // Use Ui::viewDump to inspect a rendered template of a view using a console display like for debugging.
-// Using url with dump args: /demos/collection/table-model.php?dump=table
+// Using url with dump args: /demos/table/crud.php?dump=table
 Ui::viewDump($table, 'table');
-// Using url with dump args: /demos/collection/table-model.php?dump=edit
+// Using url with dump args: /demos/table/crud.php?dump=edit
 Ui::viewDump($editDialog, 'edit');
-// Using url with dump args: /demos/collection/table-model.php?dump=delete
+// Using url with dump args: /demos/table/crud.php?dump=delete
 Ui::viewDump($deleteDialog, 'delete');
