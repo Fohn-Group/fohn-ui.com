@@ -9,7 +9,7 @@ use Fohn\Ui\View\Heading\SectionHeader;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$imgSrc = '../images/fohn-logo.png';
+$imgSrc = '/demos/images/fohn-logo.png';
 
 $grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 
