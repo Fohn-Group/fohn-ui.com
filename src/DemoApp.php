@@ -30,6 +30,7 @@ class DemoApp
     {
         /** @var Page $page */
         $page = Page::factory([
+            'template' => Ui::templateFromFile(__DIR__ . '/templates/demo-page.html'),
             'title' => 'Fohn-ui: ' . preg_replace('/\/demos\/|\.php/m', '', Ui::serverRequest()->getUri()->getPath()),
         ]);
 
@@ -57,7 +58,7 @@ class DemoApp
         /** @var SideNavigation $layout */
         $layout = $page->getLayout();
         // Add footer to this page.
-        $layout->addView(View::factory()->setTextContent('Made with Fohn - Ui'), 'footer');
+        $layout->addView(View::factory()->setTextContent('Made with Fohn - Ui (v1.2)'), 'footer');
 
         foreach (self::getNavigationGroup() as $group) {
             $layout->addNavigationGroup($group);
