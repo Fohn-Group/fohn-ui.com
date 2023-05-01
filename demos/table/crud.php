@@ -77,7 +77,7 @@ $form->onSubmit(function (Form $f, ?string $id) use ($modelCtrl, $editDialog, $t
 });
 
 // Add columns to table.
-$table->addColumn('name', Table\Column\Html::factory(['isSortable' => true]));
+$table->addColumn('name', Table\Column\Html::factory(['isSortable' => true]))->appendTailwinds(['w-52']);
 
 $table->addColumn('flag', Table\Column\Html::factory())->alignText('center');
 $table->getTableColumn('flag')->formatValue(function ($col, $value) {
