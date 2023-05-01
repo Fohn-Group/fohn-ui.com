@@ -32,6 +32,7 @@ $grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 $subtitles = [
     'Display, edit and delete country record.',
     'Use Paginator, Search and Sortable columns.',
+    'Table will restore its state on refresh.',
 ];
 DemoApp::addPageHeaderTo($grid, 'Table component using Country model', $subtitles);
 DemoApp::addGithubButton($grid);
@@ -43,6 +44,9 @@ $section = DemoApp::addInfoSection(Ui::layout(), 'Table for CRUD operation:');
 
 $table = Table::addTo($section);
 $table->setCaption(DemoApp::tableCaptionFactory('Countries'));
+View::addTo(Ui::layout())
+    ->setTextContent('Flag provided by: <a href="https://flagpedia.net" target="_blank">flagpedia</a>', false)
+    ->appendTailwinds(['float-right italic text-sm -mt-1']);
 
 // Create edit and delete dialog.
 $editDialog = Modal\AsForm::addTo(Ui::layout(), ['title' => 'Edit Country']);
@@ -73,7 +77,13 @@ $form->onSubmit(function (Form $f, ?string $id) use ($modelCtrl, $editDialog, $t
 });
 
 // Add columns to table.
-$table->addColumn('name', Table\Column\Generic::factory(['isSortable' => true]));
+$table->addColumn('name', Table\Column\Html::factory(['isSortable' => true]));
+
+$table->addColumn('flag', Table\Column\Html::factory())->alignText('center');
+$table->getTableColumn('flag')->formatValue(function ($col, $value) {
+    return "<div class='grid place-items-center'><img src='https://flagcdn.com/24x18/{$value}.png'></div>";
+});
+
 $table->addColumn('iso', Table\Column\Generic::factory(['isSortable' => true])->alignText('center'));
 $table->addColumn('iso3', Table\Column\Generic::factory(['isSortable' => true])->alignText('center'));
 $table->addColumn('numcode', Table\Column\Integer::factory());
@@ -124,7 +134,10 @@ $table->onDataRequest(function (Table\Payload $payload, Table\Result\Set $result
     $country->setLimit($payload->ipp, ($payload->page - 1) * $payload->ipp);
 
     $result->totalItems = (int) $country->action('count')->getOne();
-    $result->dataSet = $country->export();
+    foreach ($country->export() as $k => $row) {
+        $result->dataSet[$k] = $row;
+        $result->dataSet[$k]['flag'] = strtolower($row['iso']);
+    }
 });
 
 // Use Ui::viewDump to inspect a rendered template of a view using a console display like for debugging.

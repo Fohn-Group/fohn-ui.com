@@ -21,6 +21,7 @@ $currencies = [
     'fr_CA' => 'CAD',
     'en_GB' => 'EUR',
     'de_DE' => 'EUR',
+    'it_IT' => 'EUR',
 ];
 
 $locales = [
@@ -28,6 +29,7 @@ $locales = [
     'fr_CA' => 'Français (CA)',
     'en_GB' => 'English (GB)',
     'de_DE' => 'Dutch (DE)',
+    'it_IT' => 'Italiano (IT)',
 ];
 
 $grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
@@ -41,13 +43,13 @@ DemoApp::addGithubButton($grid);
 $section = DemoApp::addInfoSection(Ui::layout(), 'Table using custom format value for columns:');
 
 $select = Select::addTo($section, ['controlName' => 'loc_select', 'allowNull' => false, 'caption' => 'Select locale for displaying data:']);
-$select->setItems($locales)->appendTailwind('w-1/2');
-$select->onChange(JsFunction::arrow([Js::var('e')])->executes([
-    Ui::jsRedirect(Ui::parseRequestUrl(), ['loc' => Js::var('e')]),
-]));
+$select->setItems($locales)->appendTailwind('md:w-1/2');
 
 $table = Table::addTo($section, ['hasTableSearch' => false, 'hasPaginator' => false]);
 $table->setCaption(DemoApp::tableCaptionFactory('Sales Report'));
+$select->onChange(JsFunction::arrow([Js::var('selectLocale')])->executes([
+    $table->jsDataRequest(['loc' => Js::var('selectLocale')]),
+]));
 
 // Locale get argument to table callback.
 $locale = $table->stickyGet('loc', 'en_US');
