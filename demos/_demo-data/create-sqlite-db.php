@@ -6,7 +6,7 @@ use Atk4\Data\Model;
 use Atk4\Data\Persistence;
 use Atk4\Data\Schema\Migrator;
 
-require_once __DIR__ . '/../init-autoloader.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 $sqliteFile = __DIR__ . '/db.sqlite';
 if (file_exists($sqliteFile)) {
@@ -14,16 +14,6 @@ if (file_exists($sqliteFile)) {
 }
 /** @var Persistence\Sql $db */
 $db = new Persistence\Sql('sqlite:' . $sqliteFile);
-
-// $model = new Model($db, ['table' => 'client']);
-// $model->addField('name', ['type' => 'string']);
-// $model->addField('addresses', ['type' => 'text']);
-// $model->addField('accounts', ['type' => 'text']);
-// (new Migrator($model))->create();
-// $model->import([
-//    ['id' => 1, 'name' => 'John', 'addresses' => null, 'accounts' => null],
-//    ['id' => 2, 'name' => 'Jane', 'addresses' => null, 'accounts' => null],
-// ]);
 
 $model = new Model($db, ['table' => 'test_field']);
 $model->addField('first_name', ['type' => 'string']);
@@ -288,7 +278,6 @@ $model->import([
     ['id' => 238, 'iso' => 'ZM', 'name' => 'ZAMBIA', 'nicename' => 'Zambia', 'iso3' => 'ZMB', 'numcode' => 894, 'phonecode' => 260],
     ['id' => 239, 'iso' => 'ZW', 'name' => 'ZIMBABWE', 'nicename' => 'Zimbabwe', 'iso3' => 'ZWE', 'numcode' => 716, 'phonecode' => 263],
     ['id' => 240, 'iso' => 'RS', 'name' => 'SERBIA', 'nicename' => 'Serbia', 'iso3' => 'SRB', 'numcode' => 688, 'phonecode' => 381],
-    ['id' => 241, 'iso' => 'AP', 'name' => 'ASIA PACIFIC REGION', 'nicename' => 'Asia / Pacific Region', 'iso3' => '---', 'numcode' => -1, 'phonecode' => -1],
     ['id' => 242, 'iso' => 'ME', 'name' => 'MONTENEGRO', 'nicename' => 'Montenegro', 'iso3' => 'MNE', 'numcode' => 499, 'phonecode' => 382],
     ['id' => 243, 'iso' => 'AX', 'name' => 'ALAND ISLANDS', 'nicename' => 'Aland Islands', 'iso3' => 'ALA', 'numcode' => 248, 'phonecode' => 358],
     ['id' => 244, 'iso' => 'BQ', 'name' => 'BONAIRE, SINT EUSTATIUS AND SABA', 'nicename' => 'Bonaire, Sint Eustatius and Saba', 'iso3' => 'BES', 'numcode' => 535, 'phonecode' => 599],
