@@ -507,16 +507,16 @@
         },
         {
             "name": "fohn-group/fohn-ui",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Fohn-Group/fohn-ui.git",
-                "reference": "64f04c12e1bfa5f74a900b09a21ac7c00da5be12"
+                "reference": "780ee538ad746630beeb0a0328e9a3347d55609b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Fohn-Group/fohn-ui/zipball/64f04c12e1bfa5f74a900b09a21ac7c00da5be12",
-                "reference": "64f04c12e1bfa5f74a900b09a21ac7c00da5be12",
+                "url": "https://api.github.com/repos/Fohn-Group/fohn-ui/zipball/780ee538ad746630beeb0a0328e9a3347d55609b",
+                "reference": "780ee538ad746630beeb0a0328e9a3347d55609b",
                 "shasum": ""
             },
             "require": {
@@ -582,9 +582,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Fohn-Group/fohn-ui/issues",
-                "source": "https://github.com/Fohn-Group/fohn-ui/tree/1.2.0"
+                "source": "https://github.com/Fohn-Group/fohn-ui/tree/1.2.1"
             },
-            "time": "2023-05-01T19:16:21+00:00"
+            "time": "2023-05-01T20:32:39+00:00"
         },
         {
             "name": "fzaninotto/faker",
