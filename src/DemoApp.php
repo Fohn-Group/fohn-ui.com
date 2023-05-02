@@ -58,7 +58,7 @@ class DemoApp
         /** @var SideNavigation $layout */
         $layout = $page->getLayout();
         // Add footer to this page.
-        $layout->addView(View::factory()->setTextContent('Made with Fohn - Ui (v1.2.1)'), 'footer');
+        $layout->addView(View::factory()->setTextContent('Made with Fohn - Ui (v1.2.2)'), 'footer');
 
         foreach (self::getNavigationGroup() as $group) {
             $layout->addNavigationGroup($group);
