@@ -79,12 +79,15 @@ $container = View::addTo($section)->appendTailwinds(['grid', 'place-content-cent
 Ui::page()->includeJsPackage('dayjs', 'https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js');
 
 $clock = View::addTo($container)->appendTailwinds(['bg-blue-700', 'shadow-lg', 'font-bold', 'text-white', 'text-xl', 'text-center', 'p-4', 'w-48', 'rounded-full', 'tracking-widest']);
-$getDayJsDate = JsChain::with('dayjs()')->format('HH:mm:ss');
+// Use Js::var('') to start a chain with a function call with no parameter: "dayjs()".
+$getDayJsDate = JsChain::with('dayjs', Js::var(''))->format('HH:mm:ss');
 $fn = JsFunction::anonymous()->execute(Jquery::withView($clock)->text($getDayJsDate));
 $useInterval = Js::from('setInterval({{fn}}, 1000)', ['fn' => $fn]);
 
 Ui::page()->appendJsAction($useInterval);
 // @end_dayjs
-Jquery::onDocumentReady($clock)->text(JsChain::with('dayjs()')->format('HH:mm:ss'));
+Jquery::onDocumentReady($clock)->text(JsChain::with('dayjs', Js::var(''))->format('HH:mm:ss'));
 DemoApp::addLineInfo($section, 'Code:');
 DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('dayjs'));
+DemoApp::addLineInfo($section, 'Rendered javascript:');
+DemoApp::addCodeConsole($section, 'javascript')->setTextContent($useInterval->jsRender());
