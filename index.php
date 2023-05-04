@@ -7,11 +7,17 @@ declare(strict_types=1);
 
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\App;
+use Fohn\Ui\Component\Form;
+use Fohn\Ui\Component\Form\Control\Input;
+use Fohn\Ui\Component\Form\Control\Password;
+use Fohn\Ui\Js\JsStatements;
+use Fohn\Ui\Js\JsToast;
 use Fohn\Ui\PageException;
 use Fohn\Ui\Service\Ui;
 use Fohn\Ui\View;
 
 require_once __DIR__ . '/vendor/autoload.php';
+$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
 
 Ui::service()->boot(function (Ui $ui) {
     $config = loadConfig();
@@ -24,7 +30,7 @@ Ui::service()->boot(function (Ui $ui) {
     $ui->setExceptionHandler(PageException::factory());
     // Set demos page.
     $page = \Fohn\Ui\Page::factory([
-        'title' => 'Fohn-Ui - The php framework.',
+        'title' => 'Fohn-Ui - The php framework that help you built beautiful Web application with ease.',
         'template' => Ui::templateFromFile(__DIR__ . '/src/templates/landing-page.html'),
     ]);
     $page->addLayout(\Fohn\Ui\PageLayout\Layout::factory(['template' => Ui::templateFromFile(__DIR__ . '/src/templates/landing-page-layout.html')]));
@@ -46,7 +52,7 @@ function loadConfig(): array
 }
 
 $heroTitle = 'Web Application made easy';
-$heroText = 'The PHP framework that works with <a href="https://tailwindcss.com" class="text-purple-700" target="_blank">Tailwind CSS</a>. Build powerful web application and style it like a pro!';
+$heroText = 'The open source PHP framework that works with <a href="https://tailwindcss.com" class="text-purple-700" target="_blank">Tailwind CSS</a>. Build powerful web application and style it like a pro!';
 $heroLinkLabel = 'Learn More';
 $heroLinkUrl = '/demos/intro/about/';
 $heroImgSrc = '/public/images/happy-developer-team.jpg';
@@ -60,29 +66,114 @@ $heroSection->getTemplate()->set('heroLinkLabel', $heroLinkLabel);
 $heroSection->getTemplate()->set('heroLinkUrl', $heroLinkUrl);
 $heroSection->getTemplate()->set('heroImgSrc', $heroImgSrc);
 
-$featureCtn = View::addTo(Ui::layout())->appendTailwinds(['relative', 'pt-32', 'md:pt-44']);
+// VIEWS
+$featureCtn = View::addTo(Ui::layout())->appendTailwinds(['relative', 'pt-24', 'md:pt-32']);
 $featureSection = View::addTo($featureCtn)->appendTailwinds(['mx-4', 'md:mx-auto', 'md:w-3/5']);
+View\Heading\Header::addTo($featureSection, ['size' => 2, 'title' => 'Built-In Ui Views'])
+                   ->appendTailwinds(['text-center', 'text-3xl', 'font-bold', 'text-gray-900', 'dark:text-white', 'md:text-4xl', 'lg:text-5xl']);
 
-View\Heading\Header::addTo($featureSection, ['size' => 2, 'title' => 'Views'])
-    ->appendTailwinds(['text-center', 'text-3xl', 'font-bold', 'text-gray-900', 'dark:text-white', 'md:text-4xl', 'lg:text-5xl']);
-
-
-$viewFeatureTxt = View::addTo($featureSection, ['htmlTag' => 'p'])
-    ->setTextContent('Fohn-Ui comes with predefined Views. <br>Including them to the html page is as easy as:', false)
+$viewFeatureTxt = View::addTo($featureSection, ['htmlTag' => 'p'],)
+    ->setTextContent('Fohn-Ui comes with out-of-the-box, ready to use, views.', false)
     ->appendTailwinds(['mt-4', 'text-center', 'text-gray-600', 'dark:text-gray-300']);
 
-DemoApp::addCodeConsole($featureSection)
-    ->appendTailwinds(['mt-4'])
+$grid = View::addTo(Ui::layout(), ['template' => Ui::templateFromFile(__DIR__ . '/src/templates/feature-grid.html')]);
+
+$viewList = [
+    ['name' => 'Button'],
+    ['name' => 'Header'],
+    ['name' => 'List'],
+    ['name' => 'Message'],
+    ['name' => 'Tag'],
+    ['name' => 'and more...'],
+];
+View::addTo($grid, ['htmlTag' => 'p'], 'right')->setTextContent('Some Views included with Fohn-Ui:');
+View\HtmlList::addTo($grid, [], 'right')->setItems($viewList)->appendTailwind('m-4');
+View::addTo($grid, ['htmlTag' => 'p'], 'right')->setTextContent('Plus, it is easy to create your own.');
+
+$gridItem = View::addTo($grid, ['template' => Ui::templateFromFile(__DIR__ . '/src/templates/feature-grid-items.html')], 'left');
+
+View::addTo($gridItem)->setTextContent('Including them to the html page is as easy as:');
+DemoApp::addCodeConsole($gridItem)
     ->setTextContent('Button::addTo(Ui::layout())->setLabel(\'Click Me\')');
 
-$bar = View::addTo($featureSection)->appendTailwind('flex flex-row');
+$bar = View::addTo($gridItem)->appendTailwind('flex flex-row mt-8');
 View\Button::addTo($bar)->setLabel('Click Me')->removeTailwind('mx-2')->appendTailwind('mx-auto');
 
+// THEME
 
-//$main = View::addTo(Ui::layout())->appendTailwinds(['relative', 'overflow-hidden', 'dark:bg-darker', 'lg:overflow-auto']);
-//$grCtn = View::addTo($main)->appendTailwinds(['absolute', 'inset-x-0', 'top-32', 'lg:hidden']);
-//$grCols = View::addTo($grCtn)->appendTailwinds(['grid grid-cols-2', '-space-x-52', 'opacity-50', 'dark:opacity-60', '2xl:mx-auto', '2xl:max-w-6xl']);
-//View::addTo($grCols)->appendTailwinds(['h-60', 'bg-gradient-to-br', 'from-purple-700', 'to-purple-400',  'blur-3xl', 'dark:from-blue-700']);
-//View::addTo($grCols)->appendTailwinds(['h-72', 'rounded-full', 'bg-gradient-to-r', 'from-cyan-400', 'to-sky-300', 'blur-3xl', 'dark:from-transparent', 'dark:to-indigo-600']);
-//
-//$mainConetnt = View::addTo($main)->appendTailwinds(['mx-auto', 'max-w-6xl', 'px-6', 'md:px-12', 'lg:px-6', 'xl:px-0']);
+$featureCtn = View::addTo(Ui::layout())->appendTailwinds(['relative', 'pt-24', 'md:pt-32']);
+$featureSection = View::addTo($featureCtn)->appendTailwinds(['mx-4', 'md:mx-auto', 'md:w-3/5']);
+View\Heading\Header::addTo($featureSection, ['size' => 2, 'title' => 'Themable in PHP'])
+                   ->appendTailwinds(['text-center', 'text-3xl', 'font-bold', 'text-gray-900', 'dark:text-white', 'md:text-4xl', 'lg:text-5xl']);
+
+$viewFeatureTxt = View::addTo($featureSection, ['htmlTag' => 'p'],)
+                      ->setTextContent('Thanks to Tailwind Css utilities framework, theme can be built with only using PHP.', false)
+                      ->appendTailwinds(['mt-4', 'text-center', 'text-gray-600', 'dark:text-gray-300']);
+
+$grid = View::addTo(Ui::layout(), ['template' => Ui::templateFromFile(__DIR__ . '/src/templates/feature-grid.html')])
+    ->appendTailwind('md:flex-row-reverse');
+
+View::addTo($grid, ['htmlTag' => 'p'], 'right')
+    ->appendTailwind('w-1/2')
+    ->setTextContent('View are styled using a theme and theme can be extend, modified or created..');
+
+$gridItem = View::addTo($grid, ['template' => Ui::templateFromFile(__DIR__ . '/src/templates/feature-grid-items.html')], 'left');
+
+DemoApp::addCodeConsole($gridItem)
+       ->setTextContent('Ui::theme()::styleAs(\'Button\', [$btn])');
+
+// COMPONENT
+
+$featureCtn = View::addTo(Ui::layout())->appendTailwinds(['relative', 'pt-24', 'md:pt-32']);
+$featureSection = View::addTo($featureCtn)->appendTailwinds(['mx-4', 'md:mx-auto', 'md:w-3/5']);
+View\Heading\Header::addTo($featureSection, ['size' => 2, 'title' => 'View as Component'])
+                   ->appendTailwinds(['text-center', 'text-3xl', 'font-bold', 'text-gray-900', 'dark:text-white', 'md:text-4xl', 'lg:text-5xl']);
+
+$viewFeatureTxt = View::addTo($featureSection, ['htmlTag' => 'p'],)
+                      ->setTextContent('Some views are defined as Vue.js renderless component, i.e. the template is provide by Fohn-Ui while the behavior is control by Vue.js',)
+                      ->appendTailwinds(['mt-4', 'text-center', 'text-gray-600', 'dark:text-gray-300']);
+
+$grid = View::addTo(Ui::layout(), ['template' => Ui::templateFromFile(__DIR__ . '/src/templates/feature-grid.html')]);
+
+$form = Form::addTo($grid, [], 'right');
+$form->appendTailwinds(['border', 'rounded-3xl', 'border-gray-200', 'px-4', 'py-2']);
+$form->addHeader(View::factory()->setTextContent('Sign in Form:'));
+$form->addControl(Input::factory(['controlName' => 'email', 'inputType' => 'email', 'placeholder' => 'Email']));
+$form->addControl(Password::factory(['controlName' => 'password', 'placeholder' => 'Password']));
+$form->getControl('password')->onValidate(function($value) {
+    $error = null;
+   if (strlen($value) < 8) {
+       $error = 'Password must be at least 8 characters.';
+   }
+   return $error;
+});
+
+$form->onSubmit(function ($form) {
+   return JsStatements::with([JsToast::success('Thanks you!')]);
+});
+
+/* Add this code to console.
+// @form
+$form = Form::addTo(Ui::layout(), [], 'right');
+$form->addControl(Input::factory(['controlName' => 'email', 'inputType' => 'email', 'placeholder' => 'Email']));
+$form->addControl(Password::factory(['controlName' => 'password', 'placeholder' => 'Password']));
+$form->getControl('password')->onValidate(function($value) {
+    $error = null;
+   if (strlen($value) < 8) {
+       $error = 'Password must be at least 8 characters.';
+   }
+   return $error;
+});
+
+$form->onSubmit(function ($form) {
+   return JsStatements::with([JsToast::success('Thanks you!')]);
+});
+// @end_form
+ */
+
+$gridItem = View::addTo($grid, ['template' => Ui::templateFromFile(__DIR__ . '/src/templates/feature-grid-items.html')], 'left');
+
+$v = View::addTo($gridItem)->appendTailwinds(['flex', 'w-1/2', 'mx-auto']);
+DemoApp::addCodeConsole($v)
+       ->setTextContent($codeReader->extractCode('form'));
+
