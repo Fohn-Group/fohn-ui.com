@@ -34,10 +34,10 @@ class DemoApp
             'title' => 'Fohn-ui: ' . preg_replace('/\/demos\/|\.php/m', '', Ui::serverRequest()->getUri()->getPath()),
         ]);
 
-        if ($environment === 'dev') {
-            $page->includeJsPackage('fohn-js', '/public/fohn-ui.js');
-            $page->includeCssPackage('fohn-css', '/public/fohn-ui.css');
-        }
+//        if ($environment === 'dev') {
+//            $page->includeJsPackage('fohn-js', '/public/fohn-ui.js');
+//            $page->includeCssPackage('fohn-css', '/public/fohn-ui.css');
+//        }
 
         /** @var SideNavigation $navigation */
         $navigation = SideNavigation::factory(['topBarTitle' => 'Fohn-Ui Demo']);

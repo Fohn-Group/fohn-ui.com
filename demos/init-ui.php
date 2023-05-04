@@ -26,6 +26,7 @@ Ui::service()->boot(function (Ui $ui) {
     $ui->setExceptionHandler(PageException::factory());
     // Set demos page.
     $page = \Fohn\Demos\DemoApp::createPage($ui->environment);
+    $page->includeCssPackage('fohh-css', $config['css']);
     $page->getLayout()->appendTailwind('bg-gray-100');
     $ui->initAppPage($page);
 });
