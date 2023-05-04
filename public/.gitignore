@@ -1,6 +1,0 @@
-*
-!/.gitignore
-!/fohn-ui.min.js
-!/vendors.min.js
-!/fohn-vue-*.min.js
-!/fohn-tailwind.min.css

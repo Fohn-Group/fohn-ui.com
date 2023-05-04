@@ -15,3 +15,5 @@ phpstan.neon
 phpunit.xml
 phpunit-*.xml
 behat.yml
+
+public/fohn-ui.js.map
