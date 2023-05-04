@@ -34,11 +34,6 @@ class DemoApp
             'title' => 'Fohn-ui: ' . preg_replace('/\/demos\/|\.php/m', '', Ui::serverRequest()->getUri()->getPath()),
         ]);
 
-        if ($environment === 'dev') {
-            $page->includeJsPackage('fohn-js', '/public/fohn-ui.js');
-            $page->includeCssPackage('fohn-css', '/public/fohn-ui.css');
-        }
-
         /** @var SideNavigation $navigation */
         $navigation = SideNavigation::factory(['topBarTitle' => 'Fohn-Ui Demo']);
         $navigation->invokeInitRenderTree();
@@ -174,7 +169,7 @@ class DemoApp
         }
 
         $pre = View::addTo($view)->setHtmlTag('pre')
-            ->appendTailwinds(['p-4', 'my-2', 'overflow-auto', 'rounded-lg', 'max-h-72', 'text-sm'])
+            ->appendTailwinds(['my-2', 'overflow-auto', 'rounded-lg', 'max-h-72', 'text-sm'])
             ->appendCssClasses('hljs');
 
         return View::addTo($pre)->setHtmlTag('code')->appendCssClasses('language-' . $language);

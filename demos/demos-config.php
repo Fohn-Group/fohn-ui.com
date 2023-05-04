@@ -10,6 +10,7 @@ use Atk4\Data\Persistence\Sql;
 
 return [
     'env' => \Fohn\Ui\Service\Ui::PROD_ENV,
+    'css' => '/public/fohn-ui.com.min.css',
     'templateDir' => [dirname(__DIR__) . \DIRECTORY_SEPARATOR . 'template' . \DIRECTORY_SEPARATOR . 'tailwind'],
     'timezone' => 'America/Toronto',
     'locale' => 'en_CA',
