@@ -5,6 +5,7 @@
  */
 declare(strict_types=1);
 
+use Fohn\Demos\CodeReader;
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\App;
 use Fohn\Ui\Component\Form;
@@ -13,11 +14,12 @@ use Fohn\Ui\Component\Form\Control\Password;
 use Fohn\Ui\Js\JsStatements;
 use Fohn\Ui\Js\JsToast;
 use Fohn\Ui\PageException;
+use Fohn\Ui\PageLayout\Layout;
 use Fohn\Ui\Service\Ui;
 use Fohn\Ui\View;
 
 require_once __DIR__ . '/vendor/autoload.php';
-$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
+$codeReader = new CodeReader(__FILE__);
 
 Ui::service()->boot(function (Ui $ui) {
     $config = loadConfig();
@@ -30,10 +32,10 @@ Ui::service()->boot(function (Ui $ui) {
     $ui->setExceptionHandler(PageException::factory());
     // Set demos page.
     $page = \Fohn\Ui\Page::factory([
-        'title' => 'Fohn-Ui - The php framework that help you built beautiful Web application with ease.',
+        'title' => 'Fohn-Ui - A PHP framework using Tailwind css.',
         'template' => Ui::templateFromFile(__DIR__ . '/src/templates/landing-page.html'),
     ]);
-    $page->addLayout(\Fohn\Ui\PageLayout\Layout::factory(['template' => Ui::templateFromFile(__DIR__ . '/src/templates/landing-page-layout.html')]));
+    $page->addLayout(Layout::factory(['template' => Ui::templateFromFile(__DIR__ . '/src/templates/landing-page-layout.html')]));
     $page->includeCssPackage('fohn-css', $config['css']);
     $ui->initAppPage($page);
 });
