@@ -26,6 +26,15 @@
     {$includeJs}
     {$includeCss}
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8KLER96GMM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-8KLER96GMM');
+</script>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
 {$Content}
 <div class="fohn-side-panels">{$RightPanel}</div>
