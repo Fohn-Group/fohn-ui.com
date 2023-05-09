@@ -75,7 +75,7 @@ View\Heading\Header::addTo($featureSection, ['size' => 2, 'title' => 'Built-In U
                    ->appendTailwinds(['text-center', 'text-3xl', 'font-bold', 'md:text-4xl', 'lg:text-5xl']);
 
 $viewFeatureTxt = View::addTo($featureSection, ['htmlTag' => 'p'],)
-    ->setTextContent('Fohn-Ui comes with out-of-the-box, ready to use, views.', false)
+    ->setTextContent('Fohn-Ui comes with out-of-the-box, ready to use, views.')
     ->appendTailwinds(['mt-4', 'text-center']);
 
 $grid = View::addTo(Ui::layout(), ['template' => Ui::templateFromFile(__DIR__ . '/src/templates/feature-grid.html')]);
