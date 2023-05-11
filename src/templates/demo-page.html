@@ -11,10 +11,6 @@
   {$head}
   {$includeCss}
 </head>
-<body class="{$classAttr}">{$Content}
-<div id="fohn-toast"></div>
-<div id="fohn-modals"></div>
-<div id="fohn-exception-dialog" class="invisible"></div>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KLER96GMM"></script>
 <script>
@@ -24,6 +20,10 @@
 
   gtag('config', 'G-8KLER96GMM');
 </script>
+<body class="{$classAttr}">{$Content}
+<div id="fohn-toast"></div>
+<div id="fohn-modals"></div>
+<div id="fohn-exception-dialog" class="invisible"></div>
 {$includeJs}
 <script type="application/javascript">{$documentReady}</script>
 </body>
