@@ -139,7 +139,7 @@ $grid = View::addTo(Ui::layout(), ['template' => Ui::templateFromFile(__DIR__ . 
 
 $form = Form::addTo($grid, [], 'right');
 $form->appendTailwinds(['border', 'rounded-3xl', 'border-gray-200', 'px-4', 'py-2', 'bg-white']);
-$form->addHeader(View::factory()->setTextContent('Sign in Form:')->appendTailwind('text-gray-800'));
+$form->addHeader(View::factory()->setTextContent('Form component sample:')->appendTailwind('text-gray-800'));
 $form->addControl(Input::factory(['controlName' => 'email', 'inputType' => 'email', 'placeholder' => 'Email']));
 $form->addControl(Password::factory(['controlName' => 'password', 'placeholder' => 'Password']));
 $form->getControl('password')->onValidate(function($value) {
