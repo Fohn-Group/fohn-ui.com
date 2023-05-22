@@ -136,10 +136,12 @@ $viewFeatureTxt = View::addTo($featureSection, ['htmlTag' => 'p'])
     ->appendTailwinds(['mt-4', 'text-center']);
 
 $grid = View::addTo(Ui::layout(), ['template' => Ui::templateFromFile(__DIR__ . '/src/templates/feature-grid.html')]);
+$formContainer = View::addTo($grid, [], 'right')->appendTailwinds(['border', 'rounded-3xl', 'border-gray-300', 'px-4', 'py-2']);
 
-$form = Form::addTo($grid, [], 'right');
-$form->appendTailwinds(['border', 'rounded-3xl', 'border-gray-200', 'px-4', 'py-2', 'bg-white']);
-$form->addHeader(View::factory()->setTextContent('Form component sample:')->appendTailwind('text-gray-800'));
+// @form
+$form = Form::addTo($formContainer);
+$form->getSubmitButton()->setLabel('Sign In');
+$form->addHeader(View::factory()->setTextContent('Form component sample:'));
 $form->addControl(Input::factory(['controlName' => 'email', 'inputType' => 'email', 'placeholder' => 'Email']));
 $form->addControl(Password::factory(['controlName' => 'password', 'placeholder' => 'Password']));
 $form->getControl('password')->onValidate(function ($value) {
@@ -154,25 +156,7 @@ $form->getControl('password')->onValidate(function ($value) {
 $form->onSubmit(function ($form) {
     return JsStatements::with([JsToast::success('Thanks you!')]);
 });
-
-/* Add this code to console.
-// @form
-$form = Form::addTo(Ui::layout(), [], 'right');
-$form->addControl(Input::factory(['controlName' => 'email', 'inputType' => 'email', 'placeholder' => 'Email']));
-$form->addControl(Password::factory(['controlName' => 'password', 'placeholder' => 'Password']));
-$form->getControl('password')->onValidate(function($value) {
-    $error = null;
-   if (strlen($value) < 8) {
-       $error = 'Password must be at least 8 characters.';
-   }
-   return $error;
-});
-
-$form->onSubmit(function ($form) {
-   return JsStatements::with([JsToast::success('Thanks you!')]);
-});
 // @end_form
- */
 
 $gridItem = View::addTo($grid, ['template' => Ui::templateFromFile(__DIR__ . '/src/templates/feature-grid-items.html')], 'left');
 
