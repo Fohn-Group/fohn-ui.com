@@ -507,16 +507,16 @@
         },
         {
             "name": "fohn-group/fohn-ui",
-            "version": "1.3.1",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Fohn-Group/fohn-ui.git",
-                "reference": "4f8d8cb41e3f3bbf6f0f75bf9914da5eae5f7598"
+                "reference": "314182d1cef73390393fb92be585183515606178"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Fohn-Group/fohn-ui/zipball/4f8d8cb41e3f3bbf6f0f75bf9914da5eae5f7598",
-                "reference": "4f8d8cb41e3f3bbf6f0f75bf9914da5eae5f7598",
+                "url": "https://api.github.com/repos/Fohn-Group/fohn-ui/zipball/314182d1cef73390393fb92be585183515606178",
+                "reference": "314182d1cef73390393fb92be585183515606178",
                 "shasum": ""
             },
             "require": {
@@ -543,7 +543,7 @@
                 "phpstan/phpstan": "^1.0",
                 "phpstan/phpstan-deprecation-rules": "^1.0",
                 "phpunit/phpcov": "*",
-                "phpunit/phpunit": "^9.5.5",
+                "phpunit/phpunit": "^9.6",
                 "symfony/process": "^4.4 || ^5.0"
             },
             "type": "library",
@@ -582,9 +582,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Fohn-Group/fohn-ui/issues",
-                "source": "https://github.com/Fohn-Group/fohn-ui/tree/1.3.1"
+                "source": "https://github.com/Fohn-Group/fohn-ui/tree/1.4.0"
             },
-            "time": "2023-05-31T17:10:56+00:00"
+            "time": "2023-06-27T14:16:14+00:00"
         },
         {
             "name": "fzaninotto/faker",

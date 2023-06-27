@@ -99,6 +99,7 @@ class DemoApp
                     new Item(['name' => 'Custom Layout', 'url' => $baseUrl . 'demos/form/custom-layout/']),
                     new Item(['name' => 'Input Template', 'url' => $baseUrl . 'demos/form/input-template/']),
                     new Item(['name' => 'Controls', 'url' => $baseUrl . 'demos/form/controls/']),
+                    new Item(['name' => 'Control Validation', 'url' => $baseUrl . 'demos/form/control-validation/']),
                 ],
             ]),
             new Group([

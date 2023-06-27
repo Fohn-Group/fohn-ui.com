@@ -62,7 +62,7 @@ View\HtmlList::addTo($segment, ['style' => '[upper-roman]'])->setItems(factoryPe
 
 $segment = View\Segment::addTo($gridLayout);
 View\Heading\Header::addTo($segment, ['title' => 'None', 'size' => 5]);
-View\HtmlList::addTo($segment, ['style' => 'non'])->setItems(factoryPeople(6));
+View\HtmlList::addTo($segment, ['style' => 'none'])->setItems(factoryPeople(6));
 
 // CUSTOM TEMPLATE
 $section = DemoApp::addInfoSection(Ui::layout(), 'Using custom template.');

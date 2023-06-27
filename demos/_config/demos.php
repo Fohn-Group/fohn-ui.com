@@ -11,8 +11,9 @@ use Atk4\Data\Persistence\Sql;
 return [
     'env' => \Fohn\Ui\Service\Ui::PROD_ENV,
     'css' => '/public/fohn-ui.com.min.css',
-    'templateDir' => [dirname(__DIR__) . \DIRECTORY_SEPARATOR . 'template' . \DIRECTORY_SEPARATOR . 'tailwind'],
+    'templateDir' => [dirname(__DIR__, 2) . \DIRECTORY_SEPARATOR . 'template' . \DIRECTORY_SEPARATOR . 'tailwind'],
     'timezone' => 'America/Toronto',
+    'csfrSecret' => 'my csfr secret',
     'locale' => 'en_CA',
     'format' => [
         'currency_code' => 'CAD',

@@ -28,17 +28,24 @@ Ui::service()->boot(function (Ui $ui) {
     $page = \Fohn\Demos\DemoApp::createPage($ui->environment);
     $page->includeCssPackage('fohh-css', $config['css']);
     $page->getLayout()->appendTailwind('bg-gray-100');
+    $page->csfrProtect($config['csfrSecret'], '/');
+    $page->appendMetaTag(Ui::service()->buildHtmlTag('meta', ['name' => 'secret_test', 'content' => $config['csfrSecret']]));
     $ui->initAppPage($page);
 });
 
 function loadConfig(): array
 {
     /** @var array $config */
-    $config = require_once __DIR__ . '/demos-config.php';
+    $config = require_once __DIR__ . '/_config/demos.php';
+
+    // Override some value using production config if needed.
+    if (file_exists(__DIR__ . '/_config/demos.dist.php')) {
+        $config = array_merge($config, require_once __DIR__ . '/_config/demos.dist.php');
+    }
 
     // Override some value using local config if needed.
-    if (file_exists(__DIR__ . '/demos-config.local.php')) {
-        $config = array_merge($config, require_once __DIR__ . '/demos-config.local.php');
+    if (file_exists(__DIR__ . '/_config/demos.local.php')) {
+        $config = array_merge($config, require_once __DIR__ . '/_config/demos.local.php');
     }
 
     // Create a default $config['db'] using sqlite if not set but make sure db file is present.
