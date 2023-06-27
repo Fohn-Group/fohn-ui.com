@@ -7,11 +7,9 @@ declare(strict_types=1);
 // Data::setDb(new Sql('mysql:dbname=fohn;host=mysql;charset=utf8', 'root', 'root'));
 
 use Atk4\Data\Persistence\Sql;
-
 return [
     'env' => \Fohn\Ui\Service\Ui::PROD_ENV,
     'css' => '/public/fohn-ui.com.min.css',
-    'templateDir' => [dirname(__DIR__, 2) . \DIRECTORY_SEPARATOR . 'template' . \DIRECTORY_SEPARATOR . 'tailwind'],
     'timezone' => 'America/Toronto',
     'csfrSecret' => 'my csfr secret',
     'locale' => 'en_CA',
