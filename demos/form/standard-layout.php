@@ -6,6 +6,7 @@ use Fohn\Demos\CodeReader;
 use Fohn\Demos\Ctrl\DemoFormModelCtrl;
 use Fohn\Demos\DemoApp;
 use Fohn\Demos\Model\Country;
+use Fohn\Demos\Utils;
 use Fohn\Ui\Component\Form;
 use Fohn\Ui\Js\JsToast;
 use Fohn\Ui\Service\Data;
@@ -38,7 +39,7 @@ $form->onSubmit(function (Form $f) use ($modelCtrl, $id) {
         $f->addValidationErrors($errors);
     }
 
-    return JsToast::success('Saved!', 'Demo mode.');
+    return Utils::displayControlsValueInToast($f->getControls());
 });
 
 View::addAfter($form->getControl('iso3'))

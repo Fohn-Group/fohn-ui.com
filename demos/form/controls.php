@@ -87,5 +87,5 @@ $chip->appendTailwind('mx-auto');
 $range->onChange($changeTextFn($chip->content), 500);
 
 $form->onSubmit(function (Form $f) {
-    return JsToast::success('Submit!');
+    return \Fohn\Demos\Utils::displayControlsValueInToast($f->getControls());
 });
