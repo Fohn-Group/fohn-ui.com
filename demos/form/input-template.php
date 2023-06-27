@@ -8,7 +8,6 @@ use Fohn\Demos\DemoApp;
 use Fohn\Demos\Model\Country;
 use Fohn\Demos\Utils;
 use Fohn\Ui\Component\Form;
-use Fohn\Ui\Js\JsToast;
 use Fohn\Ui\Service\Data;
 use Fohn\Ui\Service\Ui;
 use Fohn\Ui\Tailwind\Tw;

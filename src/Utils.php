@@ -26,7 +26,7 @@ class Utils
         }
 
         $container = (new View())->appendTailwinds(['ml-6']);
-        $container->addView(new HtmlList(['position' => 'outside']))->setItems($items);
+        $container->addView((new HtmlList(['position' => 'outside']))->setItems($items));
 
         $msg = preg_replace('/\s+/', ' ', $container->getHtml());
 

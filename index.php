@@ -43,11 +43,11 @@ Ui::service()->boot(function (Ui $ui) {
 function loadConfig(): array
 {
     /** @var array $config */
-    $config = require_once __DIR__ . '/demos/demos-config.php';
+    $config = require_once __DIR__ . '/demos/_config/demos.php';
 
     // Override some value using local config if needed.
-    if (file_exists(__DIR__ . '/demos/demos-config.local.php')) {
-        $config = array_merge($config, require_once __DIR__ . '/demos/demos-config.local.php');
+    if (file_exists(__DIR__ . '/demos/_config/demos.local.php')) {
+        $config = array_merge($config, require_once __DIR__ . '/demos/_config/demos.local.php');
     }
 
     return $config;
