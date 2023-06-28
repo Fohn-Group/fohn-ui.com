@@ -29,7 +29,6 @@ Ui::service()->boot(function (Ui $ui) {
     $page->includeCssPackage('fohh-css', $config['css']);
     $page->getLayout()->appendTailwind('bg-gray-100');
     $page->csfrProtect($config['csfrSecret'] ?? '');
-    $page->appendMetaTag(Ui::service()->buildHtmlTag('meta', ['name' => 'secret_test', 'content' => $config['csfrSecret'] ?? '']));
     $ui->initAppPage($page);
 });
 
