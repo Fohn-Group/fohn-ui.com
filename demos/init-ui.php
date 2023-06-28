@@ -39,8 +39,8 @@ function loadConfig(): array
     $config = require_once __DIR__ . '/_config/demos.php';
 
     // Override some value using production config if needed.
-    if (file_exists(__DIR__ . '/_config/demos.dist.php')) {
-        $config = array_merge($config, require_once __DIR__ . '/_config/demos.dist.php');
+    if (file_exists(dirname(__DIR__) . '/config/demos.dist.php')) {
+        $config = array_merge($config, require_once dirname(__DIR__) . '/config/demos.dist.php');
     }
 
     // Override some value using local config if needed.

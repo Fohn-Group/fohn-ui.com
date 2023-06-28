@@ -1,0 +1,5 @@
+# Restrict PHP File Execution
+<Files "*.php">
+Order Deny,Allow
+Deny from All
+</Files>
