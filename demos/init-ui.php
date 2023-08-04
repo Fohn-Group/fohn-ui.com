@@ -25,10 +25,9 @@ Ui::service()->boot(function (Ui $ui) {
     // Add default exception handler.
     $ui->setExceptionHandler(PageException::factory());
     // Set demos page.
-    $page = \Fohn\Demos\DemoApp::createPage($ui->environment);
+    $page = \Fohn\Demos\DemoApp::createPage($config['csfrSecret']);
     $page->includeCssPackage('fohh-css', $config['css']);
     $page->getLayout()->appendTailwind('bg-gray-100');
-    $page->csfrProtect($config['csfrSecret'] ?? '');
     $ui->initAppPage($page);
 });
 
