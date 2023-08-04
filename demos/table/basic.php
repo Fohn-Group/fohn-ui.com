@@ -9,7 +9,7 @@ use Fohn\Ui\Component\Table;
 use Fohn\Ui\Js\Js;
 use Fohn\Ui\Js\JsFunction;
 use Fohn\Ui\Service\Ui;
-use Fohn\Ui\Tailwind\Theme\TwConstant;
+use Fohn\Ui\Service\Theme\TwConstant;
 use Fohn\Ui\Tailwind\Tw;
 use Fohn\Ui\View;
 
