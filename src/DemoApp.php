@@ -31,7 +31,7 @@ class DemoApp
     {
         $uiRelease = InstalledVersions::getPrettyVersion('fohn-group/fohn-ui');
         $uiLink = '<a class="hover:underline hover:text-purple-700" href="http://github.com/fohn-group/fohn-ui" target="_blank">Fohn-Ui</a>';
-
+        $currentYear = date('Y');
         /** @var Page $page */
         $page = Page::factory([
             'template' => Ui::templateFromFile(__DIR__ . '/templates/demo-page.html'),
@@ -57,7 +57,10 @@ class DemoApp
         /** @var SideNavigation $layout */
         $layout = $page->getLayout();
         // Add footer to this page.
-        $layout->addView(View::factory()->setTextContent("Made with {$uiLink} v." . $uiRelease, false), 'footer');
+        $footer = View::factory()
+            ->setTextContent("Made with {$uiLink} v." . $uiRelease . "<br> © 2022 - {$currentYear}  Fohn-Group - All Rights Reserved", false)
+            ->appendTailwinds(['text-sm', 'text-center']);
+        $layout->addView($footer, 'footer');
 
         foreach (self::getNavigationGroup() as $group) {
             $layout->addNavigationGroup($group);
@@ -123,6 +126,7 @@ class DemoApp
                 'icon' => 'bi bi-chat-left',
                 'url' => $baseUrl . 'demos/interactive/modal/',
                 'items' => [
+                    new Item(['name' => 'Tabs', 'url' => $baseUrl . 'demos/interactive/tabs/']),
                     new Item(['name' => 'Modal', 'url' => $baseUrl . 'demos/interactive/modal/']),
                     new Item(['name' => 'Notification', 'url' => $baseUrl . 'demos/interactive/notification/']),
                     new Item(['name' => 'Virtual Page', 'url' => $baseUrl . 'demos/interactive/virtual-page/']),
@@ -164,11 +168,11 @@ class DemoApp
         if (!isset(Ui::page()->jsPackages['highlight'])) {
             Ui::page()->includeJsPackage(
                 'highlight',
-                'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js'
+                'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js'
             );
             Ui::page()->includeCssPackage(
                 'highlight',
-                'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css'
+                'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css'
             );
 
             // @phpstan-ignore-next-line
