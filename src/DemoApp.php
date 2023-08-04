@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Fohn\Demos;
 
+use Composer\InstalledVersions;
 use Fohn\Demos\View\Button\Code;
 use Fohn\Ui\Component\Navigation\Group;
 use Fohn\Ui\Component\Navigation\Item;
@@ -28,6 +29,9 @@ class DemoApp
      */
     public static function createPage(string $csfrSecret): Page
     {
+        $uiRelease = InstalledVersions::getPrettyVersion('fohn-group/fohn-ui');
+        $uiLink = '<a class="hover:underline hover:text-purple-700" href="http://github.com/fohn-group/fohn-ui" target="_blank">Fohn-Ui</a>';
+
         /** @var Page $page */
         $page = Page::factory([
             'template' => Ui::templateFromFile(__DIR__ . '/templates/demo-page.html'),
@@ -53,13 +57,14 @@ class DemoApp
         /** @var SideNavigation $layout */
         $layout = $page->getLayout();
         // Add footer to this page.
-        $layout->addView(View::factory()->setTextContent('Made with Fohn - Ui (v1.2.2)'), 'footer');
+        $layout->addView(View::factory()->setTextContent("Made with {$uiLink} v." . $uiRelease, false), 'footer');
 
         foreach (self::getNavigationGroup() as $group) {
             $layout->addNavigationGroup($group);
         }
 
         $page->csfrProtect($csfrSecret, '/demos/intro/about/');
+
         return $page;
     }
 
