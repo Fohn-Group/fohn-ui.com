@@ -26,7 +26,7 @@ class DemoApp
     /**
      * Create a Page with navigation.
      */
-    public static function createPage(string $environment = 'production'): Page
+    public static function createPage(string $csfrSecret): Page
     {
         /** @var Page $page */
         $page = Page::factory([
@@ -59,6 +59,7 @@ class DemoApp
             $layout->addNavigationGroup($group);
         }
 
+        $page->csfrProtect($csfrSecret, '/demos/intro/about/');
         return $page;
     }
 
