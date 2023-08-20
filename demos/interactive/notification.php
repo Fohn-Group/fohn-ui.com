@@ -67,9 +67,9 @@ $form->onSubmit(function (Form $f) {
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Using Javascript:');
 
+// @notify
 $info = DemoApp::addLineInfo($section, 'Toast can display result of javascript expression.');
 
-// @notify
 $btn = Button::addTo($section, ['label' => 'Notify', 'type' => 'outline', 'color' => 'info']);
 Jquery::addEventTo($btn, 'click')
     ->execute(
