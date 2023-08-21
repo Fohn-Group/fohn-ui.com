@@ -88,7 +88,6 @@ View\HtmlList::addAfter($form->getControl('password'))
     ->setItems([
         ['name' => 'minimum of 8 character;'],
         ['name' => 'at least one uppercase letter;'],
-        ['name' => 'at least one uppercase letter;'],
         ['name' => 'at least one number (digit);'],
         ['name' => 'at least one of the following characters: !@#$%^&*-;'],
     ])
