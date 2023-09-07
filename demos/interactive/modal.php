@@ -47,27 +47,20 @@ Jquery::addEventTo($btn, 'click')
 // AS DIALOG
 DemoApp::addLineInfo($section, 'Modal can be used as dialog using callback events.');
 
-$confirm = AsDialog::addTo($section, ['title' => 'Confirm this action', 'isClosable' => false]);
+$dialog = AsDialog::addTo($section, ['title' => 'Confirm this action', 'isClosable' => false]);
+$dialog->addCancelEvent();
 
-$confirm->addCallbackEvent('cancel', new Button(['label' => 'No', 'type' => 'outline', 'color' => 'error', 'size' => 'small']));
-$confirm->onCallbackEvent('cancel', function (array $payload) use ($confirm) {
+$dialog->addConfirmEvent(function (array $payload) use ($dialog) {
     return JsStatements::with([
-        $confirm->jsClose(),
-    ]);
-});
-
-$confirm->addCallbackEvent('confirm', new Button(['label' => 'Yes', 'type' => 'outline', 'color' => 'success', 'size' => 'small']));
-$confirm->onCallbackEvent('confirm', function (array $payload) use ($confirm) {
-    return JsStatements::with([
-        JsToast::info('All goods!', 'Operation confirm.'),
-        $confirm->jsClose(),
-    ]);
+                                  JsToast::info('All goods!', 'Operation confirm.'),
+                                  $dialog->jsClose(),
+                              ]);
 });
 
 $btn = Button::addTo($section, ['label' => 'Open Dialog', 'color' => 'info', 'type' => 'outline']);
 Jquery::addEventTo($btn, 'click')
     ->executes([
-        $confirm->jsOpen(['message' => 'Are you sure ?']),
+        $dialog->jsOpen(['message' => 'Are you sure ?']),
     ]);
 
 // AS Form
@@ -110,7 +103,7 @@ Jquery::jqCallback($bar, 'click', function ($j, $payload) use ($modalForm, $mode
 // Dynamic
 DemoApp::addLineInfo($section, 'Modal can add content dynamically.');
 
-$modalDynamic = Modal::addTo(Ui::layout(), ['title' => 'Load on demand content.']);
+$modalDynamic = Modal\AsDynamic::addTo(Ui::layout(), ['title' => 'Load on demand content.']);
 $modalDynamic->addCloseButton(new Button(['label' => 'Close', 'type' => 'outline', 'color' => 'info', 'size' => 'small']));
 
 $modalDynamic->onOpen(function ($modal) {
