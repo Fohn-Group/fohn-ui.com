@@ -34,4 +34,9 @@ class DemoFormModelCtrl extends FormModelController
 
         return $formErrors;
     }
+
+    public function delete($id): bool
+    {
+        return true;
+    }
 }
