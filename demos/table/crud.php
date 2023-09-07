@@ -24,7 +24,6 @@ use Fohn\Ui\Js\JsStatements;
 use Fohn\Ui\Js\JsToast;
 use Fohn\Ui\Service\Data;
 use Fohn\Ui\Service\Ui;
-use Fohn\Ui\Tailwind\Tw;
 use Fohn\Ui\View;
 use Fohn\Ui\View\Button;
 

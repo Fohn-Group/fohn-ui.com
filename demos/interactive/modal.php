@@ -52,9 +52,9 @@ $dialog->addCancelEvent();
 
 $dialog->addConfirmEvent(function (array $payload) use ($dialog) {
     return JsStatements::with([
-                                  JsToast::info('All goods!', 'Operation confirm.'),
-                                  $dialog->jsClose(),
-                              ]);
+        JsToast::info('All goods!', 'Operation confirm.'),
+        $dialog->jsClose(),
+    ]);
 });
 
 $btn = Button::addTo($section, ['label' => 'Open Dialog', 'color' => 'info', 'type' => 'outline']);
