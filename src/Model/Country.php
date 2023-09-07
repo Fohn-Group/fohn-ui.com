@@ -45,7 +45,7 @@ class Country extends Model
 
         // look if name is unique
         $c = $this->getModel()->tryLoadBy('name', $this->get('name'));
-        if ($c->isLoaded() && $c->getId() !== $this->getId()) {
+        if ($c && $c->getId() !== $this->getId()) {
             $errors['name'] = 'Country name must be unique';
         }
 
