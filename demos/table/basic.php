@@ -48,7 +48,7 @@ $select->setItems($locales)->appendTailwind('md:w-1/2');
 $table = Table::addTo($section, ['hasTableSearch' => false, 'hasPaginator' => false]);
 $table->setCaption(DemoApp::tableCaptionFactory('Sales Report'));
 $select->onChange(JsFunction::arrow([Js::var('selectLocale')])->executes([
-    $table->jsDataRequest(['loc' => Js::var('selectLocale')]),
+    $table->jsFetchItems(['loc' => Js::var('selectLocale')]),
 ]));
 
 // Locale get argument to table callback.

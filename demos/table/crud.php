@@ -17,12 +17,14 @@ use Fohn\Demos\Model\Country;
 use Fohn\Ui\Component\Form;
 use Fohn\Ui\Component\Modal;
 use Fohn\Ui\Component\Table;
+use Fohn\Ui\Js\Jquery;
 use Fohn\Ui\Js\Js;
 use Fohn\Ui\Js\JsRenderInterface;
 use Fohn\Ui\Js\JsStatements;
 use Fohn\Ui\Js\JsToast;
 use Fohn\Ui\Service\Data;
 use Fohn\Ui\Service\Ui;
+use Fohn\Ui\Tailwind\Tw;
 use Fohn\Ui\View;
 use Fohn\Ui\View\Button;
 
@@ -42,27 +44,73 @@ $modelCtrl = new DemoFormModelCtrl($country);
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Table for CRUD operation:');
 
-$table = Table::addTo($section);
+$table = Table::addTo($section, ['keepSelectionAcrossPage' => true]);
 $table->setCaption(DemoApp::tableCaptionFactory('Countries'));
 View::addTo(Ui::layout())
     ->setTextContent('Flag provided by: <a href="https://flagpedia.net" target="_blank">flagpedia</a>', false)
     ->appendTailwinds(['float-right italic text-sm -mt-1']);
+
+// ADD Country
+$addDialog = Modal\AsForm::addTo($table, ['title' => 'Add Country:'], Table::TABLE_ACTION_REGION);
+$addForm = $addDialog->addForm(Ui::factory(Form::class));
+$addForm->addControls($modelCtrl->factoryFormControls(null));
+// Response to form submit request.
+$addForm->onSubmit(function (Form $f, ?string $id) use ($modelCtrl, $addDialog, $table): JsRenderInterface {
+    if ($errors = $modelCtrl->saveModelUsingForm(null, $f->getControls())) {
+        $f->addValidationErrors($errors);
+    }
+
+    return JsStatements::with(
+        [
+            JsToast::success('Success!', 'Note: Record is not added in db using demo mode.'),
+            $table->jsFetchItems(),
+            $addDialog->jsClose(),
+        ]
+    );
+});
+
+$btn = Button::addTo($table, ['label' => 'Add Country', 'color' => 'neutral'], Table::TABLE_ACTION_REGION);
+Jquery::addEventTo($btn, 'click')->executes($addDialog->jsOpenWithId(null));
+
+// Multiple Delete action
+$actionDelete = (new Table\Action(['reloadTable' => true]))->setTrigger(Button::factory(['label' => 'Delete(s)', 'color' => 'neutral']));
+$actionMsg = new Table\Action\Messages();
+$actionMsg->single = 'This action will delete 1 country. Are you sure?';
+$actionMsg->multiple = 'This action will delete {#} countries. Are you sure?';
+
+$actionDelete->addConfirmationDialog('Delete countries:', $actionMsg);
+$table->addRowsAction($actionDelete)->onTrigger(function ($ids, $dialog) use ($modelCtrl) {
+    // simulating deletes table.
+    foreach ($ids as $id) {
+        $modelCtrl->delete($id);
+    }
+
+    return JsStatements::with([JsToast::success('Done Deleting!', 'Note: Only simulating delete in demo mode.'), $dialog->jsClose()]);
+});
+
+// Multiple process action
+$actionProcess = (new Table\Action(['keepSelection' => true]))->setTrigger(Button::factory(['label' => 'Process', 'color' => 'neutral']));
+$table->addRowsAction($actionProcess)->onTrigger(function ($ids) {
+    sleep(1);
+
+    return JsStatements::with([JsToast::success('Process Action! ' . implode(' / ', $ids))]);
+});
 
 // Create edit and delete dialog.
 $editDialog = Modal\AsForm::addTo(Ui::layout(), ['title' => 'Edit Country']);
 $deleteDialog = Modal\AsDialog::addTo(Ui::layout(), ['title' => 'Confirm country deletion:']);
 
 // Add form to edit dialog
-$form = $editDialog->addForm(Ui::factory(Form::class));
-$form->addControls($modelCtrl->factoryFormControls(null));
+$editForm = $editDialog->addForm(Ui::factory(Form::class));
+$editForm->addControls($modelCtrl->factoryFormControls(null));
 
 // Response to form request value callback using $ctrl.
-$form->onControlsValueRequest(function ($id, Form\Response\Value $response) use ($modelCtrl) {
+$editForm->onControlsValueRequest(function ($id, Form\Response\Value $response) use ($modelCtrl) {
     $response->mergeValues($modelCtrl->getFormInputValue((string) $id));
 });
 
 // Response to form submit request.
-$form->onSubmit(function (Form $f, ?string $id) use ($modelCtrl, $editDialog, $table): JsRenderInterface {
+$editForm->onSubmit(function (Form $f, ?string $id) use ($modelCtrl, $editDialog, $table): JsRenderInterface {
     if ($errors = $modelCtrl->saveModelUsingForm($id, $f->getControls())) {
         $f->addValidationErrors($errors);
     }
@@ -77,7 +125,7 @@ $form->onSubmit(function (Form $f, ?string $id) use ($modelCtrl, $editDialog, $t
 });
 
 // Add columns to table.
-$table->addColumn('name', Table\Column\Html::factory(['isSortable' => true]))->appendTailwinds(['w-52']);
+$table->addColumn('name', Table\Column\Html::factory(['isSortable' => true]))->appendTailwinds(['truncate', 'text-ellipsis']);
 
 $table->addColumn('flag', Table\Column\Html::factory())->alignText('center');
 $table->getTableColumn('flag')->formatValue(function ($col, $value) {
