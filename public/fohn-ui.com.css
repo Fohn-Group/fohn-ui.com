@@ -3321,6 +3321,10 @@ select {
     table-layout: auto;
 }
 
+.table-fixed {
+    table-layout: fixed;
+}
+
 .border-collapse {
     border-collapse: collapse;
 }
