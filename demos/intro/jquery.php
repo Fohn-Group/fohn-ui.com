@@ -104,8 +104,8 @@ $container = View::addTo($section)->appendTailwinds(['grid', 'place-content-cent
 
 // @jqueryReload
 // Reload button and add a number to the button label.
-$number = $_GET['number'] ?? '';
-$b = Button::addTo($container, ['label' => 'Reload ' . $number]);
+$b = Button::addTo($container);
+$b->setLabel(' Reload ' . $b->stickyGet('number'));
 Jquery::addEventTo($b, 'click')
     ->execute(
         JsReload::view($b, ['number ' => random_int(0, 100)])
