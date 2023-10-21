@@ -38,6 +38,9 @@ class DemoApp
             'title' => 'Fohn-ui: ' . preg_replace('/\/demos\/|\.php/m', '', Ui::serverRequest()->getUri()->getPath()),
         ]);
 
+        $page->fohnJsVersion = '1.5.1';
+        $page->jQueryVersion = '3.5.1';
+
         /** @var SideNavigation $navigation */
         $navigation = SideNavigation::factory(['topBarTitle' => 'Fohn-Ui Demo']);
         $navigation->invokeInitRenderTree();
