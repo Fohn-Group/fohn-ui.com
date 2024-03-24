@@ -33,7 +33,7 @@ $startBtn = Button::addTo($row)->setLabel('Start');
 $stopBtn = Button::addTo($row)->setLabel('Stop');
 Jquery::onDocumentReady($stopBtn)->attr('disabled', true);
 
-$sse = ServerEvent::addAbstractTo(Ui::layout(), ['keepAlive' => false]);
+$sse = ServerEvent::addAbstractTo(Ui::layout(), ['keepAlive' => false, 'minBufferSize' => 4096]);
 
 // Jquery actions to execute when starting ServerSide event.
 $startSseEvents = JsStatements::with([
