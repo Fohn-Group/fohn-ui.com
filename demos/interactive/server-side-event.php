@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Fohn\Demos\DemoApp;
 use Fohn\Ui\Callback\ServerEvent;
 use Fohn\Ui\Js\Jquery;
 use Fohn\Ui\Js\JsStatements;
@@ -10,29 +11,35 @@ use Fohn\Ui\Tailwind\Tw;
 use Fohn\Ui\View;
 use Fohn\Ui\View\Button;
 use Fohn\Ui\View\GridLayout;
-use Fohn\Ui\View\Heading\Header;
 
 require_once __DIR__ . '/../init-ui.php';
 
-Header::addTo(Ui::layout(), ['title' => 'Server side event', 'size' => 4]);
+$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
 
-$segment = View\Segment::addTo(Ui::layout())->appendTailwinds([
-    'flex',
-    'justify-around',
-]);
+$grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 
-$gridLayout = GridLayout::addTo($segment, ['columns' => 1, 'rows' => 2, 'direction' => 'col']);
+$subtitles = [
+    'Streaming event usages.',
+];
+DemoApp::addPageHeaderTo($grid, 'Server Side Event', $subtitles);
+DemoApp::addGithubButton($grid);
+
+$section = DemoApp::addInfoSection(Ui::layout(), 'Server event streaming example:');
+DemoApp::addLineInfo($section, 'You can use server event to send Javascript instruction.');
+
+$gridLayout = GridLayout::addTo($section, ['columns' => 1, 'rows' => 2, 'direction' => 'col']);
 
 $row = View::addTo($gridLayout)->appendTailwinds([Tw::marginX('auto'), Tw::marginY('4')]);
 /** @var View\Chip $counter */
 $counter = View\Chip::addTo($row, ['color' => 'secondary'])->appendTailwinds(['absolute', 'z-10'])->setTextContent('0');
 $ping = View\Chip::addTo($row, ['color' => 'secondary']);
 
-$row = View::addTo($gridLayout)->appendTailwinds([Tw::marginY('auto')]);
+$row = View::addTo($gridLayout)->appendTailwinds([Tw::marginX('auto'), Tw::marginY('auto')]);
 $startBtn = Button::addTo($row)->setLabel('Start');
 $stopBtn = Button::addTo($row)->setLabel('Stop');
 Jquery::onDocumentReady($stopBtn)->attr('disabled', true);
 
+// @sse
 $sse = ServerEvent::addAbstractTo(Ui::layout(), ['keepAlive' => false, 'minBufferSize' => 4096]);
 
 // Jquery actions to execute when starting ServerSide event.
@@ -62,3 +69,8 @@ $sse->onRequest(function (ServerEvent $sse) use ($counter, $stopSseEvents) {
     }
     $sse->executeJavascript($stopSseEvents);
 }, []);
+
+// @end_sse
+
+DemoApp::addLineInfo($section, 'Code:');
+DemoApp::addCodeConsole($section)->setTextContent($codeReader->extractCode('sse'));
