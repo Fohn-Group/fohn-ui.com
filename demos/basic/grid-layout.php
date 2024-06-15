@@ -24,6 +24,7 @@ $viewStyle =
         'items-center',
         'justify-center',
         'font-extrabold',
+        'rounded'
     ];
 
 /**
@@ -68,23 +69,23 @@ function gridStartDemo(GridLayout $grid, array $style): void
 $section = DemoApp::addInfoSection(Ui::layout(), 'Various Grid options');
 DemoApp::addLineInfo($section, 'Grid using row direction.');
 
-$gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3]);
+$gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3, 'gap' => 6]);
 gridDemo($gridLayout, 9, $viewStyle);
 
 DemoApp::addLineInfo($section, 'Grid using col direction.');
-$gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3, 'direction' => 'col']);
+$gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3, 'direction' => 'col', 'gap' => 6]);
 gridDemo($gridLayout, 9, $viewStyle);
 
 DemoApp::addLineInfo($section, 'Grid col span utility.');
-$gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3]);
+$gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3, 'gap' => 6]);
 gridDemo($gridLayout, 7, $viewStyle, true);
 
 DemoApp::addLineInfo($section, 'Grid row/col span utility.');
 
-$gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3, 'direction' => 'col']);
+$gridLayout = GridLayout::addTo($section, ['columns' => 3, 'rows' => 3, 'direction' => 'col', 'gap' => 6]);
 gridSpanDemo($gridLayout, $viewStyle);
 
 DemoApp::addLineInfo($section, 'Grid col start/end utility.');
 
-$gridLayout = GridLayout::addTo($section, ['columns' => 6, 'rows' => 3, 'direction' => 'col']);
+$gridLayout = GridLayout::addTo($section, ['columns' => 6, 'rows' => 3, 'direction' => 'col', 'gap' => 6]);
 gridStartDemo($gridLayout, $viewStyle);
