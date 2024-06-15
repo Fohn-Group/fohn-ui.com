@@ -26,7 +26,7 @@
     "ext-intl": "*",
     "ext-json": "*",
     "ext-pdo": "*",
-    "fohn-group/fohn-ui": "^1.1",
+    "fohn-group/fohn-ui": "1.7",
     "fzaninotto/faker": "^1.6"
   },
   "require-dev": {
