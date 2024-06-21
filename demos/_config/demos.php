@@ -7,9 +7,10 @@ declare(strict_types=1);
 // Data::setDb(new Sql('mysql:dbname=fohn;host=mysql;charset=utf8', 'root', 'root'));
 
 use Atk4\Data\Persistence\Sql;
+use Fohn\Ui\Service\Ui;
 
 return [
-    'env' => \Fohn\Ui\Service\Ui::PROD_ENV,
+    'env' => Ui::PROD_ENV,
     'css' => '/public/fohn-ui.com.min.css',
     'timezone' => 'America/Toronto',
     'csfrSecret' => 'my csfr secret',

@@ -13,6 +13,7 @@ use Fohn\Ui\Component\Form\Control\Input;
 use Fohn\Ui\Component\Form\Control\Password;
 use Fohn\Ui\Js\JsStatements;
 use Fohn\Ui\Js\JsToast;
+use Fohn\Ui\Page;
 use Fohn\Ui\PageException;
 use Fohn\Ui\PageLayout\Layout;
 use Fohn\Ui\Service\Ui;
@@ -21,7 +22,7 @@ use Fohn\Ui\View;
 require_once __DIR__ . '/vendor/autoload.php';
 $codeReader = new CodeReader(__FILE__);
 
-Ui::service()->boot(function (Ui $ui) {
+Ui::service()->boot(static function (Ui $ui) {
     $config = loadConfig();
     date_default_timezone_set($config['timezone']);
     $ui->environment = $config['env'];
@@ -31,7 +32,7 @@ Ui::service()->boot(function (Ui $ui) {
     // Add default exception handler.
     $ui->setExceptionHandler(PageException::factory());
     // Set demos page.
-    $page = \Fohn\Ui\Page::factory([
+    $page = Page::factory([
         'title' => 'Fohn-Ui - A PHP framework using Tailwind css.',
         'template' => Ui::templateFromFile(__DIR__ . '/src/templates/landing-page.html'),
     ]);
@@ -144,7 +145,7 @@ $form->getSubmitButton()->setLabel('Sign In');
 $form->addHeader(View::factory()->setTextContent('Form component sample:'));
 $form->addControl(Input::factory(['controlName' => 'email', 'inputType' => 'email', 'placeholder' => 'Email']));
 $form->addControl(Password::factory(['controlName' => 'password', 'placeholder' => 'Password']));
-$form->getControl('password')->onValidate(function ($value) {
+$form->getControl('password')->onValidate(static function ($value) {
     $error = null;
     if (strlen($value) < 8) {
         $error = 'Password must be at least 8 characters.';
@@ -153,7 +154,7 @@ $form->getControl('password')->onValidate(function ($value) {
     return $error;
 });
 
-$form->onSubmit(function ($form) {
+$form->onSubmit(static function ($form) {
     return JsStatements::with([JsToast::success('Thanks you!')]);
 });
 // @end_form

@@ -36,7 +36,7 @@ $form = Form::addTo($section);
 $form->addControls($controls);
 
 $form->getControl('name')
-    ->onValidate(function (string $value) {
+    ->onValidate(static function (string $value) {
         $msg = null;
         if (!$value) {
             $msg = 'Please enter a name.';
@@ -44,15 +44,15 @@ $form->getControl('name')
 
         return $msg;
     })
-    ->onSetValue(function (string $value) {
+    ->onSetValue(static function (string $value) {
         return ucfirst(trim($value));
     });
 
 $form->getControl('email')
-    ->onSetValue(function (string $value) {
+    ->onSetValue(static function (string $value) {
         return filter_var($value, \FILTER_SANITIZE_EMAIL);
     })
-    ->onValidate(function (string $value): ?string {
+    ->onValidate(static function (string $value): ?string {
         $msg = null;
         if (!filter_var($value, \FILTER_VALIDATE_EMAIL)) {
             $msg = 'Please enter a valid email.';
@@ -61,7 +61,7 @@ $form->getControl('email')
         return $msg;
     });
 
-$form->getControl('password')->onValidate(function (string $value): ?string {
+$form->getControl('password')->onValidate(static function (string $value): ?string {
     $msg = null;
     $options = ['options' => ['regexp' => '/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/']];
     if (!filter_var($value, \FILTER_VALIDATE_REGEXP, $options)) {
@@ -71,7 +71,7 @@ $form->getControl('password')->onValidate(function (string $value): ?string {
     return $msg;
 });
 
-$form->getControl('age')->onValidate(function (int $value): ?string {
+$form->getControl('age')->onValidate(static function (int $value): ?string {
     $msg = null;
     if (!filter_var($value, \FILTER_VALIDATE_INT, ['options' => ['min_range' => '18']])) {
         $msg = 'Must be at least 18 years old.';
@@ -80,7 +80,7 @@ $form->getControl('age')->onValidate(function (int $value): ?string {
     return $msg;
 });
 
-$form->onSubmit(function (Form $f) {
+$form->onSubmit(static function (Form $f) {
     return Utils::displayControlsValueInToast($f->getControls());
 });
 

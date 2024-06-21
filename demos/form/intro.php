@@ -33,7 +33,7 @@ the overall look of the form. The default form layout when creating a form is su
 DemoApp::addParagraph(Ui::layout(), $text, false);
 
 // @formLayout
-Ui::service()->boot(function (Ui $ui) {
+Ui::service()->boot(static function (Ui $ui) {
     // Display form controls to the left of the page for the entire app.
     $ui->formLayoutSeed = [Standard::class, 'template' => Ui::templateFromFile(__DIR__ . '/template/left.html')];
 });

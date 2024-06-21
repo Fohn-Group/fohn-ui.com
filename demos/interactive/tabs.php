@@ -74,7 +74,7 @@ DemoApp::addParagraph($introTab, $text, false);
 
 // @tabFunction
 // creating js function that echo text to browser console.
-$createFn = function ($text) {
+$createFn = static function ($text) {
     return JsFunction::arrow()->execute(Js::from("console.log('{$text}')"));
 };
 
@@ -118,7 +118,7 @@ $id = (string) $modelCtrl->getModel()->tryLoadBy('iso', 'CA')->get('id');
 $formTab = $tabs->addTab(new Tab(['name' => 'form', 'caption' => 'Country Form']));
 $form = Form::addTo($formTab);
 $form->addControls($modelCtrl->factoryFormControls($id));
-$form->onSubmit(function (Form $f) use ($modelCtrl, $id) {
+$form->onSubmit(static function (Form $f) use ($modelCtrl, $id) {
     if ($errors = $modelCtrl->saveModelUsingForm($id, $f->getControls())) {
         $f->addValidationErrors($errors);
     }

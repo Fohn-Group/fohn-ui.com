@@ -21,7 +21,7 @@ require_once __DIR__ . '/../init-ui.php';
  * Return a Javascript function that will update text inside a view when executed.
  * Javascript will render as: (newValue) => { $('#VIEW_ID')->text(newValue); }.
  */
-$changeTextFn = function (View $view): JsFunction {
+$changeTextFn = static function (View $view): JsFunction {
     return JsFunction::arrow([Js::var('newValue')])->execute(Jquery::withView($view)->text(Js::var('newValue')));
 };
 
@@ -48,9 +48,9 @@ $controls = [
     (new Form\Control\Checkbox(['controlName' => 'check_php', 'caption' => 'PHP']))->setValue(true),
     new Form\Control\Checkbox(['controlName' => 'check_js', 'caption' => 'Javascript']),
     (new Form\Control\Radio(['controlName' => 'radio', 'caption' => 'Radio']))->setItems(['php' => 'PHP', 'js' => 'Javascript', 'java' => 'Java']),
-    (new Form\Control\Calendar(['controlName' => 'date', 'caption' => 'Date', 'format' => Ui::getDisplayFormat('date')]))->setValue(new \DateTime()),
-    (new Form\Control\Calendar(['controlName' => 'time', 'caption' => 'Time', 'format' => Ui::getDisplayFormat('time'), 'type' => 'time']))->setValue(new \DateTime()),
-    (new Form\Control\Calendar(['controlName' => 'datetime', 'caption' => 'DateTime', 'format' => Ui::getDisplayFormat('datetime'), 'type' => 'datetime']))->setValue(new \DateTime()),
+    (new Form\Control\Calendar(['controlName' => 'date', 'caption' => 'Date', 'format' => Ui::getDisplayFormat('date')]))->setValue(new DateTime()),
+    (new Form\Control\Calendar(['controlName' => 'time', 'caption' => 'Time', 'format' => Ui::getDisplayFormat('time'), 'type' => 'time']))->setValue(new DateTime()),
+    (new Form\Control\Calendar(['controlName' => 'datetime', 'caption' => 'DateTime', 'format' => Ui::getDisplayFormat('datetime'), 'type' => 'datetime']))->setValue(new DateTime()),
     (new Form\Control\Textarea(['controlName' => 'text', 'rows' => '4', 'caption' => 'Textarea']))->setValue(Utils::getLoremIpsum(12)),
     new Form\Control\Range(['controlName' => 'range', 'caption' => 'Range (0-100)']),
 ];
@@ -70,7 +70,7 @@ $form->addControls($controls);
 
 /** @var Form\Control\Select $countrySelect */
 $countrySelect = $form->getControl('country');
-$countrySelect->onItemsRequest(function (Form\Response\Items $response) {
+$countrySelect->onItemsRequest(static function (Form\Response\Items $response) {
     $response->setItems(FormControlFactory::getSelectItems(new Country(Data::db())));
 });
 
@@ -85,6 +85,6 @@ $chip = View\Chip::addAfter($range, ['size' => '12', 'color' => 'secondary']);
 $chip->appendTailwind('mx-auto');
 $range->onChange($changeTextFn($chip->content), 500);
 
-$form->onSubmit(function (Form $f) {
-    return \Fohn\Demos\Utils::displayControlsValueInToast($f->getControls());
+$form->onSubmit(static function (Form $f) {
+    return Fohn\Demos\Utils::displayControlsValueInToast($f->getControls());
 });

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Fohn\Demos\CodeReader;
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Component\Form;
 use Fohn\Ui\Core\Utils;
@@ -13,7 +14,7 @@ use Fohn\Ui\View\Button;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
+$codeReader = new CodeReader(__FILE__);
 
 $grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 
@@ -59,7 +60,7 @@ $pos = $form->addControl(new Form\Control\Select(['caption' => 'Position', 'cont
 $pos->setItems($positions);
 $pos->setValue('top-right');
 
-$form->onSubmit(function (Form $f) {
+$form->onSubmit(static function (Form $f) {
     $values = $f->getControlValues();
 
     return JsToast::notify($values['title'], $values['message'], $values);

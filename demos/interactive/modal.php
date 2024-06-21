@@ -50,7 +50,7 @@ DemoApp::addLineInfo($section, 'Modal can be used as dialog using callback event
 $dialog = AsDialog::addTo($section, ['title' => 'Confirm this action', 'isClosable' => false]);
 $dialog->addCancelEvent();
 
-$dialog->addConfirmEvent(function (array $payload) use ($dialog) {
+$dialog->addConfirmEvent(static function (array $payload) use ($dialog) {
     return JsStatements::with([
         JsToast::info('All goods!', 'Operation confirm.'),
         $dialog->jsClose(),
@@ -72,11 +72,11 @@ $modalForm = Modal\AsForm::addTo($section, ['title' => 'Edit Country Record :'])
 
 $form = $modalForm->addForm(new Form());
 $form->addControls($modelCtrl->factoryFormControls(null));
-$form->onControlsValueRequest(function ($id, Form\Response\Value $response) use ($modelCtrl) {
+$form->onControlsValueRequest(static function ($id, Form\Response\Value $response) use ($modelCtrl) {
     $response->mergeValues($modelCtrl->getFormInputValue((string) $id));
 });
 
-$form->onSubmit(function ($f, $id) use ($modalForm, $modelCtrl) {
+$form->onSubmit(static function ($f, $id) use ($modalForm, $modelCtrl) {
     if ($errors = $modelCtrl->saveModelUsingForm($id, $f->getControls())) {
         $f->addValidationErrors($errors);
     }
@@ -94,7 +94,7 @@ Button::addTo($bar, ['label' => 'Italy', 'color' => 'info', 'type' => 'outline',
 Button::addTo($bar, ['label' => 'Norway', 'color' => 'info', 'type' => 'outline', 'shape' => 'normal'])->appendHtmlAttribute('data-name', 'Norway');
 Button::addTo($bar, ['label' => 'Sweden', 'color' => 'info', 'type' => 'outline', 'shape' => 'normal'])->appendHtmlAttribute('data-name', 'Sweden');
 
-Jquery::jqCallback($bar, 'click', function ($j, $payload) use ($modalForm, $modelCtrl) {
+Jquery::jqCallback($bar, 'click', static function ($j, $payload) use ($modalForm, $modelCtrl) {
     $id = $modelCtrl->getModel()->tryLoadBy('name', $payload['name'])->get('id');
 
     return JsStatements::with($modalForm->jsOpenWithId(Js::var((string) $id)));
@@ -106,7 +106,7 @@ DemoApp::addLineInfo($section, 'Modal can add content dynamically.');
 $modalDynamic = Modal\AsDynamic::addTo(Ui::layout(), ['title' => 'Load on demand content.']);
 $modalDynamic->addCloseButton(new Button(['label' => 'Close', 'type' => 'outline', 'color' => 'info', 'size' => 'small']));
 
-$modalDynamic->onOpen(function ($modal) {
+$modalDynamic->onOpen(static function ($modal) {
     $tw = ['first-line:uppercase', 'first-line:tracking-widest',
         'first-letter:text-7xl', 'first-letter:font-bold', 'first-letter:text-purple-700',
         'first-letter:mr-3', 'first-letter:float-left', ];

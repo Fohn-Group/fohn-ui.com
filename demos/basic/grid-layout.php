@@ -24,7 +24,7 @@ $viewStyle =
         'items-center',
         'justify-center',
         'font-extrabold',
-        'rounded'
+        'rounded',
     ];
 
 /**

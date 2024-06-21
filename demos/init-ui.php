@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Atk4\Data\Persistence\Sql;
+use Fohn\Demos\DemoApp;
 use Fohn\Ui\App;
 use Fohn\Ui\PageException;
 use Fohn\Ui\Service\Data;
@@ -10,7 +11,7 @@ use Fohn\Ui\Service\Ui;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-Ui::service()->boot(function (Ui $ui) {
+Ui::service()->boot(static function (Ui $ui) {
     $config = loadConfig();
     date_default_timezone_set($config['timezone']);
     Data::setDb($config['db']);
@@ -25,7 +26,7 @@ Ui::service()->boot(function (Ui $ui) {
     // Add default exception handler.
     $ui->setExceptionHandler(PageException::factory());
     // Set demos page.
-    $page = \Fohn\Demos\DemoApp::createPage($config['csfrSecret']);
+    $page = DemoApp::createPage($config['csfrSecret']);
     $page->includeCssPackage('fohn-css', $config['css']);
     $page->getLayout()->appendTailwind('bg-gray-100');
     $ui->initAppPage($page);
@@ -49,7 +50,7 @@ function loadConfig(): array
     // Create a default $config['db'] using sqlite if not set but make sure db file is present.
     if (!isset($config['db'])) {
         if (!file_exists(__DIR__ . '/_demo-data/db.sqlite')) {
-            throw new \Error('Db file is not present. Please create the file using create-sqlite.php script in _demo-data folder.');
+            throw new Error('Db file is not present. Please create the file using create-sqlite.php script in _demo-data folder.');
         }
 
         $config['db'] = new Sql('sqlite:' . __DIR__ . '/_demo-data/db.sqlite');

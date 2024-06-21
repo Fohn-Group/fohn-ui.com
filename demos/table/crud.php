@@ -24,6 +24,7 @@ use Fohn\Ui\Js\JsStatements;
 use Fohn\Ui\Js\JsToast;
 use Fohn\Ui\Service\Data;
 use Fohn\Ui\Service\Ui;
+use Fohn\Ui\Tailwind\Tw;
 use Fohn\Ui\View;
 use Fohn\Ui\View\Button;
 
@@ -43,8 +44,10 @@ $modelCtrl = new DemoFormModelCtrl($country);
 
 $section = DemoApp::addInfoSection(Ui::layout(), 'Table for CRUD operation:');
 
-$table = Table::addTo($section, ['keepSelectionAcrossPage' => true]);
+$table = Table::addTo($section, ['keepSelectionAcrossPage' => true, 'height' => 'viewport-60']);
 $table->setCaption(DemoApp::tableCaptionFactory('Countries'));
+$table->getTableTw()->merge([Tw::textSize('sm')]);
+
 View::addTo(Ui::layout())
     ->setTextContent('Flag provided by: <a href="https://flagpedia.net" target="_blank">flagpedia</a>', false)
     ->appendTailwinds(['float-right italic text-sm -mt-1']);
@@ -54,7 +57,7 @@ $addDialog = Modal\AsForm::addTo($table, ['title' => 'Add Country:'], Table::TAB
 $addForm = $addDialog->addForm(Ui::factory(Form::class));
 $addForm->addControls($modelCtrl->factoryFormControls(null));
 // Response to form submit request.
-$addForm->onSubmit(function (Form $f, ?string $id) use ($modelCtrl, $addDialog, $table): JsRenderInterface {
+$addForm->onSubmit(static function (Form $f, ?string $id) use ($modelCtrl, $addDialog, $table): JsRenderInterface {
     if ($errors = $modelCtrl->saveModelUsingForm(null, $f->getControls())) {
         $f->addValidationErrors($errors);
     }
@@ -78,7 +81,7 @@ $actionMsg->single = 'This action will delete 1 country. Are you sure?';
 $actionMsg->multiple = 'This action will delete {#} countries. Are you sure?';
 
 $actionDelete->addConfirmationDialog('Delete countries:', $actionMsg);
-$table->addRowsAction($actionDelete)->onTrigger(function ($ids, $dialog) use ($modelCtrl) {
+$table->addRowsAction($actionDelete)->onTrigger(static function ($ids, $dialog) use ($modelCtrl) {
     // simulating deletes table.
     foreach ($ids as $id) {
         $modelCtrl->delete($id);
@@ -89,7 +92,7 @@ $table->addRowsAction($actionDelete)->onTrigger(function ($ids, $dialog) use ($m
 
 // Multiple process action
 $actionProcess = (new Table\Action(['keepSelection' => true]))->setTrigger(Button::factory(['label' => 'Process', 'color' => 'neutral']));
-$table->addRowsAction($actionProcess)->onTrigger(function ($ids) {
+$table->addRowsAction($actionProcess)->onTrigger(static function ($ids) {
     sleep(1);
 
     return JsStatements::with([JsToast::success('Process Action! ' . implode(' / ', $ids))]);
@@ -104,12 +107,12 @@ $editForm = $editDialog->addForm(Ui::factory(Form::class));
 $editForm->addControls($modelCtrl->factoryFormControls(null));
 
 // Response to form request value callback using $ctrl.
-$editForm->onControlsValueRequest(function ($id, Form\Response\Value $response) use ($modelCtrl) {
+$editForm->onControlsValueRequest(static function ($id, Form\Response\Value $response) use ($modelCtrl) {
     $response->mergeValues($modelCtrl->getFormInputValue((string) $id));
 });
 
 // Response to form submit request.
-$editForm->onSubmit(function (Form $f, ?string $id) use ($modelCtrl, $editDialog, $table): JsRenderInterface {
+$editForm->onSubmit(static function (Form $f, ?string $id) use ($modelCtrl, $editDialog, $table): JsRenderInterface {
     if ($errors = $modelCtrl->saveModelUsingForm($id, $f->getControls())) {
         $f->addValidationErrors($errors);
     }
@@ -127,7 +130,7 @@ $editForm->onSubmit(function (Form $f, ?string $id) use ($modelCtrl, $editDialog
 $table->addColumn('name', Table\Column\Html::factory(['isSortable' => true]))->appendTailwinds(['truncate', 'text-ellipsis']);
 
 $table->addColumn('flag', Table\Column\Html::factory())->alignText('center');
-$table->getTableColumn('flag')->formatValue(function ($col, $value) {
+$table->getTableColumn('flag')->formatValue(static function ($col, $value) {
     return "<div class='grid place-items-center'><img src='https://flagcdn.com/24x18/{$value}.png'></div>";
 });
 
@@ -153,7 +156,7 @@ $deleteActionFn->executes([$deleteDialog->jsOpen(['message' => $msg, 'payload' =
 
 // Add callback event to Dialog when user confirm the action.
 $deleteDialog->addCallbackEvent('confirm', new Button(['label' => 'Delete', 'color' => 'info']));
-$deleteDialog->onCallbackEvent('confirm', function ($payload) use ($deleteDialog, $table) {
+$deleteDialog->onCallbackEvent('confirm', static function ($payload) use ($deleteDialog, $table) {
     // Delete record in db. Record id is set in $payload['id']
     return JsStatements::with([
         JsToast::success('Delete', 'Note: Record is not delete from db in demo mode.'),
@@ -164,7 +167,7 @@ $deleteDialog->onCallbackEvent('confirm', function ($payload) use ($deleteDialog
 
 // Response to an onDataRequest event from Table.
 // Fill in Table\Result\Set $dataSet depending on $payload value.
-$table->onDataRequest(function (Table\Payload $payload, Table\Result\Set $result) use ($country): void {
+$table->onDataRequest(static function (Table\Payload $payload, Table\Result\Set $result) use ($country): void {
     $searchFields = ['name'];
     if ($payload->sortColumn) {
         $country->setOrder($payload->sortColumn, $payload->sortDirection);
