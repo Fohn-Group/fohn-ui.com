@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Faker\Factory;
+use Fohn\Demos\CodeReader;
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\HtmlTemplate;
 use Fohn\Ui\Service\Ui;
@@ -13,7 +14,7 @@ use Fohn\Ui\View\Lister;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
+$codeReader = new CodeReader(__FILE__);
 
 // Utility function in order to generate data.
 function factoryPeople(int $number): array
@@ -80,7 +81,7 @@ $list = View\HtmlList::addTo($section);
 $list->setItems(factoryPeople(10));
 
 // use onItemRender in order to change html rendered for items.
-$list->onItemRender('Items', function (HtmlTemplate $template, array $tags): string {
+$list->onItemRender('Items', static function (HtmlTemplate $template, array $tags): string {
     $newT = new HtmlTemplate('<li> <span class="{$classAttr}">{$gender}</span> <span>{$name}</span>');
     if ($tags['gender'] === 'Ms.' || $tags['gender'] === 'Mrs.' || $tags['gender'] === 'Mss') {
         $newT->set('classAttr', Tw::textColor('secondary'));

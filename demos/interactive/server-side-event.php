@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Fohn\Demos\CodeReader;
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Callback\ServerEvent;
 use Fohn\Ui\Js\Jquery;
@@ -14,7 +15,7 @@ use Fohn\Ui\View\GridLayout;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
+$codeReader = new CodeReader(__FILE__);
 
 $grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 
@@ -62,7 +63,7 @@ Jquery::addEventTo($startBtn, 'click')->execute($sse->start($startSseEvents));
 Jquery::addEventTo($stopBtn, 'click')->execute($sse->stop($stopSseEvents));
 
 // When ServerSide event is fire.
-$sse->onRequest(function (ServerEvent $sse) use ($counter, $stopSseEvents) {
+$sse->onRequest(static function (ServerEvent $sse) use ($counter, $stopSseEvents) {
     for ($i = 1; $i < 26; ++$i) {
         $sse->executeJavascript(Jquery::withView($counter->content)->text($i));
         sleep(1);

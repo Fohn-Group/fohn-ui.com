@@ -31,14 +31,14 @@ $modelCtrl = new DemoFormModelCtrl(new Country(Data::db()));
 $id = (string) $modelCtrl->getModel()->tryLoadBy('iso', 'CA')->get('id');
 $form = Form::addTo($section);
 
-$form->onHook(Form::HOOK_BEFORE_CONTROL_ADD, function ($form, Form\Control $control, $layoutName) {
+$form->onHook(Form::HOOK_BEFORE_CONTROL_ADD, static function ($form, Form\Control $control, $layoutName) {
     if (get_class($control) === Form\Control\Input::class) {
         $control->setTemplate(Ui::templateFromFile(__DIR__ . '/template/custom-input.html'));
     }
 });
 
 $form->addControls($modelCtrl->factoryFormControls($id));
-$form->onSubmit(function (Form $f) use ($modelCtrl, $id) {
+$form->onSubmit(static function (Form $f) use ($modelCtrl, $id) {
     if ($errors = $modelCtrl->saveModelUsingForm($id, $f->getControls())) {
         $f->addValidationErrors($errors);
     }

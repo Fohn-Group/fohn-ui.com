@@ -23,7 +23,7 @@ $button = Button::addTo(Ui::layout(), ['type' => 'outline'])->setLabel('Re-run j
 $console = Console::addTo(Ui::layout());
 Jquery::addEventTo($button, 'click')->execute($console->run());
 
-$console->onRun(function (Console $console) use ($button) {
+$console->onRun(static function (Console $console) use ($button) {
     $console->executeJavascript($button->disableUsingJavascript());
     $console->outputMsg('Executing process via execute...');
     sleep(1);
@@ -41,7 +41,7 @@ $button = Button::addTo(Ui::layout(), ['type' => 'outline'])->setLabel('Re-run j
 $console = Console::addTo(Ui::layout());
 Jquery::addEventTo($button, 'click')->execute($console->run());
 
-$console->onRun(function (Console $console) use ($button) {
+$console->onRun(static function (Console $console) use ($button) {
     $console->executeJavascript($button->disableUsingJavascript());
     $console->outputMsg('Calling object method via runMethod...');
     sleep(1);
@@ -56,7 +56,7 @@ $button = Button::addTo(Ui::layout(), ['type' => 'outline'])->setLabel('Re-run j
 $console = Console::addTo(Ui::layout());
 Jquery::addEventTo($button, 'click')->execute($console->run());
 
-$console->onRun(function (Console $console) {
+$console->onRun(static function (Console $console) {
     $console->outputMsg('Catching exception...');
     sleep(1);
 

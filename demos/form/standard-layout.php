@@ -33,7 +33,7 @@ $id = (string) $modelCtrl->getModel()->tryLoadBy('iso', 'CA')->get('id');
 $form = Form::addTo($section);
 $form->addControls($modelCtrl->factoryFormControls($id));
 
-$form->onSubmit(function (Form $f) use ($modelCtrl, $id) {
+$form->onSubmit(static function (Form $f) use ($modelCtrl, $id) {
     if ($errors = $modelCtrl->saveModelUsingForm($id, $f->getControls())) {
         $f->addValidationErrors($errors);
     }

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Faker\Factory;
+use Fohn\Demos\CodeReader;
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Component\Form\Control\Select;
 use Fohn\Ui\Component\Table;
@@ -15,7 +16,7 @@ use Fohn\Ui\View;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
+$codeReader = new CodeReader(__FILE__);
 $currencies = [
     'en_US' => 'USD',
     'fr_CA' => 'CAD',
@@ -58,7 +59,7 @@ $select->setValue($locale);
 
 $table->addColumn('name_email', Table\Column\Html::factory(['caption' => 'Name']));
 // Apply specific formatter based on cell value. Formatter function must return a string.
-$table->getTableColumn('name_email')->formatValue(function ($col, $value) {
+$table->getTableColumn('name_email')->formatValue(static function ($col, $value) {
     $textColor = Tw::textColor('info-light');
 
     return "<a href=mailto:'{$value['email']}' class='{$textColor} underline'>{$value['name']}</a>";
@@ -67,11 +68,11 @@ $table->getTableColumn('name_email')->formatValue(function ($col, $value) {
 // @publish
 $table->addColumn('date_publish', Table\Column\Date::factory(['caption' => 'Publish']))->alignText('center');
 // Apply specific formatter based on cell value. Formatter function must return a string.
-$table->getTableColumn('date_publish')->formatValue(function ($column, $value) use ($locale) {
-    $fmt = \IntlDateFormatter::create(
+$table->getTableColumn('date_publish')->formatValue(static function ($column, $value) use ($locale) {
+    $fmt = IntlDateFormatter::create(
         $locale,
-        \IntlDateFormatter::LONG,
-        \IntlDateFormatter::NONE
+        IntlDateFormatter::LONG,
+        IntlDateFormatter::NONE
     );
 
     return $fmt->format($value);
@@ -80,7 +81,7 @@ $table->getTableColumn('date_publish')->formatValue(function ($column, $value) u
 
 $table->addColumn('sales', Table\Column\Currency::factory(['caption' => 'Sales', 'isAccounting' => true, 'currencyCode' => $currencyCode]));
 // Apply specific Tw css utility on sales column based on cell value.
-$table->getTableColumn('sales')->applyCssCell(function ($v) {
+$table->getTableColumn('sales')->applyCssCell(static function ($v) {
     $tw = Tw::from([]);
     if ($v < 0) {
         $tw->merge(['text-' . TwConstant::COLORS['error-light']]);
@@ -92,7 +93,7 @@ $table->getTableColumn('sales')->applyCssCell(function ($v) {
 $table->addColumn('is_director', Table\Column\Boolean::factory(['caption' => 'Director']));
 
 $table->addColumn('tag', Table\Column\Html::factory(['caption' => 'I']))->alignText('center');
-$table->getTableColumn('tag')->formatValue(function ($column, $value) {
+$table->getTableColumn('tag')->formatValue(static function ($column, $value) {
     $tag = (new View\Tag(['textSize' => 'x-small', 'shape' => 'rounded', 'width' => '8']));
     $tag->setTextContent((string) $value);
     $tag->removeTailwind('mx-2')->removeTailwind('my-1');
@@ -102,7 +103,7 @@ $table->getTableColumn('tag')->formatValue(function ($column, $value) {
     return $tag->getHtml();
 });
 
-$table->applyCssRow(function (string $id, object $row) {
+$table->applyCssRow(static function (string $id, object $row) {
     $tws = Tw::from([]);
     if ($row->sales > 250000) {
         $tws->merge(['bg-' . TwConstant::COLORS['accent-light']]);
@@ -112,7 +113,7 @@ $table->applyCssRow(function (string $id, object $row) {
 });
 
 // Load fake data into table.
-$table->onDataRequest(function (Table\Payload $payload, Table\Result\Set $result): void {
+$table->onDataRequest(static function (Table\Payload $payload, Table\Result\Set $result): void {
     $faker = Factory::create();
     $data = [];
 

@@ -22,11 +22,11 @@
     }
   },
   "require": {
-    "php": ">=7.4.0",
+    "php": ">=8.0",
     "ext-intl": "*",
     "ext-json": "*",
     "ext-pdo": "*",
-    "fohn-group/fohn-ui": "^1.1",
+    "fohn-group/fohn-ui": "1.7.3",
     "fzaninotto/faker": "^1.6"
   },
   "require-dev": {

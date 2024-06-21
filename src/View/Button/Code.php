@@ -8,8 +8,9 @@ declare(strict_types=1);
 namespace Fohn\Demos\View\Button;
 
 use Fohn\Ui\Js\Js;
+use Fohn\Ui\View\Button;
 
-class Code extends \Fohn\Ui\View\Button
+class Code extends Button
 {
     public function jsOpenWindow(string $url): self
     {

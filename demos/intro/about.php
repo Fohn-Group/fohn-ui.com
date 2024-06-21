@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Fohn\Demos\CodeReader;
 use Fohn\Demos\DemoApp;
 use Fohn\Ui\Service\Ui;
 use Fohn\Ui\View;
@@ -9,7 +10,7 @@ use Fohn\Ui\View\Heading\Header;
 
 require_once __DIR__ . '/../init-ui.php';
 
-$codeReader = new \Fohn\Demos\CodeReader(__FILE__);
+$codeReader = new CodeReader(__FILE__);
 Header::addTo(Ui::layout(), ['title' => 'About Fohn-Ui', 'size' => 3]);
 
 $html = 'Fohn-Ui is a PHP framework that make use of utility-first css framework:

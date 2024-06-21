@@ -7,6 +7,7 @@ $finder = PhpCsFixer\Finder::create()
                                          'build',
                                          'vendor',
                                          'js',
+                                         'demos/_demo-data'
                                      ]);
 
 return (new PhpCsFixer\Config())

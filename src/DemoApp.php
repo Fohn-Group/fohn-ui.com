@@ -38,7 +38,8 @@ class DemoApp
             'title' => 'Fohn-ui: ' . preg_replace('/\/demos\/|\.php/m', '', Ui::serverRequest()->getUri()->getPath()),
         ]);
 
-        $page->fohnJsVersion = '1.5.1';
+        //        $page->fohnJsVersion = '1.5.1';
+
         $page->jQueryVersion = '3.5.1';
 
         /** @var SideNavigation $navigation */
@@ -122,6 +123,7 @@ class DemoApp
                     new Item(['name' => 'Introduction', 'url' => $baseUrl . 'demos/table/intro/']),
                     new Item(['name' => 'Table', 'url' => $baseUrl . 'demos/table/basic/']),
                     new Item(['name' => 'CRUD', 'url' => $baseUrl . 'demos/table/crud/']),
+                    new Item(['name' => 'Filter', 'url' => $baseUrl . 'demos/table/filter/']),
                 ],
             ]),
             new Group([
@@ -144,7 +146,7 @@ class DemoApp
     /**
      * Create button suitable to use in a table action column.
      */
-    public static function tableBtnFactory(string $iconName, string $color = 'info'): View\Button
+    public static function tableBtnFactory(string $iconName, string $color = 'info'): Button
     {
         $btn = new Button(['iconName' => $iconName, 'color' => $color, 'shape' => 'circle', 'size' => 'small', 'type' => 'text']);
         $btn->removeTailwind('mx-2');
