@@ -133,6 +133,7 @@ class DemoApp
                 'items' => [
                     new Item(['name' => 'Tabs', 'url' => $baseUrl . 'demos/interactive/tabs/']),
                     new Item(['name' => 'Modal', 'url' => $baseUrl . 'demos/interactive/modal/']),
+                    new Item(['name' => 'Tree', 'url' => $baseUrl . 'demos/interactive/tree/']),
                     new Item(['name' => 'Notification', 'url' => $baseUrl . 'demos/interactive/notification/']),
                     new Item(['name' => 'Virtual Page', 'url' => $baseUrl . 'demos/interactive/virtual-page/']),
                     new Item(['name' => 'Server Side Event', 'url' => $baseUrl . 'demos/interactive/server-side-event/']),
