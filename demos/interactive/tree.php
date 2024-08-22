@@ -25,7 +25,7 @@ $grid = DemoApp::addTwoColumnsResponsiveGrid(Ui::layout());
 
 $subtitles = [
     'Display hierarchical data using Tree component.',
-    'Enable data node selection.',
+    'Enable nodes selection.',
 ];
 DemoApp::addPageHeaderTo($grid, 'Tree Component', $subtitles);
 DemoApp::addGithubButton($grid);
@@ -40,7 +40,7 @@ DemoApp::addParagraph($introTab, $text, false);
 
 $text = 'Note: Fohn-Ui Tree component extend PrimeVue Tree component. <code class="text-sm bg-gray-200 p-1 font-bold">Fohn\Ui\Component\Tree</code> has
 a class property <code class="text-sm bg-gray-200 p-1 font-bold">array $ptProps = []</code> that is used to pass props directly to the PrimeVue
-component.<br> For more information: <a href="https://primevue.org/tree/" target="_blank" class="font-bold cursor underline">PrimeVue Tree</a>';
+component.<br> For more information: <a href="https://primevue.org/tree/" target="_blank" class="font-bold cursor underline text-sm">PrimeVue Tree</a>';
 DemoApp::addParagraph($introTab, $text, false)->appendTailwinds(['italic']);
 
 DemoApp::addHeader($introTab, 'Basic', 5);
