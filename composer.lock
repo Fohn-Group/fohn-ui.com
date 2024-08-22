@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7caef23a7cf9c268f4fd2fc38a9c6b10",
+    "content-hash": "796094ab2fcbccfc0ae43e6008084d44",
     "packages": [
         {
             "name": "atk4/core",
@@ -562,16 +562,16 @@
         },
         {
             "name": "fohn-group/fohn-ui",
-            "version": "1.7.3",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Fohn-Group/fohn-ui.git",
-                "reference": "418e1fd4125b7417a241de22440afdecff8b3614"
+                "reference": "f8e5c3c543e6664c2d05c0206fd9846536be6d41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Fohn-Group/fohn-ui/zipball/418e1fd4125b7417a241de22440afdecff8b3614",
-                "reference": "418e1fd4125b7417a241de22440afdecff8b3614",
+                "url": "https://api.github.com/repos/Fohn-Group/fohn-ui/zipball/f8e5c3c543e6664c2d05c0206fd9846536be6d41",
+                "reference": "f8e5c3c543e6664c2d05c0206fd9846536be6d41",
                 "shasum": ""
             },
             "require": {
@@ -637,9 +637,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Fohn-Group/fohn-ui/issues",
-                "source": "https://github.com/Fohn-Group/fohn-ui/tree/1.7.3"
+                "source": "https://github.com/Fohn-Group/fohn-ui/tree/1.8.0"
             },
-            "time": "2024-06-21T01:35:12+00:00"
+            "time": "2024-08-19T14:05:55+00:00"
         },
         {
             "name": "fzaninotto/faker",
