@@ -30,7 +30,7 @@ DemoApp::addPageHeaderTo($grid, 'Table component using Filters', $subtitles);
 DemoApp::addGithubButton($grid);
 
 $modelCtrl = Data::tableModelCtrl(new Employees(Data::db()));
-$modelCtrl->setSearchFields(['firt_name', 'last_name']);
+$modelCtrl->setSearchFields(['first_name', 'last_name']);
 
 $table = Table::addTo(Ui::layout(), ['keepSelectionAcrossPage' => true, 'height' => 'viewport-60']);
 $table->setCaption(DemoApp::tableCaptionFactory('Employees'));
